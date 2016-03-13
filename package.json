@@ -9,7 +9,8 @@
     "perf": "env perf=true env test=false maddox ./spec/unit",
     "uap": "env perf=true test=true maddox ./spec/unit",
     "coverage": "./bin/maddox-cov.js",
-    "lint": "./node_modules/eslint/bin/eslint.js ./spec/ ./lib"
+    "lint": "./node_modules/eslint/bin/eslint.js ./spec/ ./lib",
+    "docs": " ./node_modules/jsdoc-to-markdown/bin/cli.js \"./lib/**/*.js\" > api.md"
   },
   "repository": {
     "type": "git",

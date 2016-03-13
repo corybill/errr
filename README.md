@@ -3,23 +3,15 @@ Error factory with the ability to append stack traces from previous errors and a
 
 ## API
 
-<a name="Errr"></a>
-## Errr
-Error Factory for the Error Builder.
+<dl>
+<dt><a href="#ErrorBuilder">ErrorBuilder</a></dt>
+<dd></dd>
+<dt><a href="#Errr">Errr</a></dt>
+<dd><p>Error Factory for the Error Builder.</p>
+</dd>
+</dl>
 
-**Kind**: global class  
-<a name="Errr.newError"></a>
-### Errr.newError([message], [template]) ⇒ <code>ErrorBuilder</code>
-Gets a new ErrorBuilder instance.
-
-**Kind**: static method of <code>[Errr](#Errr)</code>  
-**Returns**: <code>ErrorBuilder</code> - Gets an ErrorBuilder to get or throw an Error.  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| [message] | <code>String</code> | Error message that will supplied to Error Object. |
-| [template] | <code>Array</code> | Array of parameters.  If given, util.format(message, template) will be applied to the message string. |
-
+<a name="ErrorBuilder"></a>
 ## ErrorBuilder
 **Kind**: global class  
 
@@ -78,3 +70,19 @@ Throws a new Error object using the given parameters from the builder.
 
 - <code>Error</code> - Throws a new Error object using the given parameters from the builder.
 
+<a name="Errr"></a>
+## Errr
+Error Factory for the Error Builder.
+
+**Kind**: global class  
+<a name="Errr.newError"></a>
+### Errr.newError([message], [template]) ⇒ <code>[ErrorBuilder](#ErrorBuilder)</code>
+Gets a new ErrorBuilder instance.
+
+**Kind**: static method of <code>[Errr](#Errr)</code>  
+**Returns**: <code>[ErrorBuilder](#ErrorBuilder)</code> - Gets an ErrorBuilder to get or throw an Error.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [message] | <code>String</code> | Error message that will supplied to Error Object. |
+| [template] | <code>Array</code> | Array of parameters.  If given, util.format(message, template) will be applied to the message string. |
