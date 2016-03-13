@@ -1,8 +1,8 @@
 "use strict";
 
-const Chance = require("chance");
+var Chance = require("chance");
 
-let chance = new Chance();
+var chance = new Chance();
 
 module.exports = {
   uniqueId: function () {
