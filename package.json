@@ -2,7 +2,7 @@
   "name": "errr",
   "version": "1.0.0",
   "description": "Error factory with the ability to append stack traces from previous errors and append debug params.  Great for great full stack traces from all layers of code, especially when using promise chains.",
-  "main": "lib/index.js",
+  "main": "lib/errr.js",
   "scripts": {
     "test": "npm run ut && npm run lint",
     "ut": "./node_modules/maddox/bin/maddox.js ./spec/unit",
