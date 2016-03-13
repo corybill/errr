@@ -1,6 +1,6 @@
 {
   "name": "errr",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Error factory with the ability to append stack traces from previous errors and append debug params.  Great for great full stack traces from all layers of code, especially when using promise chains.",
   "main": "lib/index.js",
   "scripts": {
@@ -38,7 +38,9 @@
     "chai": "^3.5.0",
     "chance": "^1.0.1",
     "eslint": "^2.4.0",
+    "fs-extra": "^0.26.5",
     "lodash": "^4.6.1",
-    "maddox": "0.0.5"
+    "maddox": "0.0.5",
+    "semver": "^5.1.0"
   }
 }
