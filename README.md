@@ -1,6 +1,11 @@
 # Errr
 Error factory with the ability to append stack traces from previous errors and append debug params.  Great for great full stack traces from all layers of code, especially when using promise chains.
 
+[![view on npm](http://img.shields.io/npm/v/errr.svg)](https://www.npmjs.org/package/errr)
+[![npm module downloads](http://img.shields.io/npm/dt/errr.svg)](https://www.npmjs.org/package/errr)
+[![Build Status](https://travis-ci.org/corybill/errr.svg?branch=master)](https://travis-ci.org/corybill/errr)
+[![Gitter](https://badges.gitter.im/corybill/errr.svg)](https://gitter.im/corybill/errr?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
 ## Best Practices
 1. Each layer of your code should catch an error, and append that error to the incoming error.
 2. Add debug params to each error build to assist debugging later.
