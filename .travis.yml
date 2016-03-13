@@ -10,7 +10,7 @@ node_js:
 notifications:
   webhooks:
     urls:
-    - https://webhooks.gitter.im/e/332ade743f03cbed0170
+    - https://webhooks.gitter.im/e/4a68bf119a287ae9d93b
     on_success: change
     on_failure: always
     on_start: never
