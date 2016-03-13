@@ -1,6 +1,12 @@
 # Errr
 Error factory with the ability to append stack traces from previous errors and append debug params.  Great for great full stack traces from all layers of code, especially when using promise chains.
 
+## Best Practices
+1. Each layer of your code should catch an error, and append that error to the incoming error.
+2. Add debug params to each error build to assist debugging later.
+3. Do NOT add large objects to debug params.  It only makes reading the logs more difficult.
+4. Throw all errors to the top layer of code and only log the error in that layer of code.  Doing this ensures you have one log statement with the entire stack trace which will make debugging much easier.
+
 ## API
 
 <dl>
