@@ -5,8 +5,9 @@ Error factory with the ability to append stack traces from previous errors and a
 
 <a name="Errr"></a>
 ## Errr
-Provides an interface to build an error.  Then allows you to get or throw the error.
+Error Factory for the Error Builder.
 
+**Kind**: global class  
 <a name="Errr.newError"></a>
 ### Errr.newError([message], [template]) ⇒ <code>ErrorBuilder</code>
 Gets a new ErrorBuilder instance.
