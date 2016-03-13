@@ -7,18 +7,43 @@ Error factory with the ability to append stack traces from previous errors and a
 3. Do NOT add large objects to debug params.  It only makes reading the logs more difficult.
 4. Throw all errors to the top layer of code and only log the error in that layer of code.  Doing this ensures you have one log statement with the entire stack trace which will make debugging much easier.
 
+## Install
+<pre>npm install errr</pre>
+
+## Example
+<pre>
+// debug and appendTo are optional
+// Throws an error
+Errr.newError(message, template).debug(this.debugParams).appendTo(this.appendError3).throw();
+</pre>
+<pre>
+// Returns an error.
+Errr.newError(message, template).debug(this.debugParams).appendTo(this.appendError3).get();
+</pre>
+
+## NPM Scripts
+1. npm run test - Run linter and unit tests.
+2. npm run ut - Use Maddox to Run Unit Tests.
+3. npm run perf - Use Maddox to Performance metrics.
+3. npm run uap - Use Maddox to Unit Tests and Performance metrics.
+4. npm run lint - Run linter.
+5. npm run docs - Rebuild public API Docs.
+
 ## API
 
 <dl>
 <dt><a href="#ErrorBuilder">ErrorBuilder</a></dt>
-<dd></dd>
+<dd><p>Error Builder allows you to use optional functions to build an error object.  The error can have appended stack traces and debug params to assist with debugging.</p>
+</dd>
 <dt><a href="#Errr">Errr</a></dt>
-<dd><p>Error Factory for the Error Builder.</p>
+<dd><p>Static class that contains the &#39;newError&#39; factory function.  Use the &#39;newError&#39; factory function to return an ErrorBuilder instance.</p>
 </dd>
 </dl>
 
 <a name="ErrorBuilder"></a>
 ## ErrorBuilder
+Error Builder allows you to use optional functions to build an error object.  The error can have appended stack traces and debug params to assist with debugging.
+
 **Kind**: global class  
 
 * [ErrorBuilder](#ErrorBuilder)
@@ -78,7 +103,7 @@ Throws a new Error object using the given parameters from the builder.
 
 <a name="Errr"></a>
 ## Errr
-Error Factory for the Error Builder.
+Static class that contains the 'newError' factory function.  Use the 'newError' factory function to return an ErrorBuilder instance.
 
 **Kind**: global class  
 <a name="Errr.newError"></a>

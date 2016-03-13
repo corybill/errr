@@ -1,6 +1,6 @@
 {
   "name": "errr",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Error factory with the ability to append stack traces from previous errors and append debug params.  Great for great full stack traces from all layers of code, especially when using promise chains.",
   "main": "lib/errr.js",
   "scripts": {

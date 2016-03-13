@@ -3,9 +3,9 @@
 const Maddox = require("maddox"),
   chai = require("chai");
 
-const Errr = require("../../lib/"),
-  random = require("../random"),
-  constants = require("../../lib/constants");
+const Errr = require("../../lib/errr"),
+  constants = require("../../lib/constants"),
+  random = require("../random");
 
 const Scenario = Maddox.functional.FromSynchronousScenario,
   expect = chai.expect;

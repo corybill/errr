@@ -2,14 +2,17 @@
 
 <dl>
 <dt><a href="#ErrorBuilder">ErrorBuilder</a></dt>
-<dd></dd>
+<dd><p>Error Builder allows you to use optional functions to build an error object.  The error can have appended stack traces and debug params to assist with debugging.</p>
+</dd>
 <dt><a href="#Errr">Errr</a></dt>
-<dd><p>Error Factory for the Error Builder.</p>
+<dd><p>Static class that contains the &#39;newError&#39; factory function.  Use the &#39;newError&#39; factory function to return an ErrorBuilder instance.</p>
 </dd>
 </dl>
 
 <a name="ErrorBuilder"></a>
 ## ErrorBuilder
+Error Builder allows you to use optional functions to build an error object.  The error can have appended stack traces and debug params to assist with debugging.
+
 **Kind**: global class  
 
 * [ErrorBuilder](#ErrorBuilder)
@@ -69,7 +72,7 @@ Throws a new Error object using the given parameters from the builder.
 
 <a name="Errr"></a>
 ## Errr
-Error Factory for the Error Builder.
+Static class that contains the 'newError' factory function.  Use the 'newError' factory function to return an ErrorBuilder instance.
 
 **Kind**: global class  
 <a name="Errr.newError"></a>
