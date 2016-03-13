@@ -18,8 +18,5 @@ deploy:
   provider: npm
   api_key:
     secure: LsRNiiwY3DhWci506vBCzeZKMD2XCCt6LD4kBH7I3I+6v7LDwoS3PAqLwf17VolIP74X7WJDcc3ME++vJK4RRfroKDsRZxsRxbP4dDZGmckT4vw4WPmox+lD1t3Kft7bvOA/T0Slp7D81jN6JgF+9kQ3DADeJDQaHEpDjhDLrzUuhBHP8BMUSkLKNpcLW86dQhP9garJTBaHEds6K8RpLi4U4vbfTRi84fvo/Z7ZktAEfQ3L1Y3pdtDD+Bq6Jv2bJ8YHn088UrIvPKsz/xK70QgCHpqqNa73/OcJVBqlOUj2I1sNMuGtF32dzapVOo3fqzG7DsAnI6mQMLnnT2sR7OmCl2q8c20gcjqxZylMe6w+O1dOjvdsWR+uDV6bbB3t85em0LG46gumXFDxpATqStRanQxV1cSajunXGxOHcyIcpuHLPnl9Fz8XqRpJBjEE3U/zbb43Lk18LwAc8fPkuR3UbqO6xMOpydLClvkt0tc/rZoP+h4QrWSsOArtXI0h21X5RSoJh2LaSrTr93pgEZoK+PA152Z6muehIG6dq4/tR4ESLqM/r7W0wY29jgWdQgvo54/zmQ+aWw4sSt7dfl5mdUURl7GCWg5Ou7+nAy7wIy7zvNDOZrXzb8wmK6EqSexApKt67wIqMIfx7bzii5lkfe9TWQoaA99h1stcgOk=
-  email: corybillparrish@gmail.com
-  before_deploy:
-    node ./scripts/increment-minor
   on:
     branch: production
