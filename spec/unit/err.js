@@ -1,13 +1,13 @@
 "use strict";
 
-var Maddox = require("maddox"),
+const Maddox = require("maddox"),
   chai = require("chai");
 
-var Errr = require("../../lib/"),
+const Errr = require("../../lib/"),
   random = require("../random"),
   constants = require("../../lib/constants");
 
-var Scenario = Maddox.functional.FromSynchronousScenario,
+const Scenario = Maddox.functional.FromSynchronousScenario,
   expect = chai.expect;
 
 describe("Err", function () {
@@ -33,7 +33,7 @@ describe("Err", function () {
         .withEntryPoint(this.entryPointObject, this.entryPointFunction)
 
         .test(function (response) {
-          var stack = `Error: [${this.uniqueId}] Some Error\n    at ErrorBuilder._build_ `;
+          let stack = `Error: [${this.uniqueId}] Some Error\n    at ErrorBuilder._build_ `;
 
           expect(response.stack.substring(0, stack.length)).eql(stack);
           done();
@@ -54,7 +54,7 @@ describe("Err", function () {
         .withEntryPoint(this.entryPointObject, this.entryPointFunction)
 
         .test(function (response) {
-          var stack = `Error: [${this.uniqueId}] Some Error\n    at ErrorBuilder._build_ `;
+          let stack = `Error: [${this.uniqueId}] Some Error\n    at ErrorBuilder._build_ `;
 
           expect(response.stack.substring(0, stack.length)).eql(stack);
           done();
@@ -80,7 +80,7 @@ describe("Err", function () {
         .withEntryPoint(this.entryPointObject, this.entryPointFunction)
 
         .test(function (response) {
-          var stack = `Error: [${this.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
+          let stack = `Error: [${this.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
             stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(this.debugParams, null, 2)}`;
 
           expect(response.stack.split(stringifiedDebugParams).length).eql(2);
@@ -108,7 +108,7 @@ describe("Err", function () {
         .withEntryPoint(this.entryPointObject, this.entryPointFunction)
 
         .test(function (response) {
-          var stack = `Error: [${this.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
+          let stack = `Error: [${this.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
             stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(this.debugParams, null, 2)}`;
 
           expect(response.stack.split(stringifiedDebugParams).length).eql(2);
@@ -136,7 +136,7 @@ describe("Err", function () {
         .withEntryPoint(this.entryPointObject, this.entryPointFunction)
 
         .test(function (response) {
-          var stack = `Error: [${this.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
+          let stack = `Error: [${this.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
             stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(this.debugParams, null, 2)}`;
 
           expect(response.stack.split(stringifiedDebugParams).length).eql(1);
@@ -170,7 +170,7 @@ describe("Err", function () {
         .withEntryPoint(this.entryPointObject, this.entryPointFunction)
 
         .test(function (response) {
-          var stack = `Error: [${this.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
+          let stack = `Error: [${this.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
             stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(this.debugParams, null, 2)}`;
 
           expect(response.stack.split(constants.StackTraceDelimiter).length).eql(2);
@@ -220,7 +220,7 @@ describe("Err", function () {
         .withEntryPoint(this.entryPointObject, this.entryPointFunction)
 
         .test(function (response) {
-          var stack = `Error: [${this.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
+          let stack = `Error: [${this.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
             stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(this.debugParams, null, 2)}`,
             stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(this.appendError2DebugParams, null, 2)}`;
 
@@ -265,7 +265,7 @@ describe("Err", function () {
             expect(err.stack).to.be.undefined; // eslint-disable-line
           }
 
-          var stack = `Error: [${this.uniqueId}] Some Error\n    at ErrorBuilder._build_ `;
+          let stack = `Error: [${this.uniqueId}] Some Error\n    at ErrorBuilder._build_ `;
 
           expect(response.stack.substring(0, stack.length)).eql(stack);
           done();
@@ -291,7 +291,7 @@ describe("Err", function () {
             expect(err.stack).to.be.undefined; // eslint-disable-line
           }
 
-          var stack = `Error: [${this.uniqueId}] Some Error\n    at ErrorBuilder._build_ `;
+          let stack = `Error: [${this.uniqueId}] Some Error\n    at ErrorBuilder._build_ `;
 
           expect(response.stack.substring(0, stack.length)).eql(stack);
           done();
@@ -322,7 +322,7 @@ describe("Err", function () {
             expect(err.stack).to.be.undefined; // eslint-disable-line
           }
 
-          var stack = `Error: [${this.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
+          let stack = `Error: [${this.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
             stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(this.debugParams, null, 2)}`;
 
           expect(response.stack.split(stringifiedDebugParams).length).eql(2);
@@ -355,7 +355,7 @@ describe("Err", function () {
             expect(err.stack).to.be.undefined; // eslint-disable-line
           }
 
-          var stack = `Error: [${this.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
+          let stack = `Error: [${this.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
             stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(this.debugParams, null, 2)}`;
 
           expect(response.stack.split(stringifiedDebugParams).length).eql(2);
@@ -388,7 +388,7 @@ describe("Err", function () {
             expect(err.stack).to.be.undefined; // eslint-disable-line
           }
 
-          var stack = `Error: [${this.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
+          let stack = `Error: [${this.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
             stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(this.debugParams, null, 2)}`;
 
           expect(response.stack.split(stringifiedDebugParams).length).eql(1);
@@ -427,7 +427,7 @@ describe("Err", function () {
             expect(err.stack).to.be.undefined; // eslint-disable-line
           }
 
-          var stack = `Error: [${this.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
+          let stack = `Error: [${this.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
             stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(this.debugParams, null, 2)}`;
 
           expect(response.stack.split(constants.StackTraceDelimiter).length).eql(2);
@@ -480,7 +480,7 @@ describe("Err", function () {
             expect(err.stack).to.be.undefined; // eslint-disable-line
           }
 
-          var stack = `Error: [${this.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
+          let stack = `Error: [${this.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
             stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(this.debugParams, null, 2)}`,
             stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(this.appendError2DebugParams, null, 2)}`;
 
