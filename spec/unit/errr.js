@@ -10,7 +10,7 @@ const Errr = require("../../lib/errr"),
 const Scenario = Maddox.functional.FromSynchronousScenario,
   expect = chai.expect;
 
-describe("Err", function () {
+describe("Errr", function () {
   describe("When throwing an error", function () {
     beforeEach(function () {
       this.setupEntryPoint = function () {
