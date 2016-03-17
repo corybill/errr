@@ -1,7 +1,8 @@
 "use strict";
 
 const Maddox = require("maddox"),
-  chai = require("chai");
+  chai = require("chai"),
+  util = require("util");
 
 const Errr = require("../../lib/errr"),
   constants = require("../../lib/constants"),
@@ -36,6 +37,8 @@ describe("Errr", function () {
           let stack = `Error: [${this.uniqueId}] Some Error\n    at ErrorBuilder._build_ `;
 
           expect(response.stack.substring(0, stack.length)).eql(stack);
+
+          expect(response.message).eql(util.format(this.message));
           done();
         }.bind(this));
     });
@@ -57,6 +60,7 @@ describe("Errr", function () {
           let stack = `Error: [${this.uniqueId}] Some Error\n    at ErrorBuilder._build_ `;
 
           expect(response.stack.substring(0, stack.length)).eql(stack);
+          expect(response.message).eql(util.format(this.message, this.uniqueId));
           done();
         }.bind(this));
     });
@@ -85,6 +89,8 @@ describe("Errr", function () {
 
           expect(response.stack.split(stringifiedDebugParams).length).eql(2);
           expect(response.stack.substring(0, stack.length)).eql(stack);
+
+          expect(response.message).eql(util.format(this.message, this.uniqueId));
           done();
         }.bind(this));
     });
@@ -113,6 +119,8 @@ describe("Errr", function () {
 
           expect(response.stack.split(stringifiedDebugParams).length).eql(2);
           expect(response.stack.substring(0, stack.length)).eql(stack);
+
+          expect(response.message).eql(util.format(this.message, this.uniqueId));
           done();
         }.bind(this));
     });
@@ -141,6 +149,8 @@ describe("Errr", function () {
 
           expect(response.stack.split(stringifiedDebugParams).length).eql(1);
           expect(response.stack.substring(0, stack.length)).eql(stack);
+
+          expect(response.message).eql(util.format(this.message, this.uniqueId));
           done();
         }.bind(this));
     });
@@ -178,6 +188,8 @@ describe("Errr", function () {
 
           expect(response.stack.indexOf(this.appendError1)).to.be.above(-1);
           expect(response.stack.indexOf(stack)).to.be.above(-1);
+
+          expect(response.message).eql(util.format(this.message, this.uniqueId));
           done();
         }.bind(this));
     });
@@ -233,6 +245,8 @@ describe("Errr", function () {
           expect(response.stack.indexOf(this.appendError2)).to.be.above(-1);
           expect(response.stack.indexOf(this.appendError3)).to.be.above(-1);
           expect(response.stack.indexOf(stack)).to.be.above(-1);
+
+          expect(response.message).eql(util.format(this.message, this.uniqueId));
           done();
         }.bind(this));
     });
@@ -268,6 +282,7 @@ describe("Errr", function () {
           let stack = `Error: [${this.uniqueId}] Some Error\n    at ErrorBuilder._build_ `;
 
           expect(response.stack.substring(0, stack.length)).eql(stack);
+          expect(response.message).eql(util.format(this.message));
           done();
         }.bind(this));
     });
@@ -294,6 +309,7 @@ describe("Errr", function () {
           let stack = `Error: [${this.uniqueId}] Some Error\n    at ErrorBuilder._build_ `;
 
           expect(response.stack.substring(0, stack.length)).eql(stack);
+          expect(response.message).eql(util.format(this.message, this.uniqueId));
           done();
         }.bind(this));
     });
@@ -327,6 +343,7 @@ describe("Errr", function () {
 
           expect(response.stack.split(stringifiedDebugParams).length).eql(2);
           expect(response.stack.substring(0, stack.length)).eql(stack);
+          expect(response.message).eql(util.format(this.message, this.uniqueId));
           done();
         }.bind(this));
     });
@@ -360,6 +377,7 @@ describe("Errr", function () {
 
           expect(response.stack.split(stringifiedDebugParams).length).eql(2);
           expect(response.stack.substring(0, stack.length)).eql(stack);
+          expect(response.message).eql(util.format(this.message, this.uniqueId));
           done();
         }.bind(this));
     });
@@ -393,6 +411,7 @@ describe("Errr", function () {
 
           expect(response.stack.split(stringifiedDebugParams).length).eql(1);
           expect(response.stack.substring(0, stack.length)).eql(stack);
+          expect(response.message).eql(util.format(this.message, this.uniqueId));
           done();
         }.bind(this));
     });
@@ -433,6 +452,7 @@ describe("Errr", function () {
           expect(response.stack.split(constants.StackTraceDelimiter).length).eql(2);
           expect(response.stack.split(stringifiedDebugParams).length).eql(2);
           expect(response.stack.indexOf(stack)).to.be.above(-1);
+          expect(response.message).eql(util.format(this.message, this.uniqueId));
           done();
         }.bind(this));
     });
@@ -493,6 +513,7 @@ describe("Errr", function () {
           expect(response.stack.indexOf(this.appendError2)).to.be.above(-1);
           expect(response.stack.indexOf(this.appendError3)).to.be.above(-1);
           expect(response.stack.indexOf(stack)).to.be.above(-1);
+          expect(response.message).eql(util.format(this.message, this.uniqueId));
           done();
         }.bind(this));
     });
