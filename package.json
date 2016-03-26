@@ -24,7 +24,12 @@
     "Appendable",
     "Debug Params",
     "Promise",
-    "Promise Chain"
+    "Promise Chain",
+    "appendable",
+    "concat",
+    "concatenate",
+    "err",
+    "set values"
   ],
   "engines": {
     "node": ">=5.0.0"
