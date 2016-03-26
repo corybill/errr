@@ -47,10 +47,10 @@ Add parameters to the stack trace that will make it easier to debug the problem.
 
 <a name="ErrorBuilder+set"></a>
 ### errorBuilder.set(key, value, [force]) ⇒ <code>[ErrorBuilder](#ErrorBuilder)</code>
-Set a parameter on the error object.  These values will be added to the debug params but will also be accessible on
-the error object itself as variables.  Values added using the 'set' function will be appended to new error objects
-when using the the .appendTo function.  These values are immutable though unless you use the 'force' value.
-As soon as you set a value with a given key, it cannot be reset unless you pass in 'true' for the force variable.
+Sets a value on the error object using the key as the variable name.  Values added using the 'set' function will
+be appended to new error objects when using the the .appendTo function. I.e. the values on the appendTo err will be
+copied to the new error.  These values are immutable though unless you use the 'force' value. As soon as you set
+a value with a given key, it cannot be reset unless you pass in 'true' for the force variable.
 
 **Kind**: instance method of <code>[ErrorBuilder](#ErrorBuilder)</code>  
 
