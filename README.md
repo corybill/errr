@@ -141,81 +141,12 @@ Gets a new ErrorBuilder instance.
 
 ## Example Output
 <pre>
-Error: [0056a6a3c5faad216f0d7767] Some Error 1
-    at ErrorBuilder._build_ (/Users/corybillparrish/workspace/errr/lib/error-builder.js:69:17)
-    at ErrorBuilder.get (/Users/corybillparrish/workspace/errr/lib/error-builder.js:53:17)
-    at Context.setupAppendErrors (/Users/corybillparrish/workspace/errr/spec/unit/errr.js:444:69)
-    at Context.<anonymous> (/Users/corybillparrish/workspace/errr/spec/unit/errr.js:470:12)
-    at callFnAsync (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runnable.js:338:8)
-    at Test.Runnable.run (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runnable.js:290:7)
-    at Runner.runTest (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:422:10)
-    at /Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:533:12
-    at next (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:342:14)
-    at /Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:352:7
-    at next (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:284:14)
-    at /Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:315:7
-    at done (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runnable.js:276:5)
-    at callFn (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runnable.js:333:7)
-    at Hook.Runnable.run (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runnable.js:308:7)
-    at next (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:298:10)
-    at Immediate._onImmediate (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:320:5)
-    at processImmediate [as _immediateCallback] (timers.js:383:17)
-
-     ------------------------- FROM -------------------------
-
-Error: [86be56ccd8d33418f4389fd2] Some Error 2
-    at ErrorBuilder._build_ (/Users/corybillparrish/workspace/errr/lib/error-builder.js:69:17)
-    at ErrorBuilder.get (/Users/corybillparrish/workspace/errr/lib/error-builder.js:53:17)
-    at Context.setupAppendErrors (/Users/corybillparrish/workspace/errr/spec/unit/errr.js:453:133)
-    at Context.<anonymous> (/Users/corybillparrish/workspace/errr/spec/unit/errr.js:470:12)
-    at callFnAsync (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runnable.js:338:8)
-    at Test.Runnable.run (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runnable.js:290:7)
-    at Runner.runTest (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:422:10)
-    at /Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:533:12
-    at next (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:342:14)
-    at /Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:352:7
-    at next (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:284:14)
-    at /Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:315:7
-    at done (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runnable.js:276:5)
-    at callFn (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runnable.js:333:7)
-    at Hook.Runnable.run (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runnable.js:308:7)
-    at next (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:298:10)
-    at Immediate._onImmediate (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:320:5)
-    at processImmediate [as _immediateCallback] (timers.js:383:17)
-
-   Debug Params: {
-  "someParam2": "83bf0730ede9d53915c9104c"
-}
-
-     ------------------------- FROM -------------------------
-
-Error: [cfe9836b72a1e4ad9ad44463] Some Error 3
-    at ErrorBuilder._build_ (/Users/corybillparrish/workspace/errr/lib/error-builder.js:69:17)
-    at ErrorBuilder.get (/Users/corybillparrish/workspace/errr/lib/error-builder.js:53:17)
-    at Context.setupAppendErrors (/Users/corybillparrish/workspace/errr/spec/unit/errr.js:457:97)
-    at Context.<anonymous> (/Users/corybillparrish/workspace/errr/spec/unit/errr.js:470:12)
-    at callFnAsync (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runnable.js:338:8)
-    at Test.Runnable.run (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runnable.js:290:7)
-    at Runner.runTest (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:422:10)
-    at /Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:533:12
-    at next (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:342:14)
-    at /Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:352:7
-    at next (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:284:14)
-    at /Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:315:7
-    at done (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runnable.js:276:5)
-    at callFn (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runnable.js:333:7)
-    at Hook.Runnable.run (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runnable.js:308:7)
-    at next (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:298:10)
-    at Immediate._onImmediate (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:320:5)
-    at processImmediate [as _immediateCallback] (timers.js:383:17)
-
-     ------------------------- FROM -------------------------
-
-Error: [2dbe27d5d70a6c5a6117abcb] Some Error
-    at ErrorBuilder._build_ (/Users/corybillparrish/workspace/errr/lib/error-builder.js:69:17)
-    at ErrorBuilder.get (/Users/corybillparrish/workspace/errr/lib/error-builder.js:53:17)
+Error: [0d7c45075935b73716643af5] Some Error
+    at ErrorBuilder._build_ (/Users/corybillparrish/workspace/errr/lib/error-builder.js:89:17)
+    at ErrorBuilder.get (/Users/corybillparrish/workspace/errr/lib/error-builder.js:73:17)
+    at Object.context.entryPointObject.run (/Users/corybillparrish/workspace/errr/spec/unit/errr-spec.js:1297:74)
     at FromSynchronousScenario.test (/Users/corybillparrish/workspace/errr/node_modules/maddox/lib/scenarios/functional/from-synchronous-scenario.js:17:46)
-    at Context.<anonymous> (/Users/corybillparrish/workspace/errr/spec/unit/errr.js:477:10)
+    at Context.<anonymous> (/Users/corybillparrish/workspace/errr/spec/unit/errr-spec.js:1309:10)
     at callFnAsync (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runnable.js:338:8)
     at Test.Runnable.run (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runnable.js:290:7)
     at Runner.runTest (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:422:10)
@@ -231,7 +162,77 @@ Error: [2dbe27d5d70a6c5a6117abcb] Some Error
     at Immediate._onImmediate (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:320:5)
     at processImmediate [as _immediateCallback] (timers.js:383:17)
 
-   Debug Params: {
-  "someParam": "7550aafb057d8dd9b5e31880"
+Debug Params: {
+  "someParam": "c926b1d07df0749bc61b7cfc"
 }
+
+     ------------------------- FROM -------------------------
+
+Error: [79f35d4d75e0653e6ff3b0f0] Some Error 3
+    at ErrorBuilder._build_ (/Users/corybillparrish/workspace/errr/lib/error-builder.js:89:17)
+    at ErrorBuilder.get (/Users/corybillparrish/workspace/errr/lib/error-builder.js:73:17)
+    at Object.context.setupAppendErrors (/Users/corybillparrish/workspace/errr/spec/unit/errr-spec.js:1277:43)
+    at Context.<anonymous> (/Users/corybillparrish/workspace/errr/spec/unit/errr-spec.js:1303:15)
+    at callFnAsync (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runnable.js:338:8)
+    at Test.Runnable.run (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runnable.js:290:7)
+    at Runner.runTest (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:422:10)
+    at /Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:533:12
+    at next (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:342:14)
+    at /Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:352:7
+    at next (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:284:14)
+    at /Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:315:7
+    at done (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runnable.js:276:5)
+    at callFn (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runnable.js:333:7)
+    at Hook.Runnable.run (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runnable.js:308:7)
+    at next (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:298:10)
+    at Immediate._onImmediate (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:320:5)
+    at processImmediate [as _immediateCallback] (timers.js:383:17)
+
+     ------------------------- FROM -------------------------
+
+Error: [880a280e670b68a4f2d0efc6] Some Error 2
+    at ErrorBuilder._build_ (/Users/corybillparrish/workspace/errr/lib/error-builder.js:89:17)
+    at ErrorBuilder.get (/Users/corybillparrish/workspace/errr/lib/error-builder.js:73:17)
+    at Object.context.setupAppendErrors (/Users/corybillparrish/workspace/errr/spec/unit/errr-spec.js:1268:43)
+    at Context.<anonymous> (/Users/corybillparrish/workspace/errr/spec/unit/errr-spec.js:1303:15)
+    at callFnAsync (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runnable.js:338:8)
+    at Test.Runnable.run (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runnable.js:290:7)
+    at Runner.runTest (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:422:10)
+    at /Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:533:12
+    at next (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:342:14)
+    at /Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:352:7
+    at next (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:284:14)
+    at /Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:315:7
+    at done (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runnable.js:276:5)
+    at callFn (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runnable.js:333:7)
+    at Hook.Runnable.run (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runnable.js:308:7)
+    at next (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:298:10)
+    at Immediate._onImmediate (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:320:5)
+    at processImmediate [as _immediateCallback] (timers.js:383:17)
+
+Debug Params: {
+  "someParam2": "7e8a3ef64acc245d87ce49f0"
+}
+
+     ------------------------- FROM -------------------------
+
+Error: [cff70d396b7cac6ddf12c8c2] Some Error 1
+    at ErrorBuilder._build_ (/Users/corybillparrish/workspace/errr/lib/error-builder.js:89:17)
+    at ErrorBuilder.get (/Users/corybillparrish/workspace/errr/lib/error-builder.js:73:17)
+    at Object.context.setupAppendErrors (/Users/corybillparrish/workspace/errr/spec/unit/errr-spec.js:1255:42)
+    at Context.<anonymous> (/Users/corybillparrish/workspace/errr/spec/unit/errr-spec.js:1303:15)
+    at callFnAsync (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runnable.js:338:8)
+    at Test.Runnable.run (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runnable.js:290:7)
+    at Runner.runTest (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:422:10)
+    at /Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:533:12
+    at next (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:342:14)
+    at /Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:352:7
+    at next (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:284:14)
+    at /Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:315:7
+    at done (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runnable.js:276:5)
+    at callFn (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runnable.js:333:7)
+    at Hook.Runnable.run (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runnable.js:308:7)
+    at next (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:298:10)
+    at Immediate._onImmediate (/Users/corybillparrish/workspace/errr/node_modules/mocha/lib/runner.js:320:5)
+    at processImmediate [as _immediateCallback] (timers.js:383:17)
 </pre>
