@@ -1,5 +1,5 @@
 # Errr
-Error factory with the ability to append stack traces from previous errors and append debug params.  Great for great full stack traces from all layers of code, especially when using promise chains.
+"Error factory with the ability to append stack traces from previous errors, as well as appending debug params to stack traces.  Great if you want one appended stack trace that defines the error at many levels of your code.  This concept works wonders when using promise chains because you get the stack trace at each level of your code.
 
 [![view on npm](http://img.shields.io/npm/v/errr.svg)](https://www.npmjs.org/package/errr)
 [![npm module downloads](http://img.shields.io/npm/dt/errr.svg)](https://www.npmjs.org/package/errr)
