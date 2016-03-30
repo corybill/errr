@@ -1,4 +1,4 @@
-## Classes
+## API
 
 <dl>
 <dt><a href="#ErrorBuilder">ErrorBuilder</a></dt>
@@ -19,6 +19,7 @@ Error Builder allows you to use optional functions to build an error object.  Th
     * [new ErrorBuilder([message], [template])](#new_ErrorBuilder_new)
     * [.debug(params, [shouldDebug])](#ErrorBuilder+debug) ⇒ <code>[ErrorBuilder](#ErrorBuilder)</code>
     * [.set(key, value, [force])](#ErrorBuilder+set) ⇒ <code>[ErrorBuilder](#ErrorBuilder)</code>
+    * [.setAll(object, force)](#ErrorBuilder+setAll) ⇒ <code>[ErrorBuilder](#ErrorBuilder)</code>
     * [.appendTo(err)](#ErrorBuilder+appendTo) ⇒ <code>[ErrorBuilder](#ErrorBuilder)</code>
     * [.get()](#ErrorBuilder+get) ⇒ <code>Error</code>
     * [.throw()](#ErrorBuilder+throw)
@@ -35,7 +36,13 @@ Provides an interface to build an error.  Then allows you to get or throw the er
 
 <a name="ErrorBuilder+debug"></a>
 ### errorBuilder.debug(params, [shouldDebug]) ⇒ <code>[ErrorBuilder](#ErrorBuilder)</code>
-Add parameters to the stack trace that will make it easier to debug the problem.
+Add parameters to the stack trace that will make it easier to debug the problem.  These values will appear in a
+in an object labeled "Debug Params" in the stack trace.  You may call the 'debug' function as many times as you'd
+like on an ErrorBuilder instance.  If the same key is passed in many times, the time it is passed in, will be
+the value that appears in the stack trace.
+
+Unlike the 'set' function, which merges 'set' values from different Errr instances with its own instance, the debug
+params start as an empty object for each Errr instance.  They are attached to the stack trace and then forgotten.
 
 **Kind**: instance method of <code>[ErrorBuilder](#ErrorBuilder)</code>  
 **Returns**: <code>[ErrorBuilder](#ErrorBuilder)</code> - - Returns the instance of errorBuilder to allow chainability.  
@@ -52,6 +59,11 @@ be appended to new error objects when using the the .appendTo function. I.e. the
 copied to the new error.  These values are immutable though unless you use the 'force' value. As soon as you set
 a value with a given key, it cannot be reset unless you pass in 'true' for the force variable.
 
+The reason for enforcing an immutable paradigm, is to allow for values to be set on the error object at the level
+where the error was originally thrown (seemingly where the most important info will come from).  This allows the user
+to set a value such as 'reason' on the error object at all level of your code, but only the most important reason will
+value will persist on the error object.
+
 **Kind**: instance method of <code>[ErrorBuilder](#ErrorBuilder)</code>  
 
 | Param | Type | Description |
@@ -59,6 +71,23 @@ a value with a given key, it cannot be reset unless you pass in 'true' for the f
 | key | <code>String</code> | The key that will be used to set the value on the error object. |
 | value | <code>Object</code> | The value that will be set on the object. |
 | [force] | <code>Boolean</code> | If force equals true, then this value will override a value with the same key from an errr passed in using the 'appendTo' function. |
+
+<a name="ErrorBuilder+setAll"></a>
+### errorBuilder.setAll(object, force) ⇒ <code>[ErrorBuilder](#ErrorBuilder)</code>
+Same concept and functionality as the 'set' function.  The difference is that you can set all values in a
+given object onto the Errr instance.
+
+Follows the same immutable paradigm as the 'set' function.  The difference is that you are setting the force override
+for all value in the given object.
+
+See set to understand functionality better.
+
+**Kind**: instance method of <code>[ErrorBuilder](#ErrorBuilder)</code>  
+
+| Param |
+| --- |
+| object | 
+| force | 
 
 <a name="ErrorBuilder+appendTo"></a>
 ### errorBuilder.appendTo(err) ⇒ <code>[ErrorBuilder](#ErrorBuilder)</code>
