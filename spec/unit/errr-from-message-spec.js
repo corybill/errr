@@ -11,7 +11,7 @@ const Errr = require("../../lib/errr"),
 const Scenario = Maddox.functional.FromSynchronousScenario,
   expect = chai.expect;
 
-describe("Errr", function () {
+describe("Errr - newError", function () {
   describe("When throwing an error", function () {
     let context;
 
@@ -37,12 +37,16 @@ describe("Errr", function () {
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          let stack = `Error: [${context.uniqueId}] Some Error\n    at ErrorBuilder._build_ `;
+          try {
+            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_`;
 
-          expect(response.stack.substring(0, stack.length)).eql(stack);
+            expect(response.stack.substring(0, stack.length)).eql(stack);
 
-          expect(response.message).eql(util.format(context.message));
-          done();
+            expect(response.message).eql(util.format(context.message));
+            done();
+          } catch (testError) {
+            done(testError);
+          }
         });
     });
 
@@ -64,11 +68,15 @@ describe("Errr", function () {
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          let stack = `Error: [${context.uniqueId}] Some Error\n    at ErrorBuilder._build_ `;
+          try {
+            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_`;
 
-          expect(response.stack.substring(0, stack.length)).eql(stack);
-          expect(response.message).eql(util.format(context.message, context.uniqueId));
-          done();
+            expect(response.stack.substring(0, stack.length)).eql(stack);
+            expect(response.message).eql(util.format(context.message, context.uniqueId));
+            done();
+          } catch (testError) {
+            done(testError);
+          }
         });
     });
 
@@ -95,19 +103,23 @@ describe("Errr", function () {
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          let stack = `Error: [${context.uniqueId}] Some Error\n    at ErrorBuilder._build_ `;
+          try {
+            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_`;
 
-          expect(response.stack.substring(0, stack.length)).eql(stack);
-          expect(response.message).eql(util.format(context.message, context.uniqueId));
+            expect(response.stack.substring(0, stack.length)).eql(stack);
+            expect(response.message).eql(util.format(context.message, context.uniqueId));
 
-          expect(response.param1).eql(context.uniqueId1);
-          expect(response.param2).eql(context.uniqueId2);
-          expect(response._setValues_).eql({
-            param1: context.uniqueId1,
-            param2: context.uniqueId2
-          });
+            expect(response.param1).eql(context.uniqueId1);
+            expect(response.param2).eql(context.uniqueId2);
+            expect(response._setValues_).eql({
+              param1: context.uniqueId1,
+              param2: context.uniqueId2
+            });
 
-          done();
+            done();
+          } catch (testError) {
+            done(testError);
+          }
         });
     });
 
@@ -135,19 +147,23 @@ describe("Errr", function () {
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          let stack = `Error: [${context.uniqueId}] Some Error\n    at ErrorBuilder._build_ `;
+          try {
+            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_`;
 
-          expect(response.stack.substring(0, stack.length)).eql(stack);
-          expect(response.message).eql(util.format(context.message, context.uniqueId));
+            expect(response.stack.substring(0, stack.length)).eql(stack);
+            expect(response.message).eql(util.format(context.message, context.uniqueId));
 
-          expect(response.param1).eql(context.uniqueId1);
-          expect(response.param2).eql(context.uniqueId2);
-          expect(response._setValues_).eql({
-            param1: context.uniqueId1,
-            param2: context.uniqueId2
-          });
+            expect(response.param1).eql(context.uniqueId1);
+            expect(response.param2).eql(context.uniqueId2);
+            expect(response._setValues_).eql({
+              param1: context.uniqueId1,
+              param2: context.uniqueId2
+            });
 
-          done();
+            done();
+          } catch (testError) {
+            done(testError);
+          }
         });
     });
 
@@ -177,23 +193,27 @@ describe("Errr", function () {
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          let stack = `Error: [${context.uniqueId}] Some Error\n    at ErrorBuilder._build_ `;
+          try {
+            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_`;
 
-          expect(response.stack.substring(0, stack.length)).eql(stack);
-          expect(response.message).eql(util.format(context.message, context.uniqueId));
+            expect(response.stack.substring(0, stack.length)).eql(stack);
+            expect(response.message).eql(util.format(context.message, context.uniqueId));
 
-          expect(response.param1).eql(context.uniqueId1);
-          expect(response.param2).eql(context.uniqueId2);
-          expect(response.param3).eql(context.uniqueId3);
-          expect(response.param4).eql(context.uniqueId4);
-          expect(response._setValues_).eql({
-            param1: context.uniqueId1,
-            param2: context.uniqueId2,
-            param3: context.uniqueId3,
-            param4: context.uniqueId4
-          });
+            expect(response.param1).eql(context.uniqueId1);
+            expect(response.param2).eql(context.uniqueId2);
+            expect(response.param3).eql(context.uniqueId3);
+            expect(response.param4).eql(context.uniqueId4);
+            expect(response._setValues_).eql({
+              param1: context.uniqueId1,
+              param2: context.uniqueId2,
+              param3: context.uniqueId3,
+              param4: context.uniqueId4
+            });
 
-          done();
+            done();
+          } catch (testError) {
+            done(testError);
+          }
         });
     });
 
@@ -224,23 +244,27 @@ describe("Errr", function () {
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          let stack = `Error: [${context.uniqueId}] Some Error\n    at ErrorBuilder._build_ `;
+          try {
+            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_`;
 
-          expect(response.stack.substring(0, stack.length)).eql(stack);
-          expect(response.message).eql(util.format(context.message, context.uniqueId));
+            expect(response.stack.substring(0, stack.length)).eql(stack);
+            expect(response.message).eql(util.format(context.message, context.uniqueId));
 
-          expect(response.param1).eql(context.uniqueId1);
-          expect(response.param2).eql(context.uniqueId2);
-          expect(response.param3).eql(context.uniqueId3);
-          expect(response.param4).eql(context.uniqueId4);
-          expect(response._setValues_).eql({
-            param1: context.uniqueId1,
-            param2: context.uniqueId2,
-            param3: context.uniqueId3,
-            param4: context.uniqueId4
-          });
+            expect(response.param1).eql(context.uniqueId1);
+            expect(response.param2).eql(context.uniqueId2);
+            expect(response.param3).eql(context.uniqueId3);
+            expect(response.param4).eql(context.uniqueId4);
+            expect(response._setValues_).eql({
+              param1: context.uniqueId1,
+              param2: context.uniqueId2,
+              param3: context.uniqueId3,
+              param4: context.uniqueId4
+            });
 
-          done();
+            done();
+          } catch (testError) {
+            done(testError);
+          }
         });
     });
 
@@ -270,22 +294,26 @@ describe("Errr", function () {
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          let stack = `Error: [${context.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
-            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`;
+          try {
+            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_ (`,
+              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`;
 
-          expect(response.stack.split(stringifiedDebugParams).length).eql(2);
-          expect(response.stack.substring(0, stack.length)).eql(stack);
+            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
+            expect(response.stack.substring(0, stack.length)).eql(stack);
 
-          expect(response.message).eql(util.format(context.message, context.uniqueId));
+            expect(response.message).eql(util.format(context.message, context.uniqueId));
 
-          expect(response.param1).eql(context.uniqueId1);
-          expect(response.param2).eql(context.uniqueId2);
-          expect(response._setValues_).eql({
-            param1: context.uniqueId1,
-            param2: context.uniqueId2
-          });
+            expect(response.param1).eql(context.uniqueId1);
+            expect(response.param2).eql(context.uniqueId2);
+            expect(response._setValues_).eql({
+              param1: context.uniqueId1,
+              param2: context.uniqueId2
+            });
 
-          done();
+            done();
+          } catch (testError) {
+            done(testError);
+          }
         });
     });
 
@@ -315,22 +343,26 @@ describe("Errr", function () {
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          let stack = `Error: [${context.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
-            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`;
+          try {
+            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_ (`,
+              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`;
 
-          expect(response.stack.split(stringifiedDebugParams).length).eql(2);
-          expect(response.stack.substring(0, stack.length)).eql(stack);
+            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
+            expect(response.stack.substring(0, stack.length)).eql(stack);
 
-          expect(response.message).eql(util.format(context.message, context.uniqueId));
+            expect(response.message).eql(util.format(context.message, context.uniqueId));
 
-          expect(response.param1).eql(context.uniqueId1);
-          expect(response.param2).eql(context.uniqueId2);
-          expect(response._setValues_).eql({
-            param1: context.uniqueId1,
-            param2: context.uniqueId2
-          });
+            expect(response.param1).eql(context.uniqueId1);
+            expect(response.param2).eql(context.uniqueId2);
+            expect(response._setValues_).eql({
+              param1: context.uniqueId1,
+              param2: context.uniqueId2
+            });
 
-          done();
+            done();
+          } catch (testError) {
+            done(testError);
+          }
         });
     });
 
@@ -360,22 +392,26 @@ describe("Errr", function () {
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          let stack = `Error: [${context.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
-            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`;
+          try {
+            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_ (`,
+              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`;
 
-          expect(response.stack.split(stringifiedDebugParams).length).eql(1);
-          expect(response.stack.substring(0, stack.length)).eql(stack);
+            expect(response.stack.split(stringifiedDebugParams).length).eql(1);
+            expect(response.stack.substring(0, stack.length)).eql(stack);
 
-          expect(response.message).eql(util.format(context.message, context.uniqueId));
+            expect(response.message).eql(util.format(context.message, context.uniqueId));
 
-          expect(response.param1).eql(context.uniqueId1);
-          expect(response.param2).eql(context.uniqueId2);
-          expect(response._setValues_).eql({
-            param1: context.uniqueId1,
-            param2: context.uniqueId2
-          });
+            expect(response.param1).eql(context.uniqueId1);
+            expect(response.param2).eql(context.uniqueId2);
+            expect(response._setValues_).eql({
+              param1: context.uniqueId1,
+              param2: context.uniqueId2
+            });
 
-          done();
+            done();
+          } catch (testError) {
+            done(testError);
+          }
         });
     });
 
@@ -413,25 +449,29 @@ describe("Errr", function () {
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          let stack = `Error: [${context.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
-            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`;
+          try {
+            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_ (`,
+              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`;
 
-          expect(response.stack.split(constants.StackTraceDelimiter).length).eql(2);
-          expect(response.stack.split(stringifiedDebugParams).length).eql(2);
+            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(2);
+            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
 
-          expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
-          expect(response.stack.indexOf(stack)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
+            expect(response.stack.indexOf(stack)).to.be.above(-1);
 
-          expect(response.message).eql(util.format(context.message, context.uniqueId));
+            expect(response.message).eql(util.format(context.message, context.uniqueId));
 
-          expect(response.param1).eql(context.uniqueId1);
-          expect(response.param2).eql(context.uniqueId2);
-          expect(response._setValues_).eql({
-            param1: context.uniqueId1,
-            param2: context.uniqueId2
-          });
+            expect(response.param1).eql(context.uniqueId1);
+            expect(response.param2).eql(context.uniqueId2);
+            expect(response._setValues_).eql({
+              param1: context.uniqueId1,
+              param2: context.uniqueId2
+            });
 
-          done();
+            done();
+          } catch (testError) {
+            done(testError);
+          }
         });
     });
 
@@ -482,30 +522,34 @@ describe("Errr", function () {
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          let stack = `Error: [${context.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
-            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
-            stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
+          try {
+            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_ (`,
+              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
+              stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
 
-          expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
+            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
 
-          expect(response.stack.split(stringifiedDebugParams).length).eql(2);
-          expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
+            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
+            expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
 
-          expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
-          expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
-          expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
-          expect(response.stack.indexOf(stack)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
+            expect(response.stack.indexOf(stack)).to.be.above(-1);
 
-          expect(response.message).eql(util.format(context.message, context.uniqueId));
+            expect(response.message).eql(util.format(context.message, context.uniqueId));
 
-          expect(response.param1).eql(context.uniqueId1);
-          expect(response.param2).eql(context.uniqueId2);
-          expect(response._setValues_).eql({
-            param1: context.uniqueId1,
-            param2: context.uniqueId2
-          });
+            expect(response.param1).eql(context.uniqueId1);
+            expect(response.param2).eql(context.uniqueId2);
+            expect(response._setValues_).eql({
+              param1: context.uniqueId1,
+              param2: context.uniqueId2
+            });
 
-          done();
+            done();
+          } catch (testError) {
+            done(testError);
+          }
         });
     });
 
@@ -571,37 +615,41 @@ describe("Errr", function () {
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          let stack = `Error: [${context.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
-            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
-            stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
+          try {
+            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_ (`,
+              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
+              stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
 
-          expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
+            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
 
-          expect(response.stack.split(stringifiedDebugParams).length).eql(2);
-          expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
+            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
+            expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
 
-          expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
-          expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
-          expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
-          expect(response.stack.indexOf(stack)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
+            expect(response.stack.indexOf(stack)).to.be.above(-1);
 
-          expect(response.message).eql(util.format(context.message, context.uniqueId));
+            expect(response.message).eql(util.format(context.message, context.uniqueId));
 
-          expect(response.param0).eql(context.appendError1Id);
-          expect(response.param1).eql(context.value1);
-          expect(response.param2).eql(context.value2);
-          expect(response.param3).eql(context.value3);
-          expect(response.param4).eql(context.value4);
+            expect(response.param0).eql(context.appendError1Id);
+            expect(response.param1).eql(context.value1);
+            expect(response.param2).eql(context.value2);
+            expect(response.param3).eql(context.value3);
+            expect(response.param4).eql(context.value4);
 
-          expect(response._setValues_).eql({
-            param0: context.appendError1Id,
-            param1: context.value1,
-            param2: context.value2,
-            param3: context.value3,
-            param4: context.value4
-          });
+            expect(response._setValues_).eql({
+              param0: context.appendError1Id,
+              param1: context.value1,
+              param2: context.value2,
+              param3: context.value3,
+              param4: context.value4
+            });
 
-          done();
+            done();
+          } catch (testError) {
+            done(testError);
+          }
         });
     });
 
@@ -667,37 +715,41 @@ describe("Errr", function () {
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          let stack = `Error: [${context.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
-            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
-            stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
+          try {
+            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_ (`,
+              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
+              stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
 
-          expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
+            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
 
-          expect(response.stack.split(stringifiedDebugParams).length).eql(2);
-          expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
+            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
+            expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
 
-          expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
-          expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
-          expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
-          expect(response.stack.indexOf(stack)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
+            expect(response.stack.indexOf(stack)).to.be.above(-1);
 
-          expect(response.message).eql(util.format(context.message, context.uniqueId));
+            expect(response.message).eql(util.format(context.message, context.uniqueId));
 
-          expect(response.param0).eql(context.appendError1Id);
-          expect(response.param1).eql(context.value1);
-          expect(response.param2).eql(context.value2);
-          expect(response.param3).eql(context.value3);
-          expect(response.param4).eql(context.value4);
+            expect(response.param0).eql(context.appendError1Id);
+            expect(response.param1).eql(context.value1);
+            expect(response.param2).eql(context.value2);
+            expect(response.param3).eql(context.value3);
+            expect(response.param4).eql(context.value4);
 
-          expect(response._setValues_).eql({
-            param0: context.appendError1Id,
-            param1: context.value1,
-            param2: context.value2,
-            param3: context.value3,
-            param4: context.value4
-          });
+            expect(response._setValues_).eql({
+              param0: context.appendError1Id,
+              param1: context.value1,
+              param2: context.value2,
+              param3: context.value3,
+              param4: context.value4
+            });
 
-          done();
+            done();
+          } catch (testError) {
+            done(testError);
+          }
         });
     });
 
@@ -763,37 +815,41 @@ describe("Errr", function () {
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          let stack = `Error: [${context.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
-            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
-            stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
+          try {
+            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_ (`,
+              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
+              stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
 
-          expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
+            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
 
-          expect(response.stack.split(stringifiedDebugParams).length).eql(2);
-          expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
+            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
+            expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
 
-          expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
-          expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
-          expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
-          expect(response.stack.indexOf(stack)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
+            expect(response.stack.indexOf(stack)).to.be.above(-1);
 
-          expect(response.message).eql(util.format(context.message, context.uniqueId));
+            expect(response.message).eql(util.format(context.message, context.uniqueId));
 
-          expect(response.param0).eql(context.appendError3Id);
-          expect(response.param1).eql(context.value1);
-          expect(response.param2).eql(context.value2);
-          expect(response.param3).eql(context.value3);
-          expect(response.param4).eql(context.value4);
+            expect(response.param0).eql(context.appendError3Id);
+            expect(response.param1).eql(context.value1);
+            expect(response.param2).eql(context.value2);
+            expect(response.param3).eql(context.value3);
+            expect(response.param4).eql(context.value4);
 
-          expect(response._setValues_).eql({
-            param0: context.appendError3Id,
-            param1: context.value1,
-            param2: context.value2,
-            param3: context.value3,
-            param4: context.value4
-          });
+            expect(response._setValues_).eql({
+              param0: context.appendError3Id,
+              param1: context.value1,
+              param2: context.value2,
+              param3: context.value3,
+              param4: context.value4
+            });
 
-          done();
+            done();
+          } catch (testError) {
+            done(testError);
+          }
         });
     });
 
@@ -855,37 +911,41 @@ describe("Errr", function () {
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          let stack = `Error: [${context.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
-            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
-            stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
+          try {
+            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_ (`,
+              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
+              stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
 
-          expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
+            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
 
-          expect(response.stack.split(stringifiedDebugParams).length).eql(2);
-          expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
+            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
+            expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
 
-          expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
-          expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
-          expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
-          expect(response.stack.indexOf(stack)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
+            expect(response.stack.indexOf(stack)).to.be.above(-1);
 
-          expect(response.message).eql(util.format(context.message, context.uniqueId));
+            expect(response.message).eql(util.format(context.message, context.uniqueId));
 
-          expect(response.param0).eql(context.appendError1Id);
-          expect(response.param1).eql(context.value1);
-          expect(response.param2).eql(context.value2);
-          expect(response.param3).eql(context.value3);
-          expect(response.param4).eql(context.value4);
+            expect(response.param0).eql(context.appendError1Id);
+            expect(response.param1).eql(context.value1);
+            expect(response.param2).eql(context.value2);
+            expect(response.param3).eql(context.value3);
+            expect(response.param4).eql(context.value4);
 
-          expect(response._setValues_).eql({
-            param0: context.appendError1Id,
-            param1: context.value1,
-            param2: context.value2,
-            param3: context.value3,
-            param4: context.value4
-          });
+            expect(response._setValues_).eql({
+              param0: context.appendError1Id,
+              param1: context.value1,
+              param2: context.value2,
+              param3: context.value3,
+              param4: context.value4
+            });
 
-          done();
+            done();
+          } catch (testError) {
+            done(testError);
+          }
         });
     });
 
@@ -947,37 +1007,41 @@ describe("Errr", function () {
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          let stack = `Error: [${context.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
-            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
-            stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
+          try {
+            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_ (`,
+              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
+              stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
 
-          expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
+            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
 
-          expect(response.stack.split(stringifiedDebugParams).length).eql(2);
-          expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
+            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
+            expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
 
-          expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
-          expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
-          expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
-          expect(response.stack.indexOf(stack)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
+            expect(response.stack.indexOf(stack)).to.be.above(-1);
 
-          expect(response.message).eql(util.format(context.message, context.uniqueId));
+            expect(response.message).eql(util.format(context.message, context.uniqueId));
 
-          expect(response.param0).eql(context.appendError3Id);
-          expect(response.param1).eql(context.value1);
-          expect(response.param2).eql(context.value2);
-          expect(response.param3).eql(context.value3);
-          expect(response.param4).eql(context.value4);
+            expect(response.param0).eql(context.appendError3Id);
+            expect(response.param1).eql(context.value1);
+            expect(response.param2).eql(context.value2);
+            expect(response.param3).eql(context.value3);
+            expect(response.param4).eql(context.value4);
 
-          expect(response._setValues_).eql({
-            param0: context.appendError3Id,
-            param1: context.value1,
-            param2: context.value2,
-            param3: context.value3,
-            param4: context.value4
-          });
+            expect(response._setValues_).eql({
+              param0: context.appendError3Id,
+              param1: context.value1,
+              param2: context.value2,
+              param3: context.value3,
+              param4: context.value4
+            });
 
-          done();
+            done();
+          } catch (testError) {
+            done(testError);
+          }
         });
     });
   });
@@ -989,7 +1053,7 @@ describe("Errr", function () {
       context = {};
     });
 
-    it("it should throw an error", function (done) {
+    it("it should return an error", function (done) {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -1007,18 +1071,22 @@ describe("Errr", function () {
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (err, response) {
-          expect(err).eql(undefined);
+          try {
+            expect(err).eql(undefined);
 
-          let stack = `Error: [${context.uniqueId}] Some Error\n    at ErrorBuilder._build_ `;
+            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_`;
 
-          expect(response.stack.substring(0, stack.length)).eql(stack);
+            expect(response.stack.substring(0, stack.length)).eql(stack);
 
-          expect(response.message).eql(util.format(context.message));
-          done();
+            expect(response.message).eql(util.format(context.message));
+            done();
+          } catch (testError) {
+            done(testError);
+          }
         });
     });
 
-    it("it should throw an error with template message", function (done) {
+    it("it should return an error with template message", function (done) {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -1036,17 +1104,21 @@ describe("Errr", function () {
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (err, response) {
-          expect(err).eql(undefined);
+          try {
+            expect(err).eql(undefined);
 
-          let stack = `Error: [${context.uniqueId}] Some Error\n    at ErrorBuilder._build_ `;
+            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_`;
 
-          expect(response.stack.substring(0, stack.length)).eql(stack);
-          expect(response.message).eql(util.format(context.message, context.uniqueId));
-          done();
+            expect(response.stack.substring(0, stack.length)).eql(stack);
+            expect(response.message).eql(util.format(context.message, context.uniqueId));
+            done();
+          } catch (testError) {
+            done(testError);
+          }
         });
     });
 
-    it("it should throw an error with values set onto the error object", function (done) {
+    it("it should return an error with values set onto the error object", function (done) {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -1070,25 +1142,29 @@ describe("Errr", function () {
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (err, response) {
-          expect(err).eql(undefined);
+          try {
+            expect(err).eql(undefined);
 
-          let stack = `Error: [${context.uniqueId}] Some Error\n    at ErrorBuilder._build_ `;
+            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_`;
 
-          expect(response.stack.substring(0, stack.length)).eql(stack);
-          expect(response.message).eql(util.format(context.message, context.uniqueId));
+            expect(response.stack.substring(0, stack.length)).eql(stack);
+            expect(response.message).eql(util.format(context.message, context.uniqueId));
 
-          expect(response.param1).eql(context.uniqueId1);
-          expect(response.param2).eql(context.uniqueId2);
-          expect(response._setValues_).eql({
-            param1: context.uniqueId1,
-            param2: context.uniqueId2
-          });
+            expect(response.param1).eql(context.uniqueId1);
+            expect(response.param2).eql(context.uniqueId2);
+            expect(response._setValues_).eql({
+              param1: context.uniqueId1,
+              param2: context.uniqueId2
+            });
 
-          done();
+            done();
+          } catch (testError) {
+            done(testError);
+          }
         });
     });
 
-    it("it should throw an error without overriding 'set' values", function (done) {
+    it("it should return an error without overriding 'set' values", function (done) {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -1112,25 +1188,29 @@ describe("Errr", function () {
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (err, response) {
-          expect(err).eql(undefined);
+          try {
+            expect(err).eql(undefined);
 
-          let stack = `Error: [${context.uniqueId}] Some Error\n    at ErrorBuilder._build_ `;
+            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_`;
 
-          expect(response.stack.substring(0, stack.length)).eql(stack);
-          expect(response.message).eql(util.format(context.message, context.uniqueId));
+            expect(response.stack.substring(0, stack.length)).eql(stack);
+            expect(response.message).eql(util.format(context.message, context.uniqueId));
 
-          expect(response.param1).eql(context.uniqueId1);
-          expect(response.param2).eql(context.uniqueId2);
-          expect(response._setValues_).eql({
-            param1: context.uniqueId1,
-            param2: context.uniqueId2
-          });
+            expect(response.param1).eql(context.uniqueId1);
+            expect(response.param2).eql(context.uniqueId2);
+            expect(response._setValues_).eql({
+              param1: context.uniqueId1,
+              param2: context.uniqueId2
+            });
 
-          done();
+            done();
+          } catch (testError) {
+            done(testError);
+          }
         });
     });
 
-    it("it should throw an error with values set onto the error object using setAll", function (done) {
+    it("it should return an error with values set onto the error object using setAll", function (done) {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -1156,29 +1236,33 @@ describe("Errr", function () {
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (err, response) {
-          expect(err).eql(undefined);
+          try {
+            expect(err).eql(undefined);
 
-          let stack = `Error: [${context.uniqueId}] Some Error\n    at ErrorBuilder._build_ `;
+            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_`;
 
-          expect(response.stack.substring(0, stack.length)).eql(stack);
-          expect(response.message).eql(util.format(context.message, context.uniqueId));
+            expect(response.stack.substring(0, stack.length)).eql(stack);
+            expect(response.message).eql(util.format(context.message, context.uniqueId));
 
-          expect(response.param1).eql(context.uniqueId1);
-          expect(response.param2).eql(context.uniqueId2);
-          expect(response.param3).eql(context.uniqueId3);
-          expect(response.param4).eql(context.uniqueId4);
-          expect(response._setValues_).eql({
-            param1: context.uniqueId1,
-            param2: context.uniqueId2,
-            param3: context.uniqueId3,
-            param4: context.uniqueId4
-          });
+            expect(response.param1).eql(context.uniqueId1);
+            expect(response.param2).eql(context.uniqueId2);
+            expect(response.param3).eql(context.uniqueId3);
+            expect(response.param4).eql(context.uniqueId4);
+            expect(response._setValues_).eql({
+              param1: context.uniqueId1,
+              param2: context.uniqueId2,
+              param3: context.uniqueId3,
+              param4: context.uniqueId4
+            });
 
-          done();
+            done();
+          } catch (testError) {
+            done(testError);
+          }
         });
     });
 
-    it("it should throw an error without overriding 'setAll' values", function (done) {
+    it("it should return an error without overriding 'setAll' values", function (done) {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -1205,29 +1289,33 @@ describe("Errr", function () {
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (err, response) {
-          expect(err).eql(undefined);
+          try {
+            expect(err).eql(undefined);
 
-          let stack = `Error: [${context.uniqueId}] Some Error\n    at ErrorBuilder._build_ `;
+            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_`;
 
-          expect(response.stack.substring(0, stack.length)).eql(stack);
-          expect(response.message).eql(util.format(context.message, context.uniqueId));
+            expect(response.stack.substring(0, stack.length)).eql(stack);
+            expect(response.message).eql(util.format(context.message, context.uniqueId));
 
-          expect(response.param1).eql(context.uniqueId1);
-          expect(response.param2).eql(context.uniqueId2);
-          expect(response.param3).eql(context.uniqueId3);
-          expect(response.param4).eql(context.uniqueId4);
-          expect(response._setValues_).eql({
-            param1: context.uniqueId1,
-            param2: context.uniqueId2,
-            param3: context.uniqueId3,
-            param4: context.uniqueId4
-          });
+            expect(response.param1).eql(context.uniqueId1);
+            expect(response.param2).eql(context.uniqueId2);
+            expect(response.param3).eql(context.uniqueId3);
+            expect(response.param4).eql(context.uniqueId4);
+            expect(response._setValues_).eql({
+              param1: context.uniqueId1,
+              param2: context.uniqueId2,
+              param3: context.uniqueId3,
+              param4: context.uniqueId4
+            });
 
-          done();
+            done();
+          } catch (testError) {
+            done(testError);
+          }
         });
     });
 
-    it("it should throw an error including the debug params appended to the stack", function (done) {
+    it("it should return an error including the debug params appended to the stack", function (done) {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -1254,28 +1342,32 @@ describe("Errr", function () {
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (err, response) {
-          expect(err).eql(undefined);
+          try {
+            expect(err).eql(undefined);
 
-          let stack = `Error: [${context.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
-            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`;
+            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_ (`,
+              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`;
 
-          expect(response.stack.split(stringifiedDebugParams).length).eql(2);
-          expect(response.stack.substring(0, stack.length)).eql(stack);
+            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
+            expect(response.stack.substring(0, stack.length)).eql(stack);
 
-          expect(response.message).eql(util.format(context.message, context.uniqueId));
+            expect(response.message).eql(util.format(context.message, context.uniqueId));
 
-          expect(response.param1).eql(context.uniqueId1);
-          expect(response.param2).eql(context.uniqueId2);
-          expect(response._setValues_).eql({
-            param1: context.uniqueId1,
-            param2: context.uniqueId2
-          });
+            expect(response.param1).eql(context.uniqueId1);
+            expect(response.param2).eql(context.uniqueId2);
+            expect(response._setValues_).eql({
+              param1: context.uniqueId1,
+              param2: context.uniqueId2
+            });
 
-          done();
+            done();
+          } catch (testError) {
+            done(testError);
+          }
         });
     });
 
-    it("it should throw an error including the debug params appended to the stack when given values is true", function (done) {
+    it("it should return an error including the debug params appended to the stack when given values is true", function (done) {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -1302,28 +1394,32 @@ describe("Errr", function () {
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (err, response) {
-          expect(err).eql(undefined);
+          try {
+            expect(err).eql(undefined);
 
-          let stack = `Error: [${context.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
-            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`;
+            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_ (`,
+              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`;
 
-          expect(response.stack.split(stringifiedDebugParams).length).eql(2);
-          expect(response.stack.substring(0, stack.length)).eql(stack);
+            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
+            expect(response.stack.substring(0, stack.length)).eql(stack);
 
-          expect(response.message).eql(util.format(context.message, context.uniqueId));
+            expect(response.message).eql(util.format(context.message, context.uniqueId));
 
-          expect(response.param1).eql(context.uniqueId1);
-          expect(response.param2).eql(context.uniqueId2);
-          expect(response._setValues_).eql({
-            param1: context.uniqueId1,
-            param2: context.uniqueId2
-          });
+            expect(response.param1).eql(context.uniqueId1);
+            expect(response.param2).eql(context.uniqueId2);
+            expect(response._setValues_).eql({
+              param1: context.uniqueId1,
+              param2: context.uniqueId2
+            });
 
-          done();
+            done();
+          } catch (testError) {
+            done(testError);
+          }
         });
     });
 
-    it("it should throw an error NOT including the debug params when given value is false.", function (done) {
+    it("it should return an error NOT including the debug params when given value is false.", function (done) {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -1350,24 +1446,28 @@ describe("Errr", function () {
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (err, response) {
-          expect(err).eql(undefined);
+          try {
+            expect(err).eql(undefined);
 
-          let stack = `Error: [${context.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
-            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`;
+            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_ (`,
+              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`;
 
-          expect(response.stack.split(stringifiedDebugParams).length).eql(1);
-          expect(response.stack.substring(0, stack.length)).eql(stack);
+            expect(response.stack.split(stringifiedDebugParams).length).eql(1);
+            expect(response.stack.substring(0, stack.length)).eql(stack);
 
-          expect(response.message).eql(util.format(context.message, context.uniqueId));
+            expect(response.message).eql(util.format(context.message, context.uniqueId));
 
-          expect(response.param1).eql(context.uniqueId1);
-          expect(response.param2).eql(context.uniqueId2);
-          expect(response._setValues_).eql({
-            param1: context.uniqueId1,
-            param2: context.uniqueId2
-          });
+            expect(response.param1).eql(context.uniqueId1);
+            expect(response.param2).eql(context.uniqueId2);
+            expect(response._setValues_).eql({
+              param1: context.uniqueId1,
+              param2: context.uniqueId2
+            });
 
-          done();
+            done();
+          } catch (testError) {
+            done(testError);
+          }
         });
     });
 
@@ -1405,27 +1505,31 @@ describe("Errr", function () {
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (err, response) {
-          expect(err).eql(undefined);
+          try {
+            expect(err).eql(undefined);
 
-          let stack = `Error: [${context.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
-            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`;
+            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_ (`,
+              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`;
 
-          expect(response.stack.split(constants.StackTraceDelimiter).length).eql(2);
-          expect(response.stack.split(stringifiedDebugParams).length).eql(2);
+            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(2);
+            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
 
-          expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
-          expect(response.stack.indexOf(stack)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
+            expect(response.stack.indexOf(stack)).to.be.above(-1);
 
-          expect(response.message).eql(util.format(context.message, context.uniqueId));
+            expect(response.message).eql(util.format(context.message, context.uniqueId));
 
-          expect(response.param1).eql(context.uniqueId1);
-          expect(response.param2).eql(context.uniqueId2);
-          expect(response._setValues_).eql({
-            param1: context.uniqueId1,
-            param2: context.uniqueId2
-          });
+            expect(response.param1).eql(context.uniqueId1);
+            expect(response.param2).eql(context.uniqueId2);
+            expect(response._setValues_).eql({
+              param1: context.uniqueId1,
+              param2: context.uniqueId2
+            });
 
-          done();
+            done();
+          } catch (testError) {
+            done(testError);
+          }
         });
     });
 
@@ -1476,32 +1580,36 @@ describe("Errr", function () {
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (err, response) {
-          expect(err).eql(undefined);
+          try {
+            expect(err).eql(undefined);
 
-          let stack = `Error: [${context.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
-            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
-            stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
+            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_ (`,
+              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
+              stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
 
-          expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
+            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
 
-          expect(response.stack.split(stringifiedDebugParams).length).eql(2);
-          expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
+            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
+            expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
 
-          expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
-          expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
-          expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
-          expect(response.stack.indexOf(stack)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
+            expect(response.stack.indexOf(stack)).to.be.above(-1);
 
-          expect(response.message).eql(util.format(context.message, context.uniqueId));
+            expect(response.message).eql(util.format(context.message, context.uniqueId));
 
-          expect(response.param1).eql(context.uniqueId1);
-          expect(response.param2).eql(context.uniqueId2);
-          expect(response._setValues_).eql({
-            param1: context.uniqueId1,
-            param2: context.uniqueId2
-          });
+            expect(response.param1).eql(context.uniqueId1);
+            expect(response.param2).eql(context.uniqueId2);
+            expect(response._setValues_).eql({
+              param1: context.uniqueId1,
+              param2: context.uniqueId2
+            });
 
-          done();
+            done();
+          } catch (testError) {
+            done(testError);
+          }
         });
     });
 
@@ -1567,39 +1675,43 @@ describe("Errr", function () {
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (err, response) {
-          expect(err).eql(undefined);
+          try {
+            expect(err).eql(undefined);
 
-          let stack = `Error: [${context.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
-            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
-            stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
+            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_ (`,
+              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
+              stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
 
-          expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
+            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
 
-          expect(response.stack.split(stringifiedDebugParams).length).eql(2);
-          expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
+            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
+            expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
 
-          expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
-          expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
-          expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
-          expect(response.stack.indexOf(stack)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
+            expect(response.stack.indexOf(stack)).to.be.above(-1);
 
-          expect(response.message).eql(util.format(context.message, context.uniqueId));
+            expect(response.message).eql(util.format(context.message, context.uniqueId));
 
-          expect(response.param0).eql(context.appendError1Id);
-          expect(response.param1).eql(context.value1);
-          expect(response.param2).eql(context.value2);
-          expect(response.param3).eql(context.value3);
-          expect(response.param4).eql(context.value4);
+            expect(response.param0).eql(context.appendError1Id);
+            expect(response.param1).eql(context.value1);
+            expect(response.param2).eql(context.value2);
+            expect(response.param3).eql(context.value3);
+            expect(response.param4).eql(context.value4);
 
-          expect(response._setValues_).eql({
-            param0: context.appendError1Id,
-            param1: context.value1,
-            param2: context.value2,
-            param3: context.value3,
-            param4: context.value4
-          });
+            expect(response._setValues_).eql({
+              param0: context.appendError1Id,
+              param1: context.value1,
+              param2: context.value2,
+              param3: context.value3,
+              param4: context.value4
+            });
 
-          done();
+            done();
+          } catch (testError) {
+            done(testError);
+          }
         });
     });
 
@@ -1665,39 +1777,43 @@ describe("Errr", function () {
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (err, response) {
-          expect(err).eql(undefined);
+          try {
+            expect(err).eql(undefined);
 
-          let stack = `Error: [${context.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
-            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
-            stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
+            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_ (`,
+              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
+              stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
 
-          expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
+            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
 
-          expect(response.stack.split(stringifiedDebugParams).length).eql(2);
-          expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
+            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
+            expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
 
-          expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
-          expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
-          expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
-          expect(response.stack.indexOf(stack)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
+            expect(response.stack.indexOf(stack)).to.be.above(-1);
 
-          expect(response.message).eql(util.format(context.message, context.uniqueId));
+            expect(response.message).eql(util.format(context.message, context.uniqueId));
 
-          expect(response.param0).eql(context.appendError1Id);
-          expect(response.param1).eql(context.value1);
-          expect(response.param2).eql(context.value2);
-          expect(response.param3).eql(context.value3);
-          expect(response.param4).eql(context.value4);
+            expect(response.param0).eql(context.appendError1Id);
+            expect(response.param1).eql(context.value1);
+            expect(response.param2).eql(context.value2);
+            expect(response.param3).eql(context.value3);
+            expect(response.param4).eql(context.value4);
 
-          expect(response._setValues_).eql({
-            param0: context.appendError1Id,
-            param1: context.value1,
-            param2: context.value2,
-            param3: context.value3,
-            param4: context.value4
-          });
+            expect(response._setValues_).eql({
+              param0: context.appendError1Id,
+              param1: context.value1,
+              param2: context.value2,
+              param3: context.value3,
+              param4: context.value4
+            });
 
-          done();
+            done();
+          } catch (testError) {
+            done(testError);
+          }
         });
     });
 
@@ -1763,39 +1879,43 @@ describe("Errr", function () {
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (err, response) {
-          expect(err).eql(undefined);
+          try {
+            expect(err).eql(undefined);
 
-          let stack = `Error: [${context.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
-            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
-            stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
+            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_ (`,
+              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
+              stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
 
-          expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
+            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
 
-          expect(response.stack.split(stringifiedDebugParams).length).eql(2);
-          expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
+            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
+            expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
 
-          expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
-          expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
-          expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
-          expect(response.stack.indexOf(stack)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
+            expect(response.stack.indexOf(stack)).to.be.above(-1);
 
-          expect(response.message).eql(util.format(context.message, context.uniqueId));
+            expect(response.message).eql(util.format(context.message, context.uniqueId));
 
-          expect(response.param0).eql(context.appendError3Id);
-          expect(response.param1).eql(context.value1);
-          expect(response.param2).eql(context.value2);
-          expect(response.param3).eql(context.value3);
-          expect(response.param4).eql(context.value4);
+            expect(response.param0).eql(context.appendError3Id);
+            expect(response.param1).eql(context.value1);
+            expect(response.param2).eql(context.value2);
+            expect(response.param3).eql(context.value3);
+            expect(response.param4).eql(context.value4);
 
-          expect(response._setValues_).eql({
-            param0: context.appendError3Id,
-            param1: context.value1,
-            param2: context.value2,
-            param3: context.value3,
-            param4: context.value4
-          });
+            expect(response._setValues_).eql({
+              param0: context.appendError3Id,
+              param1: context.value1,
+              param2: context.value2,
+              param3: context.value3,
+              param4: context.value4
+            });
 
-          done();
+            done();
+          } catch (testError) {
+            done(testError);
+          }
         });
     });
 
@@ -1857,39 +1977,43 @@ describe("Errr", function () {
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (err, response) {
-          expect(err).eql(undefined);
+          try {
+            expect(err).eql(undefined);
 
-          let stack = `Error: [${context.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
-            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
-            stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
+            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_ (`,
+              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
+              stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
 
-          expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
+            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
 
-          expect(response.stack.split(stringifiedDebugParams).length).eql(2);
-          expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
+            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
+            expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
 
-          expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
-          expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
-          expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
-          expect(response.stack.indexOf(stack)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
+            expect(response.stack.indexOf(stack)).to.be.above(-1);
 
-          expect(response.message).eql(util.format(context.message, context.uniqueId));
+            expect(response.message).eql(util.format(context.message, context.uniqueId));
 
-          expect(response.param0).eql(context.appendError1Id);
-          expect(response.param1).eql(context.value1);
-          expect(response.param2).eql(context.value2);
-          expect(response.param3).eql(context.value3);
-          expect(response.param4).eql(context.value4);
+            expect(response.param0).eql(context.appendError1Id);
+            expect(response.param1).eql(context.value1);
+            expect(response.param2).eql(context.value2);
+            expect(response.param3).eql(context.value3);
+            expect(response.param4).eql(context.value4);
 
-          expect(response._setValues_).eql({
-            param0: context.appendError1Id,
-            param1: context.value1,
-            param2: context.value2,
-            param3: context.value3,
-            param4: context.value4
-          });
+            expect(response._setValues_).eql({
+              param0: context.appendError1Id,
+              param1: context.value1,
+              param2: context.value2,
+              param3: context.value3,
+              param4: context.value4
+            });
 
-          done();
+            done();
+          } catch (testError) {
+            done(testError);
+          }
         });
     });
 
@@ -1951,39 +2075,43 @@ describe("Errr", function () {
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (err, response) {
-          expect(err).eql(undefined);
+          try {
+            expect(err).eql(undefined);
 
-          let stack = `Error: [${context.uniqueId}] Some Error\n    at ErrorBuilder._build_ `,
-            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
-            stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
+            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_ (`,
+              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
+              stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
 
-          expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
+            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
 
-          expect(response.stack.split(stringifiedDebugParams).length).eql(2);
-          expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
+            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
+            expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
 
-          expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
-          expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
-          expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
-          expect(response.stack.indexOf(stack)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
+            expect(response.stack.indexOf(stack)).to.be.above(-1);
 
-          expect(response.message).eql(util.format(context.message, context.uniqueId));
+            expect(response.message).eql(util.format(context.message, context.uniqueId));
 
-          expect(response.param0).eql(context.appendError3Id);
-          expect(response.param1).eql(context.value1);
-          expect(response.param2).eql(context.value2);
-          expect(response.param3).eql(context.value3);
-          expect(response.param4).eql(context.value4);
+            expect(response.param0).eql(context.appendError3Id);
+            expect(response.param1).eql(context.value1);
+            expect(response.param2).eql(context.value2);
+            expect(response.param3).eql(context.value3);
+            expect(response.param4).eql(context.value4);
 
-          expect(response._setValues_).eql({
-            param0: context.appendError3Id,
-            param1: context.value1,
-            param2: context.value2,
-            param3: context.value3,
-            param4: context.value4
-          });
+            expect(response._setValues_).eql({
+              param0: context.appendError3Id,
+              param1: context.value1,
+              param2: context.value2,
+              param3: context.value3,
+              param4: context.value4
+            });
 
-          done();
+            done();
+          } catch (testError) {
+            done(testError);
+          }
         });
     });
 
