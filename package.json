@@ -1,6 +1,6 @@
 {
   "name": "errr",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Error factory with the ability to append stack traces from previous errors, as well as appending debug params to stack traces.  Great if you want one appended stack trace that defines the error at many levels of your code.  This concept works wonders when using promise chains because you get the stack trace at each level of your code.",
   "main": "lib/errr.js",
   "scripts": {
