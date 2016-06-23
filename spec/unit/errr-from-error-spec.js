@@ -1306,7 +1306,7 @@ describe("Errr - fromError", function () {
         });
     });
 
-    it("it should return an error including the debug params appended to the stack", function (done) {
+    it.only("it should return an error including the debug params appended to the stack", function (done) {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -1315,6 +1315,7 @@ describe("Errr - fromError", function () {
             context.error = new Error(context.message);
 
             context.debugParams = {
+              undefinedParam: undefined,
               someParam: random.uniqueId()
             };
 
