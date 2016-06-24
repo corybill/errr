@@ -26,7 +26,7 @@ try {
     .appendTo(someError).throw();
 } catch (err) {
   let reason = err.reason; // Get value from someReason
-  let allDebugParams = err.allDebugParams() // Get an array of all the debug params from all appended errors
+  let allDebugParams = err.getAllDebugParams() // Get an array of all the debug params from all appended errors
 }
 </pre>
 
@@ -37,7 +37,7 @@ let errr = Errr.newError(message, template).debug(this.debugParams)
   .appendTo(someError).get();
   
 let reason = errr.reason; // Get value from someReason
-let allDebugParams = errr.allDebugParams() // Get an array of all the debug params from all appended errors
+let allDebugParams = errr.getAllDebugParams() // Get an array of all the debug params from all appended errors
 </pre>
 <pre>
 
