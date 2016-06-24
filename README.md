@@ -19,17 +19,29 @@
 <pre>
 // debug, set, and appendTo are optional
 // Throws an error
-Errr.newError(message, template).debug(this.debugParams)
-  .set("reason", someReason).set("statusCode", 404)
-  .appendTo(someError).throw();
+
+try {
+  Errr.newError(message, template).debug(this.debugParams)
+    .set("reason", someReason).set("statusCode", 404)
+    .appendTo(someError).throw();
+} catch (err) {
+  let reason = err.reason; // Get value from someReason
+  let allDebugParams = err.allDebugParams() // Get an array of all the debug params from all appended errors
+}
 </pre>
+
 <pre>
 // Returns an error.
 let errr = Errr.newError(message, template).debug(this.debugParams)
   .set("reason", someReason).set("statusCode", 404)
   .appendTo(someError).get();
+  
+let reason = errr.reason; // Get value from someReason
+let allDebugParams = errr.allDebugParams() // Get an array of all the debug params from all appended errors
 </pre>
+<pre>
 
+</pre>
 ## Example Output
 <pre>
 Error: [0d7c45075935b73716643af5] Some Error

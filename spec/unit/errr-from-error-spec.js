@@ -1127,7 +1127,7 @@ describe("when generating", function () {
             expect(response.stack.indexOf(stack)).to.be.above(-1);
 
             expect(response.message).eql(context.message);
-            expect(response.getAllDebugValues()).eql([context.appendError2DebugParams, context.appendError3DebugParams, context.debugParams]);
+            expect(response.getAllDebugParams()).eql([context.debugParams, context.appendError3DebugParams, context.appendError2DebugParams]);
 
             expect(response.param1).eql(context.uniqueId1);
             expect(response.param2).eql(context.uniqueId2);
