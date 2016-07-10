@@ -75,7 +75,9 @@ describe("when generating", function () {
           run: function () {
             context.uniqueId = random.uniqueId();
             context.message = `[${context.uniqueId}] Some Error`;
-            context.error = new Error(context.message);
+
+            context.uniqueIf1First = random.uniqueId();
+            context.error = Errr.newError(context.message).set("param1", context.uniqueIf1First).get();
 
             context.uniqueId1 = random.uniqueId();
             context.uniqueId2 = random.uniqueId();
@@ -95,15 +97,15 @@ describe("when generating", function () {
 
         .test(function (response) {
           try {
-            let stack = `Error: [${context.uniqueId}] Some Error\n    at Object.context.entryPointObject.run`;
+            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_ (/Users/corybil`;
 
             expect(response.stack.substring(0, stack.length)).eql(stack);
             expect(response.message).eql(context.message);
 
-            expect(response.param1).eql(context.uniqueId1);
+            expect(response.param1).eql(context.uniqueIf1First);
             expect(response.param2).eql(context.uniqueId2);
             expect(response._setValues_).eql({
-              param1: context.uniqueId1,
+              param1: context.uniqueIf1First,
               param2: context.uniqueId2
             });
 
