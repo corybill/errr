@@ -97,7 +97,7 @@ describe("when generating", function () {
 
         .test(function (response) {
           try {
-            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_ (/Users/corybil`;
+            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_ (`;
 
             expect(response.stack.substring(0, stack.length)).eql(stack);
             expect(response.message).eql(context.message);
