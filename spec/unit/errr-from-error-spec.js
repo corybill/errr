@@ -1397,6 +1397,56 @@ describe("when generating", function () {
           }
         });
     });
+
+    it("it should allow you to get a value on the errr instance.", function (done) {
+      context.setupEntryPoint = function () {
+        context.entryPointObject = {
+          run: function () {
+            context.uniqueId = random.uniqueId();
+            context.message = `[${context.uniqueId}] Some Error`;
+            context.error = new Error(context.message);
+
+            context.uniqueId1 = random.uniqueId();
+            context.uniqueId2 = random.uniqueId();
+
+            const errr = Errr.fromError(context.error)
+              .set("param1", context.uniqueId1).get();
+
+            errr.set("param2", context.uniqueId2);
+
+            throw errr;
+          }
+        };
+        context.entryPointFunction = "run";
+      };
+
+      context.setupEntryPoint();
+
+      new Scenario()
+        .withEntryPoint(context.entryPointObject, context.entryPointFunction)
+
+        .test(function (response) {
+          try {
+            let stack = `Error: [${context.uniqueId}] Some Error\n    at Object.context.entryPointObject.run`;
+
+            expect(response.stack.substring(0, stack.length)).eql(stack);
+            expect(response.message).eql(context.message);
+
+            expect(response.param1).eql(context.uniqueId1);
+            expect(response.param2).eql(context.uniqueId2);
+            expect(response.get("param1")).eql(context.uniqueId1);
+            expect(response.get("param2")).eql(context.uniqueId2);
+            expect(response._setValues_).eql({
+              param1: context.uniqueId1,
+              param2: context.uniqueId2
+            });
+
+            done();
+          } catch (testError) {
+            done(testError);
+          }
+        });
+    });
   });
 
   describe("when throwing an error from an error", function () {
