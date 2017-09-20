@@ -176,7 +176,7 @@ Error Builder allows you to use optional functions to build an error object.  Th
     * [new Error([message], [template])](#new_Error_new)
     * [.debug(params, [shouldDebug])](#Error+debug) ⇒ <code>ErrorBuilder</code>
     * [.set(key, value, [force])](#Error+set) ⇒ <code>ErrorBuilder</code>
-    * [.setAll(object, force)](#Error+setAll) ⇒ <code>ErrorBuilder</code>
+    * [.setAll(object, [force])](#Error+setAll) ⇒ <code>ErrorBuilder</code>
     * [.appendTo(err)](#Error+appendTo) ⇒ <code>ErrorBuilder</code>
     * [.get()](#Error+get) ⇒ <code>[Error](#Error)</code>
     * [.throw()](#Error+throw)
@@ -234,7 +234,7 @@ value will persist on the error object.
 
 <a name="Error+setAll"></a>
 
-### error.setAll(object, force) ⇒ <code>ErrorBuilder</code>
+### error.setAll(object, [force]) ⇒ <code>ErrorBuilder</code>
 Same concept and functionality as the 'set' function.  The difference is that you can set all values in a
 given object onto the Errr instance.
 
@@ -248,7 +248,7 @@ See set to understand functionality better.
 | Param | Type | Description |
 | --- | --- | --- |
 | object | <code>Object</code> | Many key / value pairs to be set on the object. |
-| force | <code>Boolean</code> | If force equals true, then this value will override a value with the same key from an errr passed in using the 'appendTo' function. |
+| [force] | <code>Boolean</code> | If force equals true, then this value will override a value with the same key from an errr passed in using the 'appendTo' function. |
 
 <a name="Error+appendTo"></a>
 
