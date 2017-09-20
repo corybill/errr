@@ -16,6 +16,7 @@
 </dl>
 
 <a name="Error"></a>
+
 ## Error
 Error Builder allows you to use optional functions to build an error object.  The error can have appended stack traces and debug params to assist with debugging.
 
@@ -31,6 +32,7 @@ Error Builder allows you to use optional functions to build an error object.  Th
     * [.throw()](#Error+throw)
 
 <a name="new_Error_new"></a>
+
 ### new Error([message], [template])
 Provides an interface to build an error.  Then allows you to get or throw the error.
 
@@ -41,6 +43,7 @@ Provides an interface to build an error.  Then allows you to get or throw the er
 | [template] | <code>Array</code> | Array of parameters.  If given, util.format(message, template) will be applied to the message string. |
 
 <a name="Error+debug"></a>
+
 ### error.debug(params, [shouldDebug]) ⇒ <code>ErrorBuilder</code>
 Add parameters to the stack trace that will make it easier to debug the problem.  These values will appear in a
 in an object labeled "Debug Params" in the stack trace.  You may call the 'debug' function as many times as you'd
@@ -59,6 +62,7 @@ params start as an empty object for each Errr instance.  They are attached to th
 | [shouldDebug] | <code>Boolean</code> | If shouldDebug === false, then debug params will not print.  Any other value (including undefined), and the debug params will be printed. Useful if you want to only print debugParams given an Environment Variable. |
 
 <a name="Error+set"></a>
+
 ### error.set(key, value, [force]) ⇒ <code>ErrorBuilder</code>
 Sets a value on the error object using the key as the variable name.  Values added using the 'set' function will
 be appended to new error objects when using the the .appendTo function. I.e. the values on the appendTo err will be
@@ -79,6 +83,7 @@ value will persist on the error object.
 | [force] | <code>Boolean</code> | If force equals true, then this value will override a value with the same key from an errr passed in using the 'appendTo' function. |
 
 <a name="Error+setAll"></a>
+
 ### error.setAll(object, force) ⇒ <code>ErrorBuilder</code>
 Same concept and functionality as the 'set' function.  The difference is that you can set all values in a
 given object onto the Errr instance.
@@ -96,6 +101,7 @@ See set to understand functionality better.
 | force | <code>Boolean</code> | If force equals true, then this value will override a value with the same key from an errr passed in using the 'appendTo' function. |
 
 <a name="Error+appendTo"></a>
+
 ### error.appendTo(err) ⇒ <code>ErrorBuilder</code>
 Append the error being built, to the end of this error's stack trace.
 
@@ -107,12 +113,14 @@ Append the error being built, to the end of this error's stack trace.
 | err | <code>[Error](#Error)</code> | The stack trace of the error being built, will be appended to this error's stack trace. |
 
 <a name="Error+get"></a>
+
 ### error.get() ⇒ <code>[Error](#Error)</code>
 Returns a new Error object using the given parameters from the builder.
 
 **Kind**: instance method of <code>[Error](#Error)</code>  
 **Returns**: <code>[Error](#Error)</code> - - Returns a new Error object using the given parameters from the builder.  
 <a name="Error+throw"></a>
+
 ### error.throw()
 Throws a new Error object using the given parameters from the builder.
 
@@ -122,18 +130,20 @@ Throws a new Error object using the given parameters from the builder.
 - <code>[Error](#Error)</code> - Throws a new Error object using the given parameters from the builder.
 
 <a name="Errr"></a>
+
 ## Errr
 Static class that contains the 'newError' factory function.  Use the 'newError' factory function to return an ErrorBuilder instance.
 
 **Kind**: global class  
 
 * [Errr](#Errr)
-    * [.newError([message], [template])](#Errr.newError) ⇒ <code>[FromMessage](#FromMessage)</code>
+    * ~~[.newError([message], [template])](#Errr.newError) ⇒ <code>[FromMessage](#FromMessage)</code>~~
     * [.fromError(err)](#Errr.fromError) ⇒ <code>[FromError](#FromError)</code>
 
 <a name="Errr.newError"></a>
-### Errr.newError([message], [template]) ⇒ <code>[FromMessage](#FromMessage)</code>
-Gets a new ErrorBuilder instance.
+
+### ~~Errr.newError([message], [template]) ⇒ <code>[FromMessage](#FromMessage)</code>~~
+***Deprecated***
 
 **Kind**: static method of <code>[Errr](#Errr)</code>  
 **Returns**: <code>[FromMessage](#FromMessage)</code> - Gets an ErrorBuilder to get or throw an Error.  
@@ -144,6 +154,7 @@ Gets a new ErrorBuilder instance.
 | [template] | <code>Array</code> | Array of parameters.  If given, util.format(message, template) will be applied to the message string. |
 
 <a name="Errr.fromError"></a>
+
 ### Errr.fromError(err) ⇒ <code>[FromError](#FromError)</code>
 Gets a new FromError instance.
 
@@ -155,11 +166,13 @@ Gets a new FromError instance.
 | err | <code>String</code> | Will be used for the top level error and stack trace. |
 
 <a name="FromError"></a>
+
 ## FromError
 Error Builder allows you to use optional functions to build an error object.  The error can have appended stack traces and debug params to assist with debugging.
 
 **Kind**: global class  
 <a name="new_FromError_new"></a>
+
 ### new FromError(error)
 Provides an interface to build an error from an error.  Then allows you to get or throw the error.
 
@@ -169,11 +182,13 @@ Provides an interface to build an error from an error.  Then allows you to get o
 | error | <code>String</code> | Will be used for the top level error and stack trace. |
 
 <a name="FromMessage"></a>
+
 ## FromMessage
 Error Builder allows you to use optional functions to build an error object.  The error can have appended stack traces and debug params to assist with debugging.
 
 **Kind**: global class  
 <a name="new_FromMessage_new"></a>
+
 ### new FromMessage([message], [template])
 Provides an interface to build an error from a message.  Then allows you to get or throw the error.
 

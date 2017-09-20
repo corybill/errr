@@ -17,15 +17,15 @@ class Private {
   }
 }
 
-describe("when generating", function () {
-  describe("any error", function () {
+describe("Given the errr module", function () {
+  describe("when generating an errr, it", function () {
     let context;
 
     beforeEach(function () {
       context = {};
     });
 
-    it("it should create an error with values set onto the error object using set", function (done) {
+    it("should create an error with values set onto the error object using set", function (done) {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -45,12 +45,12 @@ describe("when generating", function () {
 
       context.setupEntryPoint();
 
-      new Scenario()
+      new Scenario(this)
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
           try {
-            let stack = `Error: [${context.uniqueId}] Some Error\n    at Object.context.entryPointObject.run`;
+            let stack = `Error: [${context.uniqueId}] Some Error`;
 
             expect(response.stack.substring(0, stack.length)).eql(stack);
             expect(response.message).eql(context.message);
@@ -69,7 +69,7 @@ describe("when generating", function () {
         });
     });
 
-    it("it should create an error without overriding 'set' values", function (done) {
+    it("should create an error without overriding 'set' values", function (done) {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -92,7 +92,7 @@ describe("when generating", function () {
 
       context.setupEntryPoint();
 
-      new Scenario()
+      new Scenario(this)
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
@@ -116,7 +116,7 @@ describe("when generating", function () {
         });
     });
 
-    it("it should create an error with values set onto the error object using setAll", function (done) {
+    it("should create an error with values set onto the error object using setAll", function (done) {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -139,12 +139,12 @@ describe("when generating", function () {
 
       context.setupEntryPoint();
 
-      new Scenario()
+      new Scenario(this)
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
           try {
-            let stack = `Error: [${context.uniqueId}] Some Error\n    at Object.context.entryPointObject.run`;
+            let stack = `Error: [${context.uniqueId}] Some Error`;
 
             expect(response.stack.substring(0, stack.length)).eql(stack);
             expect(response.message).eql(context.message);
@@ -167,7 +167,7 @@ describe("when generating", function () {
         });
     });
 
-    it("it should create an error without overriding 'setAll' values", function (done) {
+    it("should create an error without overriding 'setAll' values", function (done) {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -191,12 +191,12 @@ describe("when generating", function () {
 
       context.setupEntryPoint();
 
-      new Scenario()
+      new Scenario(this)
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
           try {
-            let stack = `Error: [${context.uniqueId}] Some Error\n    at Object.context.entryPointObject.run`;
+            let stack = `Error: [${context.uniqueId}] Some Error`;
 
             expect(response.stack.substring(0, stack.length)).eql(stack);
             expect(response.message).eql(context.message);
@@ -219,7 +219,7 @@ describe("when generating", function () {
         });
     });
 
-    it("it should create an error including the debug params appended to the stack", function (done) {
+    it("should create an error including the debug params appended to the stack", function (done) {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -242,12 +242,12 @@ describe("when generating", function () {
 
       context.setupEntryPoint();
 
-      new Scenario()
+      new Scenario(this)
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
           try {
-            let stack = `Error: [${context.uniqueId}] Some Error\n    at Object.context.entryPointObject.run (`,
+            let stack = `Error: [${context.uniqueId}] Some Error`,
               stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`;
 
             expect(response.stack.split(stringifiedDebugParams).length).eql(2);
@@ -269,7 +269,7 @@ describe("when generating", function () {
         });
     });
 
-    it("it should create an error including the debug params appended to the stack when given values is true", function (done) {
+    it("should create an error including the debug params appended to the stack when given values is true", function (done) {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -292,12 +292,12 @@ describe("when generating", function () {
 
       context.setupEntryPoint();
 
-      new Scenario()
+      new Scenario(this)
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
           try {
-            let stack = `Error: [${context.uniqueId}] Some Error\n    at Object.context.entryPointObject.run (`,
+            let stack = `Error: [${context.uniqueId}] Some Error`,
               stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`;
 
             expect(response.stack.split(stringifiedDebugParams).length).eql(2);
@@ -319,7 +319,7 @@ describe("when generating", function () {
         });
     });
 
-    it("it should create an error NOT including the debug params when given value is false.", function (done) {
+    it("should create an error NOT including the debug params when given value is false.", function (done) {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -342,12 +342,12 @@ describe("when generating", function () {
 
       context.setupEntryPoint();
 
-      new Scenario()
+      new Scenario(this)
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
           try {
-            let stack = `Error: [${context.uniqueId}] Some Error\n    at Object.context.entryPointObject.run (`,
+            let stack = `Error: [${context.uniqueId}] Some Error`,
               stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`;
 
             expect(response.stack.split(stringifiedDebugParams).length).eql(1);
@@ -369,7 +369,7 @@ describe("when generating", function () {
         });
     });
 
-    it("it should append the new stack trace to the end of the given error.", function (done) {
+    it("should append the new stack trace to the end of the given error.", function (done) {
       context.setupAppendErrors = function () {
         context.appendError1Id = random.uniqueId();
         context.appendError1Message = `[${context.appendError1Id}] Some Error`;
@@ -400,12 +400,12 @@ describe("when generating", function () {
       context.setupAppendErrors();
       context.setupEntryPoint();
 
-      new Scenario()
+      new Scenario(this)
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
           try {
-            let stack = `Error: [${context.uniqueId}] Some Error\n    at Object.context.entryPointObject.run (`,
+            let stack = `Error: [${context.uniqueId}] Some Error`,
               stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`;
 
             expect(response.stack.split(constants.StackTraceDelimiter).length).eql(2);
@@ -430,7 +430,7 @@ describe("when generating", function () {
         });
     });
 
-    it("it should append the new stack trace to the end of the given error when there are many errors already appended.", function (done) {
+    it("should append the new stack trace to the end of the given error when there are many errors already appended.", function (done) {
       context.setupAppendErrors = function () {
         context.appendError1Id = random.uniqueId();
         context.appendError1Message = `[${context.appendError1Id}] Some Error 1`;
@@ -474,12 +474,12 @@ describe("when generating", function () {
       context.setupAppendErrors();
       context.setupEntryPoint();
 
-      new Scenario()
+      new Scenario(this)
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
           try {
-            let stack = `Error: [${context.uniqueId}] Some Error\n    at Object.context.entryPointObject.run (`,
+            let stack = `Error: [${context.uniqueId}] Some Error`,
               stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
               stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
 
@@ -509,7 +509,7 @@ describe("when generating", function () {
         });
     });
 
-    it("it should append values from the 'set' function when using the 'appendTo' function.", function (done) {
+    it("should append values from the 'set' function when using the 'appendTo' function.", function (done) {
       context.setupAppendErrors = function () {
         context.appendError1Id = random.uniqueId();
         context.value1 = random.uniqueId();
@@ -568,12 +568,12 @@ describe("when generating", function () {
       context.setupAppendErrors();
       context.setupEntryPoint();
 
-      new Scenario()
+      new Scenario(this)
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
           try {
-            let stack = `Error: [${context.uniqueId}] Some Error\n    at Object.context.entryPointObject.run (`,
+            let stack = `Error: [${context.uniqueId}] Some Error`,
               stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
               stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
 
@@ -610,7 +610,7 @@ describe("when generating", function () {
         });
     });
 
-    it("it should not overwrite values passed into the 'set' function for new errors when force is not set.", function (done) {
+    it("should not overwrite values passed into the 'set' function for new errors when force is not set.", function (done) {
       context.setupAppendErrors = function () {
         context.appendError1Id = random.uniqueId();
         context.value1 = random.uniqueId();
@@ -669,12 +669,12 @@ describe("when generating", function () {
       context.setupAppendErrors();
       context.setupEntryPoint();
 
-      new Scenario()
+      new Scenario(this)
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
           try {
-            let stack = `Error: [${context.uniqueId}] Some Error\n    at Object.context.entryPointObject.run (`,
+            let stack = `Error: [${context.uniqueId}] Some Error`,
               stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
               stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
 
@@ -711,7 +711,7 @@ describe("when generating", function () {
         });
     });
 
-    it("it should overwrite values passed into the 'set' function for new errors when force is set.", function (done) {
+    it("should overwrite values passed into the 'set' function for new errors when force is set.", function (done) {
       context.setupAppendErrors = function () {
         context.appendError1Id = random.uniqueId();
         context.value1 = random.uniqueId();
@@ -770,12 +770,12 @@ describe("when generating", function () {
       context.setupAppendErrors();
       context.setupEntryPoint();
 
-      new Scenario()
+      new Scenario(this)
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
           try {
-            let stack = `Error: [${context.uniqueId}] Some Error\n    at Object.context.entryPointObject.run (`,
+            let stack = `Error: [${context.uniqueId}] Some Error`,
               stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
               stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
 
@@ -812,7 +812,7 @@ describe("when generating", function () {
         });
     });
 
-    it("it should not overwrite values passed into the 'setAll' function for new errors when force is not set.", function (done) {
+    it("should not overwrite values passed into the 'setAll' function for new errors when force is not set.", function (done) {
       context.setupAppendErrors = function () {
         context.appendError1Id = random.uniqueId();
         context.value1 = random.uniqueId();
@@ -867,12 +867,12 @@ describe("when generating", function () {
       context.setupAppendErrors();
       context.setupEntryPoint();
 
-      new Scenario()
+      new Scenario(this)
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
           try {
-            let stack = `Error: [${context.uniqueId}] Some Error\n    at Object.context.entryPointObject.run (`,
+            let stack = `Error: [${context.uniqueId}] Some Error`,
               stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
               stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
 
@@ -909,7 +909,7 @@ describe("when generating", function () {
         });
     });
 
-    it("it should overwrite values passed into the 'setAll' function for new errors when force is set.", function (done) {
+    it("should overwrite values passed into the 'setAll' function for new errors when force is set.", function (done) {
       context.setupAppendErrors = function () {
         context.appendError1Id = random.uniqueId();
         context.value1 = random.uniqueId();
@@ -964,12 +964,12 @@ describe("when generating", function () {
       context.setupAppendErrors();
       context.setupEntryPoint();
 
-      new Scenario()
+      new Scenario(this)
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
           try {
-            let stack = `Error: [${context.uniqueId}] Some Error\n    at Object.context.entryPointObject.run (`,
+            let stack = `Error: [${context.uniqueId}] Some Error`,
               stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
               stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
 
@@ -1006,7 +1006,7 @@ describe("when generating", function () {
         });
     });
 
-    it("it should turn undefined debug params into strings so they are viewable in the stack.", function (done) {
+    it("should turn undefined debug params into strings so they are viewable in the stack.", function (done) {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -1032,14 +1032,14 @@ describe("when generating", function () {
 
       context.setupEntryPoint();
 
-      new Scenario()
+      new Scenario(this)
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (err, response) {
           try {
             expect(err).eql(undefined);
 
-            let stack = `Error: [${context.uniqueId}] Some Error\n    at Object.context.entryPointObject.run (`,
+            let stack = `Error: [${context.uniqueId}] Some Error`,
               stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, Private.replacer, 2)}`;
 
             expect(response.stack.split(stringifiedDebugParams).length).eql(2);
@@ -1061,7 +1061,7 @@ describe("when generating", function () {
         });
     });
 
-    it("it should allow you to retrieve an array of all the debug params.", function (done) {
+    it("should allow you to retrieve an array of all the debug params.", function (done) {
       context.setupAppendErrors = function () {
         context.appendError1Id = random.uniqueId();
         context.appendError1Message = `[${context.appendError1Id}] Some Error 1`;
@@ -1109,12 +1109,12 @@ describe("when generating", function () {
       context.setupAppendErrors();
       context.setupEntryPoint();
 
-      new Scenario()
+      new Scenario(this)
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
           try {
-            let stack = `Error: [${context.uniqueId}] Some Error\n    at Object.context.entryPointObject.run (`,
+            let stack = `Error: [${context.uniqueId}] Some Error`,
               stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
               stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
 
@@ -1145,7 +1145,7 @@ describe("when generating", function () {
         });
     });
 
-    it("it should allow you to set a value on the errr instance.", function (done) {
+    it("should allow you to set a value on the errr instance.", function (done) {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -1169,12 +1169,12 @@ describe("when generating", function () {
 
       context.setupEntryPoint();
 
-      new Scenario()
+      new Scenario(this)
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
           try {
-            let stack = `Error: [${context.uniqueId}] Some Error\n    at Object.context.entryPointObject.run`;
+            let stack = `Error: [${context.uniqueId}] Some Error`;
 
             expect(response.stack.substring(0, stack.length)).eql(stack);
             expect(response.message).eql(context.message);
@@ -1193,7 +1193,7 @@ describe("when generating", function () {
         });
     });
 
-    it("it should not overwrite values passed into the 'set' function on an error instance when force is not set.", function (done) {
+    it("should not overwrite values passed into the 'set' function on an error instance when force is not set.", function (done) {
       context.setupAppendErrors = function () {
         context.appendError1Id = random.uniqueId();
         context.value1 = random.uniqueId();
@@ -1254,12 +1254,12 @@ describe("when generating", function () {
       context.setupAppendErrors();
       context.setupEntryPoint();
 
-      new Scenario()
+      new Scenario(this)
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
           try {
-            let stack = `Error: [${context.uniqueId}] Some Error\n    at Object.context.entryPointObject.run (`,
+            let stack = `Error: [${context.uniqueId}] Some Error`,
               stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
               stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
 
@@ -1296,7 +1296,7 @@ describe("when generating", function () {
         });
     });
 
-    it("it should overwrite values passed into the 'set' function on an error instance when force is set.", function (done) {
+    it("should overwrite values passed into the 'set' function on an error instance when force is set.", function (done) {
       context.setupAppendErrors = function () {
         context.appendError1Id = random.uniqueId();
         context.value1 = random.uniqueId();
@@ -1356,12 +1356,12 @@ describe("when generating", function () {
       context.setupAppendErrors();
       context.setupEntryPoint();
 
-      new Scenario()
+      new Scenario(this)
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
           try {
-            let stack = `Error: [${context.uniqueId}] Some Error\n    at Object.context.entryPointObject.run (`,
+            let stack = `Error: [${context.uniqueId}] Some Error`,
               stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
               stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
 
@@ -1398,7 +1398,7 @@ describe("when generating", function () {
         });
     });
 
-    it("it should allow you to get a value on the errr instance.", function (done) {
+    it("should allow you to get a value on the errr instance.", function (done) {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -1422,12 +1422,12 @@ describe("when generating", function () {
 
       context.setupEntryPoint();
 
-      new Scenario()
+      new Scenario(this)
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
           try {
-            let stack = `Error: [${context.uniqueId}] Some Error\n    at Object.context.entryPointObject.run`;
+            let stack = `Error: [${context.uniqueId}] Some Error`;
 
             expect(response.stack.substring(0, stack.length)).eql(stack);
             expect(response.message).eql(context.message);
@@ -1447,16 +1447,189 @@ describe("when generating", function () {
           }
         });
     });
+
+    it("should allow you to append many errors on a single errr instance.", function (done) {
+      context.setupAppendErrors = function () {
+        context.appendError1Id = random.uniqueId();
+        context.appendError1Message = `[${context.appendError1Id}] Some Error 1`;
+        context.appendError1 = Errr.newError(context.appendError1Message).get();
+
+        context.appendError2Id = random.uniqueId();
+
+        context.appendError2DebugParams = {
+          someParam2: random.uniqueId()
+        };
+
+        context.appendError2Message = `[${context.appendError2Id}] Some Error 2`;
+        context.appendError2 = Errr.newError(context.appendError2Message).debug(context.appendError2DebugParams).get();
+
+        context.appendError3Id = random.uniqueId();
+        context.appendError3Message = `[${context.appendError3Id}] Some Error 3`;
+        context.appendError3 = Errr.newError(context.appendError3Message).get();
+      };
+
+      context.setupEntryPoint = function () {
+        context.entryPointObject = {
+          run: function () {
+            context.uniqueId = random.uniqueId();
+            context.message = `[${context.uniqueId}] Some Error`;
+            context.error = new Error(context.message);
+            context.debugParams = {
+              someParam: random.uniqueId()
+            };
+
+            context.uniqueId1 = random.uniqueId();
+            context.uniqueId2 = random.uniqueId();
+
+            Errr.fromError(context.error)
+              .set("param1", context.uniqueId1).set("param2", context.uniqueId2)
+              .appendTo(context.appendError1).appendTo(context.appendError2).appendTo(context.appendError3)
+              .debug(context.debugParams).throw();
+          }
+        };
+        context.entryPointFunction = "run";
+      };
+
+      context.setupAppendErrors();
+      context.setupEntryPoint();
+
+      new Scenario(this)
+        .withEntryPoint(context.entryPointObject, context.entryPointFunction)
+
+        .test(function (response) {
+          try {
+            let stack = `Error: [${context.uniqueId}] Some Error`,
+              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
+              stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
+
+            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
+
+            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
+            expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
+
+            expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
+            expect(response.stack.indexOf(stack)).to.be.above(-1);
+
+            expect(response.message).eql(context.message);
+
+            expect(response.param1).eql(context.uniqueId1);
+            expect(response.param2).eql(context.uniqueId2);
+            expect(response._setValues_).eql({
+              param1: context.uniqueId1,
+              param2: context.uniqueId2
+            });
+
+            done();
+          } catch (testError) {
+            done(testError);
+          }
+        });
+    });
+
+    it("should not overwrite set values when appending many errors on a single errr instance.", function (done) {
+      context.setupAppendErrors = function () {
+        context.uniqueId4 = random.uniqueId();
+        context.uniqueId5 = random.uniqueId();
+        context.uniqueId6 = random.uniqueId();
+        context.uniqueId7 = random.uniqueId();
+        context.uniqueId8 = random.uniqueId();
+
+        context.appendError1Id = random.uniqueId();
+        context.appendError1Message = `[${context.appendError1Id}] Some Error 1`;
+        context.appendError1 = Errr.newError(context.appendError1Message)
+          .set("param1", context.uniqueId4).get();
+
+        context.appendError2Id = random.uniqueId();
+
+        context.appendError2DebugParams = {
+          someParam2: random.uniqueId()
+        };
+
+        context.appendError2Message = `[${context.appendError2Id}] Some Error 2`;
+        context.appendError2 = Errr.newError(context.appendError2Message)
+          .set("param1", context.uniqueId5).set("param2", context.uniqueId6)
+          .debug(context.appendError2DebugParams).get();
+
+        context.appendError3Id = random.uniqueId();
+        context.appendError3Message = `[${context.appendError3Id}] Some Error 3`;
+        context.appendError3 = Errr.newError(context.appendError3Message)
+          .set("param1", context.uniqueId7).set("param2", context.uniqueId8).get();
+      };
+
+      context.setupEntryPoint = function () {
+        context.entryPointObject = {
+          run: function () {
+            context.uniqueId = random.uniqueId();
+            context.message = `[${context.uniqueId}] Some Error`;
+            context.error = new Error(context.message);
+            context.debugParams = {
+              someParam: random.uniqueId()
+            };
+
+            context.uniqueId1 = random.uniqueId();
+            context.uniqueId2 = random.uniqueId();
+            context.uniqueId3 = random.uniqueId();
+
+            Errr.fromError(context.error)
+              .set("param1", context.uniqueId1).set("param2", context.uniqueId2).set("param3", context.uniqueId3)
+              .appendTo(context.appendError1).appendTo(context.appendError2).appendTo(context.appendError3)
+              .debug(context.debugParams).throw();
+          }
+        };
+        context.entryPointFunction = "run";
+      };
+
+      context.setupAppendErrors();
+      context.setupEntryPoint();
+
+      new Scenario(this)
+        .withEntryPoint(context.entryPointObject, context.entryPointFunction)
+
+        .test(function (response) {
+          try {
+            let stack = `Error: [${context.uniqueId}] Some Error`,
+              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
+              stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
+
+            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
+
+            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
+            expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
+
+            expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
+            expect(response.stack.indexOf(stack)).to.be.above(-1);
+
+            expect(response.message).eql(context.message);
+
+            expect(response.param1).eql(context.uniqueId7);
+            expect(response.param2).eql(context.uniqueId8);
+            expect(response.param3).eql(context.uniqueId3);
+            expect(response._setValues_).eql({
+              param1: context.uniqueId7,
+              param2: context.uniqueId8,
+              param3: context.uniqueId3
+            });
+
+            done();
+          } catch (testError) {
+            done(testError);
+          }
+        });
+    });
   });
 
-  describe("when throwing an error from an error", function () {
+  describe("when throwing an error from an error, it", function () {
     let context;
 
     beforeEach(function () {
       context = {};
     });
 
-    it("it should throw an error", function (done) {
+    it("should throw an error", function (done) {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -1471,12 +1644,12 @@ describe("when generating", function () {
 
       context.setupEntryPoint();
 
-      new Scenario()
+      new Scenario(this)
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
           try {
-            let stack = `Error: [${context.uniqueId}] Some Error\n    at Object.context.entryPointObject.run`;
+            let stack = `Error: [${context.uniqueId}] Some Error`;
 
             expect(response.stack.substring(0, stack.length)).eql(stack);
 
@@ -1489,14 +1662,14 @@ describe("when generating", function () {
     });
   });
 
-  describe("when returning an error from an error", function () {
+  describe("when returning an error from an error, it", function () {
     let context;
 
     beforeEach(function () {
       context = {};
     });
 
-    it("it should return an error", function (done) {
+    it("should return an error", function (done) {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -1511,14 +1684,14 @@ describe("when generating", function () {
 
       context.setupEntryPoint();
 
-      new Scenario()
+      new Scenario(this)
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (err, response) {
           try {
             expect(err).eql(undefined);
 
-            let stack = `Error: [${context.uniqueId}] Some Error\n    at Object.context.entryPointObject.run`;
+            let stack = `Error: [${context.uniqueId}] Some Error`;
 
             expect(response.stack.substring(0, stack.length)).eql(stack);
 
@@ -1532,14 +1705,14 @@ describe("when generating", function () {
 
   });
 
-  describe("when throwing an error from a message", function () {
+  describe("when throwing an error from a message, it", function () {
     let context;
 
     beforeEach(function () {
       context = {};
     });
 
-    it("it should throw an error", function (done) {
+    it("should throw an error", function (done) {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -1553,7 +1726,7 @@ describe("when generating", function () {
 
       context.setupEntryPoint();
 
-      new Scenario()
+      new Scenario(this)
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
@@ -1570,7 +1743,7 @@ describe("when generating", function () {
         });
     });
 
-    it("it should throw an error with template message", function (done) {
+    it("should throw an error with template message, it", function (done) {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -1584,7 +1757,7 @@ describe("when generating", function () {
 
       context.setupEntryPoint();
 
-      new Scenario()
+      new Scenario(this)
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
@@ -1601,14 +1774,14 @@ describe("when generating", function () {
     });
   });
 
-  describe("when returning an error from a message", function () {
+  describe("when returning an error from a message, it", function () {
     let context;
 
     beforeEach(function () {
       context = {};
     });
 
-    it("it should return an error", function (done) {
+    it("should return an error", function (done) {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -1622,7 +1795,7 @@ describe("when generating", function () {
 
       context.setupEntryPoint();
 
-      new Scenario()
+      new Scenario(this)
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (err, response) {
@@ -1641,7 +1814,7 @@ describe("when generating", function () {
         });
     });
 
-    it("it should return an error with template message", function (done) {
+    it("should return an error with template message", function (done) {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -1655,7 +1828,7 @@ describe("when generating", function () {
 
       context.setupEntryPoint();
 
-      new Scenario()
+      new Scenario(this)
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (err, response) {
