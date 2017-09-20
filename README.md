@@ -287,13 +287,13 @@ Static class that contains the 'newError' factory function.  Use the 'newError' 
 **Kind**: global class  
 
 * [Errr](#Errr)
-    * ~~[.newError([message], [template])](#Errr.newError) ⇒ <code>[FromMessage](#FromMessage)</code>~~
-    * [.fromError(err)](#Errr.fromError) ⇒ <code>[FromError](#FromError)</code>
+    * [.newError([message], [template])](#Errr.newError) ⇒ <code>[FromMessage](#FromMessage)</code>
+    * ~~[.fromError(err)](#Errr.fromError) ⇒ <code>[FromError](#FromError)</code>~~
 
 <a name="Errr.newError"></a>
 
-### ~~Errr.newError([message], [template]) ⇒ <code>[FromMessage](#FromMessage)</code>~~
-***Deprecated***
+### Errr.newError([message], [template]) ⇒ <code>[FromMessage](#FromMessage)</code>
+Gets a new ErrorBuilder instance.
 
 **Kind**: static method of <code>[Errr](#Errr)</code>  
 **Returns**: <code>[FromMessage](#FromMessage)</code> - Gets an ErrorBuilder to get or throw an Error.  
@@ -305,8 +305,8 @@ Static class that contains the 'newError' factory function.  Use the 'newError' 
 
 <a name="Errr.fromError"></a>
 
-### Errr.fromError(err) ⇒ <code>[FromError](#FromError)</code>
-Gets a new FromError instance.
+### ~~Errr.fromError(err) ⇒ <code>[FromError](#FromError)</code>~~
+***Deprecated***
 
 **Kind**: static method of <code>[Errr](#Errr)</code>  
 **Returns**: <code>[FromError](#FromError)</code> - Gets an ErrorBuilder to get or throw an Error.  
