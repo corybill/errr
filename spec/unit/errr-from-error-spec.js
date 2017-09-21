@@ -1620,6 +1620,65 @@ describe("Given the errr module", function () {
           }
         });
     });
+
+    it("should ignore appendTo err if the provided error is undefined.", function (done) {
+      context.setupAppendErrors = function () {
+        context.appendError1 = undefined;
+      };
+
+      context.setupEntryPoint = function () {
+        context.entryPointObject = {
+          run: function () {
+            context.uniqueId = random.uniqueId();
+            context.message = `[${context.uniqueId}] Some Error`;
+            context.error = new Error(context.message);
+            context.debugParams = {
+              someParam: random.uniqueId()
+            };
+
+            context.uniqueId1 = random.uniqueId();
+            context.uniqueId2 = random.uniqueId();
+
+            Errr.fromError(context.error)
+              .set("param1", context.uniqueId1).set("param2", context.uniqueId2)
+              .debug(context.debugParams).appendTo(context.appendError1).throw();
+          }
+        };
+        context.entryPointFunction = "run";
+      };
+
+      context.setupAppendErrors();
+      context.setupEntryPoint();
+
+      new Scenario(this)
+        .withEntryPoint(context.entryPointObject, context.entryPointFunction)
+
+        .test(function (response) {
+          try {
+            let stack = `Error: [${context.uniqueId}] Some Error`,
+              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`;
+
+            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(1);
+            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
+
+            expect(response.stack.indexOf(context.appendError1)).eql(-1);
+            expect(response.stack.indexOf(stack)).to.be.above(-1);
+
+            expect(response.message).eql(context.message);
+
+            expect(response.param1).eql(context.uniqueId1);
+            expect(response.param2).eql(context.uniqueId2);
+            expect(response._setValues_).eql({
+              param1: context.uniqueId1,
+              param2: context.uniqueId2
+            });
+
+            done();
+          } catch (testError) {
+            done(testError);
+          }
+        });
+    });
   });
 
   describe("when throwing an error from an error, it", function () {
