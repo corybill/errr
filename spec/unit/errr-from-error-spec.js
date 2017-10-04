@@ -1188,12 +1188,6 @@ describe("Given the errr module", function () {
             expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
             expect(response.stack.indexOf(stack)).to.be.above(-1);
 
-            console.log("actual");
-            console.log(JSON.stringify(response.getAllDebugParams(), null, 2));
-
-            console.log("expected");
-            console.log(JSON.stringify([context.debugParams, context.appendError3DebugParams, context.appendError2DebugParams], null, 2));
-
             expect(response.message).eql(context.message);
             expect(response.getAllDebugParams()).eql([context.debugParams, context.appendError3DebugParams, context.appendError2DebugParams]);
 
