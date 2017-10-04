@@ -1061,6 +1061,66 @@ describe("Given the errr module", function () {
         });
     });
 
+    it("should allow you to retrieve an array of all the debug params when there is no appendTo err.", function (done) {
+      context.setupAppendErrors = function () {};
+
+      context.setupEntryPoint = function () {
+        context.entryPointObject = {
+          run: function () {
+            context.uniqueId = random.uniqueId();
+            context.message = `[${context.uniqueId}] Some Error`;
+            context.error = new Error(context.message);
+            context.debugParams = {
+              someParam: random.uniqueId()
+            };
+
+            context.uniqueId1 = random.uniqueId();
+            context.uniqueId2 = random.uniqueId();
+
+            Errr.fromError(context.error)
+              .set("param1", context.uniqueId1).set("param2", context.uniqueId2)
+              .debug(context.debugParams).throw();
+          }
+        };
+        context.entryPointFunction = "run";
+      };
+
+      context.setupAppendErrors();
+      context.setupEntryPoint();
+
+      new Scenario(this)
+        .withEntryPoint(context.entryPointObject, context.entryPointFunction)
+
+        .test(function (response) {
+          try {
+            let stack = `Error: [${context.uniqueId}] Some Error`,
+              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
+              stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
+
+            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(1);
+
+            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
+            expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(1);
+
+            expect(response.stack.indexOf(stack)).to.be.above(-1);
+
+            expect(response.message).eql(context.message);
+            expect(response.getAllDebugParams()).eql([context.debugParams]);
+
+            expect(response.param1).eql(context.uniqueId1);
+            expect(response.param2).eql(context.uniqueId2);
+            expect(response._setValues_).eql({
+              param1: context.uniqueId1,
+              param2: context.uniqueId2
+            });
+
+            done();
+          } catch (testError) {
+            done(testError);
+          }
+        });
+    });
+
     it("should allow you to retrieve an array of all the debug params.", function (done) {
       context.setupAppendErrors = function () {
         context.appendError1Id = random.uniqueId();
@@ -1128,8 +1188,265 @@ describe("Given the errr module", function () {
             expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
             expect(response.stack.indexOf(stack)).to.be.above(-1);
 
+            console.log("actual");
+            console.log(JSON.stringify(response.getAllDebugParams(), null, 2));
+
+            console.log("expected");
+            console.log(JSON.stringify([context.debugParams, context.appendError3DebugParams, context.appendError2DebugParams], null, 2));
+
             expect(response.message).eql(context.message);
             expect(response.getAllDebugParams()).eql([context.debugParams, context.appendError3DebugParams, context.appendError2DebugParams]);
+
+            expect(response.param1).eql(context.uniqueId1);
+            expect(response.param2).eql(context.uniqueId2);
+            expect(response._setValues_).eql({
+              param1: context.uniqueId1,
+              param2: context.uniqueId2
+            });
+
+            done();
+          } catch (testError) {
+            done(testError);
+          }
+        });
+    });
+
+    it("should allow you to retrieve an array of all the debug params when using many appendTo errs in a single errr.", function (done) {
+      context.setupAppendErrors = function () {
+        context.appendError1Id = random.uniqueId();
+        context.appendError1Message = `[${context.appendError1Id}] Some Error 1`;
+        context.appendError1 = Errr.newError(context.appendError1Message).get();
+
+        context.appendError2Id = random.uniqueId();
+
+        context.appendError2DebugParams = {
+          someParam2: random.uniqueId()
+        };
+
+        context.appendError3DebugParams = {
+          someParam3: random.uniqueId()
+        };
+
+        context.appendError2Message = `[${context.appendError2Id}] Some Error 2`;
+        context.appendError2 = Errr.newError(context.appendError2Message).debug(context.appendError2DebugParams).get();
+
+        context.appendError3Id = random.uniqueId();
+        context.appendError3Message = `[${context.appendError3Id}] Some Error 3`;
+        context.appendError3 = Errr.newError(context.appendError3Message).debug(context.appendError3DebugParams).get();
+      };
+
+      context.setupEntryPoint = function () {
+        context.entryPointObject = {
+          run: function () {
+            context.uniqueId = random.uniqueId();
+            context.message = `[${context.uniqueId}] Some Error`;
+            context.error = new Error(context.message);
+            context.debugParams = {
+              someParam: random.uniqueId()
+            };
+
+            context.uniqueId1 = random.uniqueId();
+            context.uniqueId2 = random.uniqueId();
+
+            Errr.fromError(context.error)
+              .set("param1", context.uniqueId1).set("param2", context.uniqueId2).debug(context.debugParams)
+              .appendTo(context.appendError3).appendTo(context.appendError2).appendTo(context.appendError1)
+              .throw();
+          }
+        };
+        context.entryPointFunction = "run";
+      };
+
+      context.setupAppendErrors();
+      context.setupEntryPoint();
+
+      new Scenario(this)
+        .withEntryPoint(context.entryPointObject, context.entryPointFunction)
+
+        .test(function (response) {
+          try {
+            let stack = `Error: [${context.uniqueId}] Some Error`,
+              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
+              stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
+
+            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
+
+            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
+            expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
+
+            expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
+            expect(response.stack.indexOf(stack)).to.be.above(-1);
+
+            expect(response.message).eql(context.message);
+            expect(response.getAllDebugParams()).eql([context.debugParams, context.appendError3DebugParams, context.appendError2DebugParams]);
+
+            expect(response.param1).eql(context.uniqueId1);
+            expect(response.param2).eql(context.uniqueId2);
+            expect(response._setValues_).eql({
+              param1: context.uniqueId1,
+              param2: context.uniqueId2
+            });
+
+            done();
+          } catch (testError) {
+            done(testError);
+          }
+        });
+    });
+
+    it("should allow you to retrieve an array of all the debug params when many appendTo errs don't have debug params.", function (done) {
+      context.setupAppendErrors = function () {
+        context.appendError1Id = random.uniqueId();
+        context.appendError1Message = `[${context.appendError1Id}] Some Error 1`;
+        context.appendError1 = Errr.newError(context.appendError1Message).get();
+
+        context.appendError2Id = random.uniqueId();
+
+        context.appendError2DebugParams = {
+          someParam2: random.uniqueId()
+        };
+
+        context.appendError3DebugParams = {
+          someParam3: random.uniqueId()
+        };
+
+        context.appendError2Message = `[${context.appendError2Id}] Some Error 2`;
+        context.appendError2 = Errr.newError(context.appendError2Message).get();
+
+        context.appendError3Id = random.uniqueId();
+        context.appendError3Message = `[${context.appendError3Id}] Some Error 3`;
+        context.appendError3 = Errr.newError(context.appendError3Message).get();
+      };
+
+      context.setupEntryPoint = function () {
+        context.entryPointObject = {
+          run: function () {
+            context.uniqueId = random.uniqueId();
+            context.message = `[${context.uniqueId}] Some Error`;
+            context.error = new Error(context.message);
+            context.debugParams = {
+              someParam: random.uniqueId()
+            };
+
+            context.uniqueId1 = random.uniqueId();
+            context.uniqueId2 = random.uniqueId();
+
+            Errr.fromError(context.error)
+              .set("param1", context.uniqueId1).set("param2", context.uniqueId2).debug(context.debugParams)
+              .appendTo(context.appendError3).appendTo(context.appendError2).appendTo(context.appendError1)
+              .throw();
+          }
+        };
+        context.entryPointFunction = "run";
+      };
+
+      context.setupAppendErrors();
+      context.setupEntryPoint();
+
+      new Scenario(this)
+        .withEntryPoint(context.entryPointObject, context.entryPointFunction)
+
+        .test(function (response) {
+          try {
+            let stack = `Error: [${context.uniqueId}] Some Error`,
+              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`;
+
+            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
+
+            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
+
+            expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
+            expect(response.stack.indexOf(stack)).to.be.above(-1);
+
+            expect(response.message).eql(context.message);
+            expect(response.getAllDebugParams()).eql([context.debugParams]);
+
+            expect(response.param1).eql(context.uniqueId1);
+            expect(response.param2).eql(context.uniqueId2);
+            expect(response._setValues_).eql({
+              param1: context.uniqueId1,
+              param2: context.uniqueId2
+            });
+
+            done();
+          } catch (testError) {
+            done(testError);
+          }
+        });
+    });
+
+    it("should allow you to retrieve an array of all the debug params when using many appendTo errs and the new error doesn't have debug params.", function (done) {
+      context.setupAppendErrors = function () {
+        context.appendError1Id = random.uniqueId();
+        context.appendError1Message = `[${context.appendError1Id}] Some Error 1`;
+        context.appendError1 = Errr.newError(context.appendError1Message).get();
+
+        context.appendError2Id = random.uniqueId();
+
+        context.appendError2DebugParams = {
+          someParam2: random.uniqueId()
+        };
+
+        context.appendError3DebugParams = {
+          someParam3: random.uniqueId()
+        };
+
+        context.appendError2Message = `[${context.appendError2Id}] Some Error 2`;
+        context.appendError2 = Errr.newError(context.appendError2Message).debug(context.appendError2DebugParams).get();
+
+        context.appendError3Id = random.uniqueId();
+        context.appendError3Message = `[${context.appendError3Id}] Some Error 3`;
+        context.appendError3 = Errr.newError(context.appendError3Message).debug(context.appendError3DebugParams).get();
+      };
+
+      context.setupEntryPoint = function () {
+        context.entryPointObject = {
+          run: function () {
+            context.uniqueId = random.uniqueId();
+            context.message = `[${context.uniqueId}] Some Error`;
+            context.error = new Error(context.message);
+            context.debugParams = {
+              someParam: random.uniqueId()
+            };
+
+            context.uniqueId1 = random.uniqueId();
+            context.uniqueId2 = random.uniqueId();
+
+            Errr.fromError(context.error)
+              .set("param1", context.uniqueId1).set("param2", context.uniqueId2)
+              .appendTo(context.appendError3).appendTo(context.appendError2).appendTo(context.appendError1)
+              .throw();
+          }
+        };
+        context.entryPointFunction = "run";
+      };
+
+      context.setupAppendErrors();
+      context.setupEntryPoint();
+
+      new Scenario(this)
+        .withEntryPoint(context.entryPointObject, context.entryPointFunction)
+
+        .test(function (response) {
+          try {
+            let stack = `Error: [${context.uniqueId}] Some Error`,
+              stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
+
+            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
+
+            expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
+
+            expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
+            expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
+            expect(response.stack.indexOf(stack)).to.be.above(-1);
+
+            expect(response.message).eql(context.message);
+            expect(response.getAllDebugParams()).eql([context.appendError3DebugParams, context.appendError2DebugParams]);
 
             expect(response.param1).eql(context.uniqueId1);
             expect(response.param2).eql(context.uniqueId2);
