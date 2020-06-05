@@ -8,14 +8,10 @@ const Errr = require("../../lib/errr"),
   constants = require("../../lib/constants"),
   random = require("../random");
 
+const JsonReplacer = require("../../lib/util/json-replacer");
+
 const Scenario = Maddox.functional.FromSynchronousScenario,
   expect = chai.expect;
-
-class Private {
-  static replacer(key, value) {
-    return (util.isUndefined(value)) ? "undefined" : value;
-  }
-}
 
 describe("Given the errr module", function () {
   describe("when generating an errr, it", function () {
@@ -1040,10 +1036,73 @@ describe("Given the errr module", function () {
             expect(err).eql(undefined);
 
             let stack = `Error: [${context.uniqueId}] Some Error`,
-              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, Private.replacer, 2)}`;
+              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, JsonReplacer.replace, 2)}`;
 
             expect(response.stack.split(stringifiedDebugParams).length).eql(2);
             expect(response.stack.substring(0, stack.length)).eql(stack);
+
+            expect(response.message).eql(context.message);
+
+            expect(response.param1).eql(context.uniqueId1);
+            expect(response.param2).eql(context.uniqueId2);
+            expect(response._setValues_).eql({
+              param1: context.uniqueId1,
+              param2: context.uniqueId2
+            });
+
+            done();
+          } catch (testError) {
+            done(testError);
+          }
+        });
+    });
+
+    it("should turn Date debug params into pretty-printed strings in the stack.", function (done) {
+      context.setupEntryPoint = function () {
+        context.entryPointObject = {
+          run: function () {
+            context.uniqueId = random.uniqueId();
+            context.message = `[${context.uniqueId}] Some Error`;
+            context.error = new Error(context.message);
+
+            context.debugParams = {
+              dateParam: new Date(),
+              dateStringParam: new Date(new Date().getTime() + 1).toISOString(),
+              someParam: random.uniqueId()
+            };
+
+            context.prettyPrintDate = `Date { ${context.debugParams.dateParam.toISOString()} }`;
+            context.prettyPrintStringDate = `Date { ${context.debugParams.dateStringParam} }`;
+
+            context.uniqueId1 = random.uniqueId();
+            context.uniqueId2 = random.uniqueId();
+
+            return Errr.fromError(context.error)
+              .set("param1", context.uniqueId1).set("param2", context.uniqueId2)
+              .debug(context.debugParams).get();
+          }
+        };
+        context.entryPointFunction = "run";
+      };
+
+      context.setupEntryPoint();
+
+      new Scenario(this)
+        .withEntryPoint(context.entryPointObject, context.entryPointFunction)
+
+        .test(function (err, response) {
+          try {
+            expect(err).eql(undefined);
+
+            let stack = `Error: [${context.uniqueId}] Some Error`,
+              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, JsonReplacer.replace, 2)}`;
+
+            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
+            expect(response.stack.substring(0, stack.length)).eql(stack);
+
+            expect(response.stack).includes(context.prettyPrintDate);
+            expect(response.stack).includes(context.debugParams.dateStringParam);
+            expect(response.stack).not.includes(context.prettyPrintStringDate);
 
             expect(response.message).eql(context.message);
 
