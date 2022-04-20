@@ -1,6 +1,6 @@
 {
   "name": "errr",
-  "version": "2.6.1",
+  "version": "2.7.0",
   "description": "Error factory with the ability to append stack traces from previous errors, as well as appending debug params to stack traces.  Great if you want one appended stack trace that defines the error at many levels of your code.  This concept works wonders when using promise chains because you get the stack trace at each level of your code.",
   "main": "lib/errr.js",
   "scripts": {
@@ -44,10 +44,10 @@
   "homepage": "https://github.com/corybill/errr#readme",
   "devDependencies": {
     "chance": "1.x",
-    "eslint": "2.x",
+    "eslint": "8.x",
     "jsdoc": "3.x",
-    "jsdoc-to-markdown": "4.x",
-    "maddox": "2.x",
-    "mocha": "5.x"
+    "jsdoc-to-markdown": "7.x",
+    "maddox": "3.x",
+    "mocha": "9.x"
   }
 }

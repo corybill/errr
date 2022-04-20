@@ -28,7 +28,7 @@ Error Builder allows you to use optional functions to build an error object.  Th
     * [.set(key, value, [force])](#Error+set) ⇒ <code>ErrorBuilder</code>
     * [.setAll(object, [force])](#Error+setAll) ⇒ <code>ErrorBuilder</code>
     * [.appendTo(err)](#Error+appendTo) ⇒ <code>ErrorBuilder</code>
-    * [.get()](#Error+get) ⇒ <code>[Error](#Error)</code>
+    * [.get()](#Error+get) ⇒ [<code>Error</code>](#Error)
     * [.throw()](#Error+throw)
 
 <a name="new_Error_new"></a>
@@ -53,7 +53,7 @@ the value that appears in the stack trace.
 Unlike the 'set' function, which merges 'set' values from different Errr instances with its own instance, the debug
 params start as an empty object for each Errr instance.  They are attached to the stack trace and then forgotten.
 
-**Kind**: instance method of <code>[Error](#Error)</code>  
+**Kind**: instance method of [<code>Error</code>](#Error)  
 **Returns**: <code>ErrorBuilder</code> - - Returns the instance of errorBuilder to allow chainability.  
 
 | Param | Type | Description |
@@ -74,7 +74,7 @@ where the error was originally thrown (seemingly where the most important info w
 to set a value such as 'reason' on the error object at all level of your code, but only the most important reason will
 value will persist on the error object.
 
-**Kind**: instance method of <code>[Error](#Error)</code>  
+**Kind**: instance method of [<code>Error</code>](#Error)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -93,7 +93,7 @@ for all value in the given object.
 
 See set to understand functionality better.
 
-**Kind**: instance method of <code>[Error](#Error)</code>  
+**Kind**: instance method of [<code>Error</code>](#Error)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -105,29 +105,29 @@ See set to understand functionality better.
 ### error.appendTo(err) ⇒ <code>ErrorBuilder</code>
 Append the error being built, to the end of this error's stack trace.
 
-**Kind**: instance method of <code>[Error](#Error)</code>  
+**Kind**: instance method of [<code>Error</code>](#Error)  
 **Returns**: <code>ErrorBuilder</code> - - Returns the instance of errorBuilder to allow chainability.  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| err | <code>[Error](#Error)</code> | The stack trace of the error being built, will be appended to this error's stack trace. |
+| err | [<code>Error</code>](#Error) | The stack trace of the error being built, will be appended to this error's stack trace. |
 
 <a name="Error+get"></a>
 
-### error.get() ⇒ <code>[Error](#Error)</code>
+### error.get() ⇒ [<code>Error</code>](#Error)
 Returns a new Error object using the given parameters from the builder.
 
-**Kind**: instance method of <code>[Error](#Error)</code>  
-**Returns**: <code>[Error](#Error)</code> - - Returns a new Error object using the given parameters from the builder.  
+**Kind**: instance method of [<code>Error</code>](#Error)  
+**Returns**: [<code>Error</code>](#Error) - - Returns a new Error object using the given parameters from the builder.  
 <a name="Error+throw"></a>
 
 ### error.throw()
 Throws a new Error object using the given parameters from the builder.
 
-**Kind**: instance method of <code>[Error](#Error)</code>  
+**Kind**: instance method of [<code>Error</code>](#Error)  
 **Throws**:
 
-- <code>[Error](#Error)</code> - Throws a new Error object using the given parameters from the builder.
+- [<code>Error</code>](#Error) - Throws a new Error object using the given parameters from the builder.
 
 <a name="Errr"></a>
 
@@ -137,16 +137,16 @@ Static class that contains the 'newError' factory function.  Use the 'newError' 
 **Kind**: global class  
 
 * [Errr](#Errr)
-    * [.newError([message], [template])](#Errr.newError) ⇒ <code>[FromMessage](#FromMessage)</code>
-    * ~~[.fromError(err)](#Errr.fromError) ⇒ <code>[FromError](#FromError)</code>~~
+    * [.newError([message], [template])](#Errr.newError) ⇒ [<code>FromMessage</code>](#FromMessage)
+    * ~~[.fromError(err)](#Errr.fromError) ⇒ [<code>FromError</code>](#FromError)~~
 
 <a name="Errr.newError"></a>
 
-### Errr.newError([message], [template]) ⇒ <code>[FromMessage](#FromMessage)</code>
+### Errr.newError([message], [template]) ⇒ [<code>FromMessage</code>](#FromMessage)
 Gets a new ErrorBuilder instance.
 
-**Kind**: static method of <code>[Errr](#Errr)</code>  
-**Returns**: <code>[FromMessage](#FromMessage)</code> - Gets an ErrorBuilder to get or throw an Error.  
+**Kind**: static method of [<code>Errr</code>](#Errr)  
+**Returns**: [<code>FromMessage</code>](#FromMessage) - Gets an ErrorBuilder to get or throw an Error.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -155,11 +155,11 @@ Gets a new ErrorBuilder instance.
 
 <a name="Errr.fromError"></a>
 
-### ~~Errr.fromError(err) ⇒ <code>[FromError](#FromError)</code>~~
+### ~~Errr.fromError(err) ⇒ [<code>FromError</code>](#FromError)~~
 ***Deprecated***
 
-**Kind**: static method of <code>[Errr](#Errr)</code>  
-**Returns**: <code>[FromError](#FromError)</code> - Gets an ErrorBuilder to get or throw an Error.  
+**Kind**: static method of [<code>Errr</code>](#Errr)  
+**Returns**: [<code>FromError</code>](#FromError) - Gets an ErrorBuilder to get or throw an Error.  
 
 | Param | Type | Description |
 | --- | --- | --- |
