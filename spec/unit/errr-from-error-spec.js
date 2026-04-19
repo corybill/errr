@@ -13,7 +13,7 @@ const Scenario = Maddox.functional.FromSynchronousScenario,
 
 class Private {
   static replacer(key, value) {
-    return (util.isUndefined(value)) ? "undefined" : value;
+    return value === undefined ? "undefined" : value;
   }
 }
 
