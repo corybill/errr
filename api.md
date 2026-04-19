@@ -1,3 +1,15 @@
+## Modules
+
+<dl>
+<dt><a href="#module_stack-clean">stack-clean</a></dt>
+<dd><p>Optional stack trace cleanup for built errors. When <code>ERRR_CLEAN_STACK</code> is set to <code>1</code>, <code>true</code>,
+or <code>yes</code> (case-insensitive), <code>error.stack</code> is rewritten to drop leading frames under this
+package inside <code>node_modules</code>, and to drop <code>node_modules</code> frames after the first frame whose
+path does not contain <code>node_modules</code>. Each appended stack (after the <code>FROM</code> delimiter) is
+processed separately. Default is off; path detection is heuristic.</p>
+</dd>
+</dl>
+
 ## Classes
 
 <dl>
@@ -14,6 +26,50 @@
 <dd><p>Error Builder allows you to use optional functions to build an error object.  The error can have appended stack traces and debug params to assist with debugging.</p>
 </dd>
 </dl>
+
+<a name="module_stack-clean"></a>
+
+## stack-clean
+Optional stack trace cleanup for built errors. When `ERRR_CLEAN_STACK` is set to `1`, `true`,
+or `yes` (case-insensitive), `error.stack` is rewritten to drop leading frames under this
+package inside `node_modules`, and to drop `node_modules` frames after the first frame whose
+path does not contain `node_modules`. Each appended stack (after the `FROM` delimiter) is
+processed separately. Default is off; path detection is heuristic.
+
+
+* [stack-clean](#module_stack-clean)
+    * [.cleanStackEnvVar](#module_stack-clean.cleanStackEnvVar)
+    * [.cleanErrrStack(stack)](#module_stack-clean.cleanErrrStack) ⇒ <code>string</code>
+    * [.maybeCleanErrrStack(stack)](#module_stack-clean.maybeCleanErrrStack) ⇒ <code>string</code>
+
+<a name="module_stack-clean.cleanStackEnvVar"></a>
+
+### stack-clean.cleanStackEnvVar
+Name of the env var that enables cleanup. Set to `1`, `true`, or `yes` (case-insensitive).
+
+**Kind**: static constant of [<code>stack-clean</code>](#module_stack-clean)  
+<a name="module_stack-clean.cleanErrrStack"></a>
+
+### stack-clean.cleanErrrStack(stack) ⇒ <code>string</code>
+Opt-in stack cleanup: drop leading frames from the errr package, then drop node_modules
+frames after the first non-node_modules frame. Resets at each append delimiter.
+
+**Kind**: static method of [<code>stack-clean</code>](#module_stack-clean)  
+
+| Param | Type |
+| --- | --- |
+| stack | <code>string</code> | 
+
+<a name="module_stack-clean.maybeCleanErrrStack"></a>
+
+### stack-clean.maybeCleanErrrStack(stack) ⇒ <code>string</code>
+Applies [cleanErrrStack](cleanErrrStack) when [cleanStackEnvVar](cleanStackEnvVar) is enabled; otherwise returns `stack` unchanged.
+
+**Kind**: static method of [<code>stack-clean</code>](#module_stack-clean)  
+
+| Param | Type |
+| --- | --- |
+| stack | <code>string</code> | 
 
 <a name="Error"></a>
 
