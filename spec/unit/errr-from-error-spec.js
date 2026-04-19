@@ -1,15 +1,12 @@
-"use strict";
+import Maddox from "maddox";
+import util from "node:util";
 
-const Maddox = require("maddox"),
-  chai = require("chai"),
-  util = require("util");
+import Errr from "../../lib/errr.js";
+import * as constants from "../../lib/constants.js";
+import random from "../random.js";
+import {maddoxVitestContext} from "../helpers/maddox-vitest-context.js";
 
-const Errr = require("../../lib/errr"),
-  constants = require("../../lib/constants"),
-  random = require("../random");
-
-const Scenario = Maddox.functional.FromSynchronousScenario,
-  expect = chai.expect;
+const Scenario = Maddox.functional.FromSynchronousScenario;
 
 class Private {
   static replacer(key, value) {
@@ -25,7 +22,7 @@ describe("Given the errr module", function () {
       context = {};
     });
 
-    it("should create an error with values set onto the error object using set", function (done) {
+    it("should create an error with values set onto the error object using set", async (vitestCtx) => {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -45,31 +42,25 @@ describe("Given the errr module", function () {
 
       context.setupEntryPoint();
 
-      new Scenario(this)
+      await new Scenario(maddoxVitestContext(vitestCtx))
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          try {
-            let stack = `Error: [${context.uniqueId}] Some Error`;
+          let stack = `Error: [${context.uniqueId}] Some Error`;
 
-            expect(response.stack.substring(0, stack.length)).eql(stack);
-            expect(response.message).eql(context.message);
+          expect(response.stack.substring(0, stack.length)).toEqual(stack);
+          expect(response.message).toEqual(context.message);
 
-            expect(response.param1).eql(context.uniqueId1);
-            expect(response.param2).eql(context.uniqueId2);
-            expect(response._setValues_).eql({
-              param1: context.uniqueId1,
-              param2: context.uniqueId2
-            });
-
-            done();
-          } catch (testError) {
-            done(testError);
-          }
+          expect(response.param1).toEqual(context.uniqueId1);
+          expect(response.param2).toEqual(context.uniqueId2);
+          expect(response._setValues_).toEqual({
+            param1: context.uniqueId1,
+            param2: context.uniqueId2
+          });
         });
     });
 
-    it("should create an error without overriding 'set' values", function (done) {
+    it("should create an error without overriding 'set' values", async (vitestCtx) => {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -92,31 +83,25 @@ describe("Given the errr module", function () {
 
       context.setupEntryPoint();
 
-      new Scenario(this)
+      await new Scenario(maddoxVitestContext(vitestCtx))
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          try {
-            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_ (`;
+          let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_ (`;
 
-            expect(response.stack.substring(0, stack.length)).eql(stack);
-            expect(response.message).eql(context.message);
+          expect(response.stack.substring(0, stack.length)).toEqual(stack);
+          expect(response.message).toEqual(context.message);
 
-            expect(response.param1).eql(context.uniqueIf1First);
-            expect(response.param2).eql(context.uniqueId2);
-            expect(response._setValues_).eql({
-              param1: context.uniqueIf1First,
-              param2: context.uniqueId2
-            });
-
-            done();
-          } catch (testError) {
-            done(testError);
-          }
+          expect(response.param1).toEqual(context.uniqueIf1First);
+          expect(response.param2).toEqual(context.uniqueId2);
+          expect(response._setValues_).toEqual({
+            param1: context.uniqueIf1First,
+            param2: context.uniqueId2
+          });
         });
     });
 
-    it("should create an error with values set onto the error object using setAll", function (done) {
+    it("should create an error with values set onto the error object using setAll", async (vitestCtx) => {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -139,35 +124,29 @@ describe("Given the errr module", function () {
 
       context.setupEntryPoint();
 
-      new Scenario(this)
+      await new Scenario(maddoxVitestContext(vitestCtx))
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          try {
-            let stack = `Error: [${context.uniqueId}] Some Error`;
+          let stack = `Error: [${context.uniqueId}] Some Error`;
 
-            expect(response.stack.substring(0, stack.length)).eql(stack);
-            expect(response.message).eql(context.message);
+          expect(response.stack.substring(0, stack.length)).toEqual(stack);
+          expect(response.message).toEqual(context.message);
 
-            expect(response.param1).eql(context.uniqueId1);
-            expect(response.param2).eql(context.uniqueId2);
-            expect(response.param3).eql(context.uniqueId3);
-            expect(response.param4).eql(context.uniqueId4);
-            expect(response._setValues_).eql({
-              param1: context.uniqueId1,
-              param2: context.uniqueId2,
-              param3: context.uniqueId3,
-              param4: context.uniqueId4
-            });
-
-            done();
-          } catch (testError) {
-            done(testError);
-          }
+          expect(response.param1).toEqual(context.uniqueId1);
+          expect(response.param2).toEqual(context.uniqueId2);
+          expect(response.param3).toEqual(context.uniqueId3);
+          expect(response.param4).toEqual(context.uniqueId4);
+          expect(response._setValues_).toEqual({
+            param1: context.uniqueId1,
+            param2: context.uniqueId2,
+            param3: context.uniqueId3,
+            param4: context.uniqueId4
+          });
         });
     });
 
-    it("should create an error without overriding 'setAll' values", function (done) {
+    it("should create an error without overriding 'setAll' values", async (vitestCtx) => {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -191,35 +170,29 @@ describe("Given the errr module", function () {
 
       context.setupEntryPoint();
 
-      new Scenario(this)
+      await new Scenario(maddoxVitestContext(vitestCtx))
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          try {
-            let stack = `Error: [${context.uniqueId}] Some Error`;
+          let stack = `Error: [${context.uniqueId}] Some Error`;
 
-            expect(response.stack.substring(0, stack.length)).eql(stack);
-            expect(response.message).eql(context.message);
+          expect(response.stack.substring(0, stack.length)).toEqual(stack);
+          expect(response.message).toEqual(context.message);
 
-            expect(response.param1).eql(context.uniqueId1);
-            expect(response.param2).eql(context.uniqueId2);
-            expect(response.param3).eql(context.uniqueId3);
-            expect(response.param4).eql(context.uniqueId4);
-            expect(response._setValues_).eql({
-              param1: context.uniqueId1,
-              param2: context.uniqueId2,
-              param3: context.uniqueId3,
-              param4: context.uniqueId4
-            });
-
-            done();
-          } catch (testError) {
-            done(testError);
-          }
+          expect(response.param1).toEqual(context.uniqueId1);
+          expect(response.param2).toEqual(context.uniqueId2);
+          expect(response.param3).toEqual(context.uniqueId3);
+          expect(response.param4).toEqual(context.uniqueId4);
+          expect(response._setValues_).toEqual({
+            param1: context.uniqueId1,
+            param2: context.uniqueId2,
+            param3: context.uniqueId3,
+            param4: context.uniqueId4
+          });
         });
     });
 
-    it("should create an error including the debug params appended to the stack", function (done) {
+    it("should create an error including the debug params appended to the stack", async (vitestCtx) => {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -242,34 +215,28 @@ describe("Given the errr module", function () {
 
       context.setupEntryPoint();
 
-      new Scenario(this)
+      await new Scenario(maddoxVitestContext(vitestCtx))
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          try {
-            let stack = `Error: [${context.uniqueId}] Some Error`,
-              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`;
+          let stack = `Error: [${context.uniqueId}] Some Error`,
+            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`;
 
-            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
-            expect(response.stack.substring(0, stack.length)).eql(stack);
+          expect(response.stack.split(stringifiedDebugParams).length).toEqual(2);
+          expect(response.stack.substring(0, stack.length)).toEqual(stack);
 
-            expect(response.message).eql(context.message);
+          expect(response.message).toEqual(context.message);
 
-            expect(response.param1).eql(context.uniqueId1);
-            expect(response.param2).eql(context.uniqueId2);
-            expect(response._setValues_).eql({
-              param1: context.uniqueId1,
-              param2: context.uniqueId2
-            });
-
-            done();
-          } catch (testError) {
-            done(testError);
-          }
+          expect(response.param1).toEqual(context.uniqueId1);
+          expect(response.param2).toEqual(context.uniqueId2);
+          expect(response._setValues_).toEqual({
+            param1: context.uniqueId1,
+            param2: context.uniqueId2
+          });
         });
     });
 
-    it("should create an error including the debug params appended to the stack when given values is true", function (done) {
+    it("should create an error including the debug params appended to the stack when given values is true", async (vitestCtx) => {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -292,34 +259,28 @@ describe("Given the errr module", function () {
 
       context.setupEntryPoint();
 
-      new Scenario(this)
+      await new Scenario(maddoxVitestContext(vitestCtx))
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          try {
-            let stack = `Error: [${context.uniqueId}] Some Error`,
-              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`;
+          let stack = `Error: [${context.uniqueId}] Some Error`,
+            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`;
 
-            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
-            expect(response.stack.substring(0, stack.length)).eql(stack);
+          expect(response.stack.split(stringifiedDebugParams).length).toEqual(2);
+          expect(response.stack.substring(0, stack.length)).toEqual(stack);
 
-            expect(response.message).eql(context.message);
+          expect(response.message).toEqual(context.message);
 
-            expect(response.param1).eql(context.uniqueId1);
-            expect(response.param2).eql(context.uniqueId2);
-            expect(response._setValues_).eql({
-              param1: context.uniqueId1,
-              param2: context.uniqueId2
-            });
-
-            done();
-          } catch (testError) {
-            done(testError);
-          }
+          expect(response.param1).toEqual(context.uniqueId1);
+          expect(response.param2).toEqual(context.uniqueId2);
+          expect(response._setValues_).toEqual({
+            param1: context.uniqueId1,
+            param2: context.uniqueId2
+          });
         });
     });
 
-    it("should create an error NOT including the debug params when given value is false.", function (done) {
+    it("should create an error NOT including the debug params when given value is false.", async (vitestCtx) => {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -342,34 +303,28 @@ describe("Given the errr module", function () {
 
       context.setupEntryPoint();
 
-      new Scenario(this)
+      await new Scenario(maddoxVitestContext(vitestCtx))
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          try {
-            let stack = `Error: [${context.uniqueId}] Some Error`,
-              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`;
+          let stack = `Error: [${context.uniqueId}] Some Error`,
+            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`;
 
-            expect(response.stack.split(stringifiedDebugParams).length).eql(1);
-            expect(response.stack.substring(0, stack.length)).eql(stack);
+          expect(response.stack.split(stringifiedDebugParams).length).toEqual(1);
+          expect(response.stack.substring(0, stack.length)).toEqual(stack);
 
-            expect(response.message).eql(context.message);
+          expect(response.message).toEqual(context.message);
 
-            expect(response.param1).eql(context.uniqueId1);
-            expect(response.param2).eql(context.uniqueId2);
-            expect(response._setValues_).eql({
-              param1: context.uniqueId1,
-              param2: context.uniqueId2
-            });
-
-            done();
-          } catch (testError) {
-            done(testError);
-          }
+          expect(response.param1).toEqual(context.uniqueId1);
+          expect(response.param2).toEqual(context.uniqueId2);
+          expect(response._setValues_).toEqual({
+            param1: context.uniqueId1,
+            param2: context.uniqueId2
+          });
         });
     });
 
-    it("should append the new stack trace to the end of the given error.", function (done) {
+    it("should append the new stack trace to the end of the given error.", async (vitestCtx) => {
       context.setupAppendErrors = function () {
         context.appendError1Id = random.uniqueId();
         context.appendError1Message = `[${context.appendError1Id}] Some Error`;
@@ -400,37 +355,31 @@ describe("Given the errr module", function () {
       context.setupAppendErrors();
       context.setupEntryPoint();
 
-      new Scenario(this)
+      await new Scenario(maddoxVitestContext(vitestCtx))
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          try {
-            let stack = `Error: [${context.uniqueId}] Some Error`,
-              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`;
+          let stack = `Error: [${context.uniqueId}] Some Error`,
+            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`;
 
-            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(2);
-            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
+          expect(response.stack.split(constants.StackTraceDelimiter).length).toEqual(2);
+          expect(response.stack.split(stringifiedDebugParams).length).toEqual(2);
 
-            expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
-            expect(response.stack.indexOf(stack)).to.be.above(-1);
+          expect(response.stack.indexOf(context.appendError1)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(stack)).toBeGreaterThan(-1);
 
-            expect(response.message).eql(context.message);
+          expect(response.message).toEqual(context.message);
 
-            expect(response.param1).eql(context.uniqueId1);
-            expect(response.param2).eql(context.uniqueId2);
-            expect(response._setValues_).eql({
-              param1: context.uniqueId1,
-              param2: context.uniqueId2
-            });
-
-            done();
-          } catch (testError) {
-            done(testError);
-          }
+          expect(response.param1).toEqual(context.uniqueId1);
+          expect(response.param2).toEqual(context.uniqueId2);
+          expect(response._setValues_).toEqual({
+            param1: context.uniqueId1,
+            param2: context.uniqueId2
+          });
         });
     });
 
-    it("should append the new stack trace to the end of the given error when there are many errors already appended.", function (done) {
+    it("should append the new stack trace to the end of the given error when there are many errors already appended.", async (vitestCtx) => {
       context.setupAppendErrors = function () {
         context.appendError1Id = random.uniqueId();
         context.appendError1Message = `[${context.appendError1Id}] Some Error 1`;
@@ -474,42 +423,36 @@ describe("Given the errr module", function () {
       context.setupAppendErrors();
       context.setupEntryPoint();
 
-      new Scenario(this)
+      await new Scenario(maddoxVitestContext(vitestCtx))
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          try {
-            let stack = `Error: [${context.uniqueId}] Some Error`,
-              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
-              stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
+          let stack = `Error: [${context.uniqueId}] Some Error`,
+            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
+            stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
 
-            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
+          expect(response.stack.split(constants.StackTraceDelimiter).length).toEqual(4);
 
-            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
-            expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
+          expect(response.stack.split(stringifiedDebugParams).length).toEqual(2);
+          expect(response.stack.split(stringifiedDebugParamsForError2).length).toEqual(2);
 
-            expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
-            expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
-            expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
-            expect(response.stack.indexOf(stack)).to.be.above(-1);
+          expect(response.stack.indexOf(context.appendError1)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(context.appendError2)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(context.appendError3)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(stack)).toBeGreaterThan(-1);
 
-            expect(response.message).eql(context.message);
+          expect(response.message).toEqual(context.message);
 
-            expect(response.param1).eql(context.uniqueId1);
-            expect(response.param2).eql(context.uniqueId2);
-            expect(response._setValues_).eql({
-              param1: context.uniqueId1,
-              param2: context.uniqueId2
-            });
-
-            done();
-          } catch (testError) {
-            done(testError);
-          }
+          expect(response.param1).toEqual(context.uniqueId1);
+          expect(response.param2).toEqual(context.uniqueId2);
+          expect(response._setValues_).toEqual({
+            param1: context.uniqueId1,
+            param2: context.uniqueId2
+          });
         });
     });
 
-    it("should append values from the 'set' function when using the 'appendTo' function.", function (done) {
+    it("should append values from the 'set' function when using the 'appendTo' function.", async (vitestCtx) => {
       context.setupAppendErrors = function () {
         context.appendError1Id = random.uniqueId();
         context.value1 = random.uniqueId();
@@ -568,49 +511,43 @@ describe("Given the errr module", function () {
       context.setupAppendErrors();
       context.setupEntryPoint();
 
-      new Scenario(this)
+      await new Scenario(maddoxVitestContext(vitestCtx))
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          try {
-            let stack = `Error: [${context.uniqueId}] Some Error`,
-              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
-              stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
+          let stack = `Error: [${context.uniqueId}] Some Error`,
+            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
+            stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
 
-            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
+          expect(response.stack.split(constants.StackTraceDelimiter).length).toEqual(4);
 
-            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
-            expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
+          expect(response.stack.split(stringifiedDebugParams).length).toEqual(2);
+          expect(response.stack.split(stringifiedDebugParamsForError2).length).toEqual(2);
 
-            expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
-            expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
-            expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
-            expect(response.stack.indexOf(stack)).to.be.above(-1);
+          expect(response.stack.indexOf(context.appendError1)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(context.appendError2)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(context.appendError3)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(stack)).toBeGreaterThan(-1);
 
-            expect(response.message).eql(context.message);
+          expect(response.message).toEqual(context.message);
 
-            expect(response.param0).eql(context.appendError1Id);
-            expect(response.param1).eql(context.value1);
-            expect(response.param2).eql(context.value2);
-            expect(response.param3).eql(context.value3);
-            expect(response.param4).eql(context.value4);
+          expect(response.param0).toEqual(context.appendError1Id);
+          expect(response.param1).toEqual(context.value1);
+          expect(response.param2).toEqual(context.value2);
+          expect(response.param3).toEqual(context.value3);
+          expect(response.param4).toEqual(context.value4);
 
-            expect(response._setValues_).eql({
-              param0: context.appendError1Id,
-              param1: context.value1,
-              param2: context.value2,
-              param3: context.value3,
-              param4: context.value4
-            });
-
-            done();
-          } catch (testError) {
-            done(testError);
-          }
+          expect(response._setValues_).toEqual({
+            param0: context.appendError1Id,
+            param1: context.value1,
+            param2: context.value2,
+            param3: context.value3,
+            param4: context.value4
+          });
         });
     });
 
-    it("should not overwrite values passed into the 'set' function for new errors when force is not set.", function (done) {
+    it("should not overwrite values passed into the 'set' function for new errors when force is not set.", async (vitestCtx) => {
       context.setupAppendErrors = function () {
         context.appendError1Id = random.uniqueId();
         context.value1 = random.uniqueId();
@@ -669,49 +606,43 @@ describe("Given the errr module", function () {
       context.setupAppendErrors();
       context.setupEntryPoint();
 
-      new Scenario(this)
+      await new Scenario(maddoxVitestContext(vitestCtx))
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          try {
-            let stack = `Error: [${context.uniqueId}] Some Error`,
-              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
-              stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
+          let stack = `Error: [${context.uniqueId}] Some Error`,
+            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
+            stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
 
-            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
+          expect(response.stack.split(constants.StackTraceDelimiter).length).toEqual(4);
 
-            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
-            expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
+          expect(response.stack.split(stringifiedDebugParams).length).toEqual(2);
+          expect(response.stack.split(stringifiedDebugParamsForError2).length).toEqual(2);
 
-            expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
-            expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
-            expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
-            expect(response.stack.indexOf(stack)).to.be.above(-1);
+          expect(response.stack.indexOf(context.appendError1)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(context.appendError2)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(context.appendError3)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(stack)).toBeGreaterThan(-1);
 
-            expect(response.message).eql(context.message);
+          expect(response.message).toEqual(context.message);
 
-            expect(response.param0).eql(context.appendError1Id);
-            expect(response.param1).eql(context.value1);
-            expect(response.param2).eql(context.value2);
-            expect(response.param3).eql(context.value3);
-            expect(response.param4).eql(context.value4);
+          expect(response.param0).toEqual(context.appendError1Id);
+          expect(response.param1).toEqual(context.value1);
+          expect(response.param2).toEqual(context.value2);
+          expect(response.param3).toEqual(context.value3);
+          expect(response.param4).toEqual(context.value4);
 
-            expect(response._setValues_).eql({
-              param0: context.appendError1Id,
-              param1: context.value1,
-              param2: context.value2,
-              param3: context.value3,
-              param4: context.value4
-            });
-
-            done();
-          } catch (testError) {
-            done(testError);
-          }
+          expect(response._setValues_).toEqual({
+            param0: context.appendError1Id,
+            param1: context.value1,
+            param2: context.value2,
+            param3: context.value3,
+            param4: context.value4
+          });
         });
     });
 
-    it("should overwrite values passed into the 'set' function for new errors when force is set.", function (done) {
+    it("should overwrite values passed into the 'set' function for new errors when force is set.", async (vitestCtx) => {
       context.setupAppendErrors = function () {
         context.appendError1Id = random.uniqueId();
         context.value1 = random.uniqueId();
@@ -770,49 +701,43 @@ describe("Given the errr module", function () {
       context.setupAppendErrors();
       context.setupEntryPoint();
 
-      new Scenario(this)
+      await new Scenario(maddoxVitestContext(vitestCtx))
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          try {
-            let stack = `Error: [${context.uniqueId}] Some Error`,
-              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
-              stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
+          let stack = `Error: [${context.uniqueId}] Some Error`,
+            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
+            stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
 
-            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
+          expect(response.stack.split(constants.StackTraceDelimiter).length).toEqual(4);
 
-            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
-            expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
+          expect(response.stack.split(stringifiedDebugParams).length).toEqual(2);
+          expect(response.stack.split(stringifiedDebugParamsForError2).length).toEqual(2);
 
-            expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
-            expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
-            expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
-            expect(response.stack.indexOf(stack)).to.be.above(-1);
+          expect(response.stack.indexOf(context.appendError1)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(context.appendError2)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(context.appendError3)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(stack)).toBeGreaterThan(-1);
 
-            expect(response.message).eql(context.message);
+          expect(response.message).toEqual(context.message);
 
-            expect(response.param0).eql(context.appendError3Id);
-            expect(response.param1).eql(context.value1);
-            expect(response.param2).eql(context.value2);
-            expect(response.param3).eql(context.value3);
-            expect(response.param4).eql(context.value4);
+          expect(response.param0).toEqual(context.appendError3Id);
+          expect(response.param1).toEqual(context.value1);
+          expect(response.param2).toEqual(context.value2);
+          expect(response.param3).toEqual(context.value3);
+          expect(response.param4).toEqual(context.value4);
 
-            expect(response._setValues_).eql({
-              param0: context.appendError3Id,
-              param1: context.value1,
-              param2: context.value2,
-              param3: context.value3,
-              param4: context.value4
-            });
-
-            done();
-          } catch (testError) {
-            done(testError);
-          }
+          expect(response._setValues_).toEqual({
+            param0: context.appendError3Id,
+            param1: context.value1,
+            param2: context.value2,
+            param3: context.value3,
+            param4: context.value4
+          });
         });
     });
 
-    it("should not overwrite values passed into the 'setAll' function for new errors when force is not set.", function (done) {
+    it("should not overwrite values passed into the 'setAll' function for new errors when force is not set.", async (vitestCtx) => {
       context.setupAppendErrors = function () {
         context.appendError1Id = random.uniqueId();
         context.value1 = random.uniqueId();
@@ -867,49 +792,43 @@ describe("Given the errr module", function () {
       context.setupAppendErrors();
       context.setupEntryPoint();
 
-      new Scenario(this)
+      await new Scenario(maddoxVitestContext(vitestCtx))
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          try {
-            let stack = `Error: [${context.uniqueId}] Some Error`,
-              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
-              stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
+          let stack = `Error: [${context.uniqueId}] Some Error`,
+            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
+            stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
 
-            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
+          expect(response.stack.split(constants.StackTraceDelimiter).length).toEqual(4);
 
-            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
-            expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
+          expect(response.stack.split(stringifiedDebugParams).length).toEqual(2);
+          expect(response.stack.split(stringifiedDebugParamsForError2).length).toEqual(2);
 
-            expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
-            expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
-            expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
-            expect(response.stack.indexOf(stack)).to.be.above(-1);
+          expect(response.stack.indexOf(context.appendError1)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(context.appendError2)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(context.appendError3)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(stack)).toBeGreaterThan(-1);
 
-            expect(response.message).eql(context.message);
+          expect(response.message).toEqual(context.message);
 
-            expect(response.param0).eql(context.appendError1Id);
-            expect(response.param1).eql(context.value1);
-            expect(response.param2).eql(context.value2);
-            expect(response.param3).eql(context.value3);
-            expect(response.param4).eql(context.value4);
+          expect(response.param0).toEqual(context.appendError1Id);
+          expect(response.param1).toEqual(context.value1);
+          expect(response.param2).toEqual(context.value2);
+          expect(response.param3).toEqual(context.value3);
+          expect(response.param4).toEqual(context.value4);
 
-            expect(response._setValues_).eql({
-              param0: context.appendError1Id,
-              param1: context.value1,
-              param2: context.value2,
-              param3: context.value3,
-              param4: context.value4
-            });
-
-            done();
-          } catch (testError) {
-            done(testError);
-          }
+          expect(response._setValues_).toEqual({
+            param0: context.appendError1Id,
+            param1: context.value1,
+            param2: context.value2,
+            param3: context.value3,
+            param4: context.value4
+          });
         });
     });
 
-    it("should overwrite values passed into the 'setAll' function for new errors when force is set.", function (done) {
+    it("should overwrite values passed into the 'setAll' function for new errors when force is set.", async (vitestCtx) => {
       context.setupAppendErrors = function () {
         context.appendError1Id = random.uniqueId();
         context.value1 = random.uniqueId();
@@ -964,49 +883,43 @@ describe("Given the errr module", function () {
       context.setupAppendErrors();
       context.setupEntryPoint();
 
-      new Scenario(this)
+      await new Scenario(maddoxVitestContext(vitestCtx))
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          try {
-            let stack = `Error: [${context.uniqueId}] Some Error`,
-              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
-              stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
+          let stack = `Error: [${context.uniqueId}] Some Error`,
+            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
+            stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
 
-            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
+          expect(response.stack.split(constants.StackTraceDelimiter).length).toEqual(4);
 
-            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
-            expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
+          expect(response.stack.split(stringifiedDebugParams).length).toEqual(2);
+          expect(response.stack.split(stringifiedDebugParamsForError2).length).toEqual(2);
 
-            expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
-            expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
-            expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
-            expect(response.stack.indexOf(stack)).to.be.above(-1);
+          expect(response.stack.indexOf(context.appendError1)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(context.appendError2)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(context.appendError3)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(stack)).toBeGreaterThan(-1);
 
-            expect(response.message).eql(context.message);
+          expect(response.message).toEqual(context.message);
 
-            expect(response.param0).eql(context.appendError3Id);
-            expect(response.param1).eql(context.value1);
-            expect(response.param2).eql(context.value2);
-            expect(response.param3).eql(context.value3);
-            expect(response.param4).eql(context.value4);
+          expect(response.param0).toEqual(context.appendError3Id);
+          expect(response.param1).toEqual(context.value1);
+          expect(response.param2).toEqual(context.value2);
+          expect(response.param3).toEqual(context.value3);
+          expect(response.param4).toEqual(context.value4);
 
-            expect(response._setValues_).eql({
-              param0: context.appendError3Id,
-              param1: context.value1,
-              param2: context.value2,
-              param3: context.value3,
-              param4: context.value4
-            });
-
-            done();
-          } catch (testError) {
-            done(testError);
-          }
+          expect(response._setValues_).toEqual({
+            param0: context.appendError3Id,
+            param1: context.value1,
+            param2: context.value2,
+            param3: context.value3,
+            param4: context.value4
+          });
         });
     });
 
-    it("should turn undefined debug params into strings so they are viewable in the stack.", function (done) {
+    it("should turn undefined debug params into strings so they are viewable in the stack.", async (vitestCtx) => {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -1032,36 +945,30 @@ describe("Given the errr module", function () {
 
       context.setupEntryPoint();
 
-      new Scenario(this)
+      await new Scenario(maddoxVitestContext(vitestCtx))
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (err, response) {
-          try {
-            expect(err).eql(undefined);
+          expect(err).toBeUndefined();
 
-            let stack = `Error: [${context.uniqueId}] Some Error`,
-              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, Private.replacer, 2)}`;
+          let stack = `Error: [${context.uniqueId}] Some Error`,
+            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, Private.replacer, 2)}`;
 
-            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
-            expect(response.stack.substring(0, stack.length)).eql(stack);
+          expect(response.stack.split(stringifiedDebugParams).length).toEqual(2);
+          expect(response.stack.substring(0, stack.length)).toEqual(stack);
 
-            expect(response.message).eql(context.message);
+          expect(response.message).toEqual(context.message);
 
-            expect(response.param1).eql(context.uniqueId1);
-            expect(response.param2).eql(context.uniqueId2);
-            expect(response._setValues_).eql({
-              param1: context.uniqueId1,
-              param2: context.uniqueId2
-            });
-
-            done();
-          } catch (testError) {
-            done(testError);
-          }
+          expect(response.param1).toEqual(context.uniqueId1);
+          expect(response.param2).toEqual(context.uniqueId2);
+          expect(response._setValues_).toEqual({
+            param1: context.uniqueId1,
+            param2: context.uniqueId2
+          });
         });
     });
 
-    it("should allow you to retrieve an array of all the debug params when there is no appendTo err.", function (done) {
+    it("should allow you to retrieve an array of all the debug params when there is no appendTo err.", async (vitestCtx) => {
       context.setupAppendErrors = function () {};
 
       context.setupEntryPoint = function () {
@@ -1088,40 +995,34 @@ describe("Given the errr module", function () {
       context.setupAppendErrors();
       context.setupEntryPoint();
 
-      new Scenario(this)
+      await new Scenario(maddoxVitestContext(vitestCtx))
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          try {
-            let stack = `Error: [${context.uniqueId}] Some Error`,
-              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
-              stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
+          let stack = `Error: [${context.uniqueId}] Some Error`,
+            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
+            stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
 
-            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(1);
+          expect(response.stack.split(constants.StackTraceDelimiter).length).toEqual(1);
 
-            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
-            expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(1);
+          expect(response.stack.split(stringifiedDebugParams).length).toEqual(2);
+          expect(response.stack.split(stringifiedDebugParamsForError2).length).toEqual(1);
 
-            expect(response.stack.indexOf(stack)).to.be.above(-1);
+          expect(response.stack.indexOf(stack)).toBeGreaterThan(-1);
 
-            expect(response.message).eql(context.message);
-            expect(response.getAllDebugParams()).eql([context.debugParams]);
+          expect(response.message).toEqual(context.message);
+          expect(response.getAllDebugParams()).toEqual([context.debugParams]);
 
-            expect(response.param1).eql(context.uniqueId1);
-            expect(response.param2).eql(context.uniqueId2);
-            expect(response._setValues_).eql({
-              param1: context.uniqueId1,
-              param2: context.uniqueId2
-            });
-
-            done();
-          } catch (testError) {
-            done(testError);
-          }
+          expect(response.param1).toEqual(context.uniqueId1);
+          expect(response.param2).toEqual(context.uniqueId2);
+          expect(response._setValues_).toEqual({
+            param1: context.uniqueId1,
+            param2: context.uniqueId2
+          });
         });
     });
 
-    it("should allow you to retrieve an array of all the debug params.", function (done) {
+    it("should allow you to retrieve an array of all the debug params.", async (vitestCtx) => {
       context.setupAppendErrors = function () {
         context.appendError1Id = random.uniqueId();
         context.appendError1Message = `[${context.appendError1Id}] Some Error 1`;
@@ -1169,43 +1070,37 @@ describe("Given the errr module", function () {
       context.setupAppendErrors();
       context.setupEntryPoint();
 
-      new Scenario(this)
+      await new Scenario(maddoxVitestContext(vitestCtx))
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          try {
-            let stack = `Error: [${context.uniqueId}] Some Error`,
-              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
-              stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
+          let stack = `Error: [${context.uniqueId}] Some Error`,
+            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
+            stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
 
-            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
+          expect(response.stack.split(constants.StackTraceDelimiter).length).toEqual(4);
 
-            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
-            expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
+          expect(response.stack.split(stringifiedDebugParams).length).toEqual(2);
+          expect(response.stack.split(stringifiedDebugParamsForError2).length).toEqual(2);
 
-            expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
-            expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
-            expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
-            expect(response.stack.indexOf(stack)).to.be.above(-1);
+          expect(response.stack.indexOf(context.appendError1)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(context.appendError2)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(context.appendError3)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(stack)).toBeGreaterThan(-1);
 
-            expect(response.message).eql(context.message);
-            expect(response.getAllDebugParams()).eql([context.debugParams, context.appendError3DebugParams, context.appendError2DebugParams]);
+          expect(response.message).toEqual(context.message);
+          expect(response.getAllDebugParams()).toEqual([context.debugParams, context.appendError3DebugParams, context.appendError2DebugParams]);
 
-            expect(response.param1).eql(context.uniqueId1);
-            expect(response.param2).eql(context.uniqueId2);
-            expect(response._setValues_).eql({
-              param1: context.uniqueId1,
-              param2: context.uniqueId2
-            });
-
-            done();
-          } catch (testError) {
-            done(testError);
-          }
+          expect(response.param1).toEqual(context.uniqueId1);
+          expect(response.param2).toEqual(context.uniqueId2);
+          expect(response._setValues_).toEqual({
+            param1: context.uniqueId1,
+            param2: context.uniqueId2
+          });
         });
     });
 
-    it("should allow you to retrieve an array of all the debug params when using many appendTo errs in a single errr.", function (done) {
+    it("should allow you to retrieve an array of all the debug params when using many appendTo errs in a single errr.", async (vitestCtx) => {
       context.setupAppendErrors = function () {
         context.appendError1Id = random.uniqueId();
         context.appendError1Message = `[${context.appendError1Id}] Some Error 1`;
@@ -1254,43 +1149,37 @@ describe("Given the errr module", function () {
       context.setupAppendErrors();
       context.setupEntryPoint();
 
-      new Scenario(this)
+      await new Scenario(maddoxVitestContext(vitestCtx))
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          try {
-            let stack = `Error: [${context.uniqueId}] Some Error`,
-              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
-              stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
+          let stack = `Error: [${context.uniqueId}] Some Error`,
+            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
+            stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
 
-            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
+          expect(response.stack.split(constants.StackTraceDelimiter).length).toEqual(4);
 
-            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
-            expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
+          expect(response.stack.split(stringifiedDebugParams).length).toEqual(2);
+          expect(response.stack.split(stringifiedDebugParamsForError2).length).toEqual(2);
 
-            expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
-            expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
-            expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
-            expect(response.stack.indexOf(stack)).to.be.above(-1);
+          expect(response.stack.indexOf(context.appendError1)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(context.appendError2)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(context.appendError3)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(stack)).toBeGreaterThan(-1);
 
-            expect(response.message).eql(context.message);
-            expect(response.getAllDebugParams()).eql([context.debugParams, context.appendError3DebugParams, context.appendError2DebugParams]);
+          expect(response.message).toEqual(context.message);
+          expect(response.getAllDebugParams()).toEqual([context.debugParams, context.appendError3DebugParams, context.appendError2DebugParams]);
 
-            expect(response.param1).eql(context.uniqueId1);
-            expect(response.param2).eql(context.uniqueId2);
-            expect(response._setValues_).eql({
-              param1: context.uniqueId1,
-              param2: context.uniqueId2
-            });
-
-            done();
-          } catch (testError) {
-            done(testError);
-          }
+          expect(response.param1).toEqual(context.uniqueId1);
+          expect(response.param2).toEqual(context.uniqueId2);
+          expect(response._setValues_).toEqual({
+            param1: context.uniqueId1,
+            param2: context.uniqueId2
+          });
         });
     });
 
-    it("should allow you to retrieve an array of all the debug params when many appendTo errs don't have debug params.", function (done) {
+    it("should allow you to retrieve an array of all the debug params when many appendTo errs don't have debug params.", async (vitestCtx) => {
       context.setupAppendErrors = function () {
         context.appendError1Id = random.uniqueId();
         context.appendError1Message = `[${context.appendError1Id}] Some Error 1`;
@@ -1339,41 +1228,35 @@ describe("Given the errr module", function () {
       context.setupAppendErrors();
       context.setupEntryPoint();
 
-      new Scenario(this)
+      await new Scenario(maddoxVitestContext(vitestCtx))
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          try {
-            let stack = `Error: [${context.uniqueId}] Some Error`,
-              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`;
+          let stack = `Error: [${context.uniqueId}] Some Error`,
+            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`;
 
-            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
+          expect(response.stack.split(constants.StackTraceDelimiter).length).toEqual(4);
 
-            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
+          expect(response.stack.split(stringifiedDebugParams).length).toEqual(2);
 
-            expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
-            expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
-            expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
-            expect(response.stack.indexOf(stack)).to.be.above(-1);
+          expect(response.stack.indexOf(context.appendError1)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(context.appendError2)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(context.appendError3)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(stack)).toBeGreaterThan(-1);
 
-            expect(response.message).eql(context.message);
-            expect(response.getAllDebugParams()).eql([context.debugParams]);
+          expect(response.message).toEqual(context.message);
+          expect(response.getAllDebugParams()).toEqual([context.debugParams]);
 
-            expect(response.param1).eql(context.uniqueId1);
-            expect(response.param2).eql(context.uniqueId2);
-            expect(response._setValues_).eql({
-              param1: context.uniqueId1,
-              param2: context.uniqueId2
-            });
-
-            done();
-          } catch (testError) {
-            done(testError);
-          }
+          expect(response.param1).toEqual(context.uniqueId1);
+          expect(response.param2).toEqual(context.uniqueId2);
+          expect(response._setValues_).toEqual({
+            param1: context.uniqueId1,
+            param2: context.uniqueId2
+          });
         });
     });
 
-    it("should allow you to retrieve an array of all the debug params when using many appendTo errs and the new error doesn't have debug params.", function (done) {
+    it("should allow you to retrieve an array of all the debug params when using many appendTo errs and the new error doesn't have debug params.", async (vitestCtx) => {
       context.setupAppendErrors = function () {
         context.appendError1Id = random.uniqueId();
         context.appendError1Message = `[${context.appendError1Id}] Some Error 1`;
@@ -1422,41 +1305,35 @@ describe("Given the errr module", function () {
       context.setupAppendErrors();
       context.setupEntryPoint();
 
-      new Scenario(this)
+      await new Scenario(maddoxVitestContext(vitestCtx))
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          try {
-            let stack = `Error: [${context.uniqueId}] Some Error`,
-              stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
+          let stack = `Error: [${context.uniqueId}] Some Error`,
+            stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
 
-            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
+          expect(response.stack.split(constants.StackTraceDelimiter).length).toEqual(4);
 
-            expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
+          expect(response.stack.split(stringifiedDebugParamsForError2).length).toEqual(2);
 
-            expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
-            expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
-            expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
-            expect(response.stack.indexOf(stack)).to.be.above(-1);
+          expect(response.stack.indexOf(context.appendError1)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(context.appendError2)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(context.appendError3)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(stack)).toBeGreaterThan(-1);
 
-            expect(response.message).eql(context.message);
-            expect(response.getAllDebugParams()).eql([context.appendError3DebugParams, context.appendError2DebugParams]);
+          expect(response.message).toEqual(context.message);
+          expect(response.getAllDebugParams()).toEqual([context.appendError3DebugParams, context.appendError2DebugParams]);
 
-            expect(response.param1).eql(context.uniqueId1);
-            expect(response.param2).eql(context.uniqueId2);
-            expect(response._setValues_).eql({
-              param1: context.uniqueId1,
-              param2: context.uniqueId2
-            });
-
-            done();
-          } catch (testError) {
-            done(testError);
-          }
+          expect(response.param1).toEqual(context.uniqueId1);
+          expect(response.param2).toEqual(context.uniqueId2);
+          expect(response._setValues_).toEqual({
+            param1: context.uniqueId1,
+            param2: context.uniqueId2
+          });
         });
     });
 
-    it("should allow you to set a value on the errr instance.", function (done) {
+    it("should allow you to set a value on the errr instance.", async (vitestCtx) => {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -1480,31 +1357,25 @@ describe("Given the errr module", function () {
 
       context.setupEntryPoint();
 
-      new Scenario(this)
+      await new Scenario(maddoxVitestContext(vitestCtx))
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          try {
-            let stack = `Error: [${context.uniqueId}] Some Error`;
+          let stack = `Error: [${context.uniqueId}] Some Error`;
 
-            expect(response.stack.substring(0, stack.length)).eql(stack);
-            expect(response.message).eql(context.message);
+          expect(response.stack.substring(0, stack.length)).toEqual(stack);
+          expect(response.message).toEqual(context.message);
 
-            expect(response.param1).eql(context.uniqueId1);
-            expect(response.param2).eql(context.uniqueId2);
-            expect(response._setValues_).eql({
-              param1: context.uniqueId1,
-              param2: context.uniqueId2
-            });
-
-            done();
-          } catch (testError) {
-            done(testError);
-          }
+          expect(response.param1).toEqual(context.uniqueId1);
+          expect(response.param2).toEqual(context.uniqueId2);
+          expect(response._setValues_).toEqual({
+            param1: context.uniqueId1,
+            param2: context.uniqueId2
+          });
         });
     });
 
-    it("should not overwrite values passed into the 'set' function on an error instance when force is not set.", function (done) {
+    it("should not overwrite values passed into the 'set' function on an error instance when force is not set.", async (vitestCtx) => {
       context.setupAppendErrors = function () {
         context.appendError1Id = random.uniqueId();
         context.value1 = random.uniqueId();
@@ -1565,49 +1436,43 @@ describe("Given the errr module", function () {
       context.setupAppendErrors();
       context.setupEntryPoint();
 
-      new Scenario(this)
+      await new Scenario(maddoxVitestContext(vitestCtx))
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          try {
-            let stack = `Error: [${context.uniqueId}] Some Error`,
-              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
-              stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
+          let stack = `Error: [${context.uniqueId}] Some Error`,
+            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
+            stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
 
-            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
+          expect(response.stack.split(constants.StackTraceDelimiter).length).toEqual(4);
 
-            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
-            expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
+          expect(response.stack.split(stringifiedDebugParams).length).toEqual(2);
+          expect(response.stack.split(stringifiedDebugParamsForError2).length).toEqual(2);
 
-            expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
-            expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
-            expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
-            expect(response.stack.indexOf(stack)).to.be.above(-1);
+          expect(response.stack.indexOf(context.appendError1)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(context.appendError2)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(context.appendError3)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(stack)).toBeGreaterThan(-1);
 
-            expect(response.message).eql(context.message);
+          expect(response.message).toEqual(context.message);
 
-            expect(response.param0).eql(context.appendError1Id);
-            expect(response.param1).eql(context.value1);
-            expect(response.param2).eql(context.value2);
-            expect(response.param3).eql(context.value3);
-            expect(response.param4).eql(context.value4);
+          expect(response.param0).toEqual(context.appendError1Id);
+          expect(response.param1).toEqual(context.value1);
+          expect(response.param2).toEqual(context.value2);
+          expect(response.param3).toEqual(context.value3);
+          expect(response.param4).toEqual(context.value4);
 
-            expect(response._setValues_).eql({
-              param0: context.appendError1Id,
-              param1: context.value1,
-              param2: context.value2,
-              param3: context.value3,
-              param4: context.value4
-            });
-
-            done();
-          } catch (testError) {
-            done(testError);
-          }
+          expect(response._setValues_).toEqual({
+            param0: context.appendError1Id,
+            param1: context.value1,
+            param2: context.value2,
+            param3: context.value3,
+            param4: context.value4
+          });
         });
     });
 
-    it("should overwrite values passed into the 'set' function on an error instance when force is set.", function (done) {
+    it("should overwrite values passed into the 'set' function on an error instance when force is set.", async (vitestCtx) => {
       context.setupAppendErrors = function () {
         context.appendError1Id = random.uniqueId();
         context.value1 = random.uniqueId();
@@ -1667,49 +1532,43 @@ describe("Given the errr module", function () {
       context.setupAppendErrors();
       context.setupEntryPoint();
 
-      new Scenario(this)
+      await new Scenario(maddoxVitestContext(vitestCtx))
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          try {
-            let stack = `Error: [${context.uniqueId}] Some Error`,
-              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
-              stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
+          let stack = `Error: [${context.uniqueId}] Some Error`,
+            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
+            stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
 
-            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
+          expect(response.stack.split(constants.StackTraceDelimiter).length).toEqual(4);
 
-            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
-            expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
+          expect(response.stack.split(stringifiedDebugParams).length).toEqual(2);
+          expect(response.stack.split(stringifiedDebugParamsForError2).length).toEqual(2);
 
-            expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
-            expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
-            expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
-            expect(response.stack.indexOf(stack)).to.be.above(-1);
+          expect(response.stack.indexOf(context.appendError1)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(context.appendError2)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(context.appendError3)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(stack)).toBeGreaterThan(-1);
 
-            expect(response.message).eql(context.message);
+          expect(response.message).toEqual(context.message);
 
-            expect(response.param0).eql(context.appendError3Id);
-            expect(response.param1).eql(context.value1);
-            expect(response.param2).eql(context.value2);
-            expect(response.param3).eql(context.value3);
-            expect(response.param4).eql(context.value4);
+          expect(response.param0).toEqual(context.appendError3Id);
+          expect(response.param1).toEqual(context.value1);
+          expect(response.param2).toEqual(context.value2);
+          expect(response.param3).toEqual(context.value3);
+          expect(response.param4).toEqual(context.value4);
 
-            expect(response._setValues_).eql({
-              param0: context.appendError3Id,
-              param1: context.value1,
-              param2: context.value2,
-              param3: context.value3,
-              param4: context.value4
-            });
-
-            done();
-          } catch (testError) {
-            done(testError);
-          }
+          expect(response._setValues_).toEqual({
+            param0: context.appendError3Id,
+            param1: context.value1,
+            param2: context.value2,
+            param3: context.value3,
+            param4: context.value4
+          });
         });
     });
 
-    it("should allow you to get a value on the errr instance.", function (done) {
+    it("should allow you to get a value on the errr instance.", async (vitestCtx) => {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -1733,33 +1592,27 @@ describe("Given the errr module", function () {
 
       context.setupEntryPoint();
 
-      new Scenario(this)
+      await new Scenario(maddoxVitestContext(vitestCtx))
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          try {
-            let stack = `Error: [${context.uniqueId}] Some Error`;
+          let stack = `Error: [${context.uniqueId}] Some Error`;
 
-            expect(response.stack.substring(0, stack.length)).eql(stack);
-            expect(response.message).eql(context.message);
+          expect(response.stack.substring(0, stack.length)).toEqual(stack);
+          expect(response.message).toEqual(context.message);
 
-            expect(response.param1).eql(context.uniqueId1);
-            expect(response.param2).eql(context.uniqueId2);
-            expect(response.get("param1")).eql(context.uniqueId1);
-            expect(response.get("param2")).eql(context.uniqueId2);
-            expect(response._setValues_).eql({
-              param1: context.uniqueId1,
-              param2: context.uniqueId2
-            });
-
-            done();
-          } catch (testError) {
-            done(testError);
-          }
+          expect(response.param1).toEqual(context.uniqueId1);
+          expect(response.param2).toEqual(context.uniqueId2);
+          expect(response.get("param1")).toEqual(context.uniqueId1);
+          expect(response.get("param2")).toEqual(context.uniqueId2);
+          expect(response._setValues_).toEqual({
+            param1: context.uniqueId1,
+            param2: context.uniqueId2
+          });
         });
     });
 
-    it("should allow you to append many errors on a single errr instance.", function (done) {
+    it("should allow you to append many errors on a single errr instance.", async (vitestCtx) => {
       context.setupAppendErrors = function () {
         context.appendError1Id = random.uniqueId();
         context.appendError1Message = `[${context.appendError1Id}] Some Error 1`;
@@ -1804,42 +1657,36 @@ describe("Given the errr module", function () {
       context.setupAppendErrors();
       context.setupEntryPoint();
 
-      new Scenario(this)
+      await new Scenario(maddoxVitestContext(vitestCtx))
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          try {
-            let stack = `Error: [${context.uniqueId}] Some Error`,
-              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
-              stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
+          let stack = `Error: [${context.uniqueId}] Some Error`,
+            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
+            stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
 
-            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
+          expect(response.stack.split(constants.StackTraceDelimiter).length).toEqual(4);
 
-            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
-            expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
+          expect(response.stack.split(stringifiedDebugParams).length).toEqual(2);
+          expect(response.stack.split(stringifiedDebugParamsForError2).length).toEqual(2);
 
-            expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
-            expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
-            expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
-            expect(response.stack.indexOf(stack)).to.be.above(-1);
+          expect(response.stack.indexOf(context.appendError1)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(context.appendError2)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(context.appendError3)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(stack)).toBeGreaterThan(-1);
 
-            expect(response.message).eql(context.message);
+          expect(response.message).toEqual(context.message);
 
-            expect(response.param1).eql(context.uniqueId1);
-            expect(response.param2).eql(context.uniqueId2);
-            expect(response._setValues_).eql({
-              param1: context.uniqueId1,
-              param2: context.uniqueId2
-            });
-
-            done();
-          } catch (testError) {
-            done(testError);
-          }
+          expect(response.param1).toEqual(context.uniqueId1);
+          expect(response.param2).toEqual(context.uniqueId2);
+          expect(response._setValues_).toEqual({
+            param1: context.uniqueId1,
+            param2: context.uniqueId2
+          });
         });
     });
 
-    it("should not overwrite set values when appending many errors on a single errr instance.", function (done) {
+    it("should not overwrite set values when appending many errors on a single errr instance.", async (vitestCtx) => {
       context.setupAppendErrors = function () {
         context.uniqueId4 = random.uniqueId();
         context.uniqueId5 = random.uniqueId();
@@ -1895,44 +1742,38 @@ describe("Given the errr module", function () {
       context.setupAppendErrors();
       context.setupEntryPoint();
 
-      new Scenario(this)
+      await new Scenario(maddoxVitestContext(vitestCtx))
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          try {
-            let stack = `Error: [${context.uniqueId}] Some Error`,
-              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
-              stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
+          let stack = `Error: [${context.uniqueId}] Some Error`,
+            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`,
+            stringifiedDebugParamsForError2 = `${constants.DebugPrefix}${JSON.stringify(context.appendError2DebugParams, null, 2)}`;
 
-            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(4);
+          expect(response.stack.split(constants.StackTraceDelimiter).length).toEqual(4);
 
-            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
-            expect(response.stack.split(stringifiedDebugParamsForError2).length).eql(2);
+          expect(response.stack.split(stringifiedDebugParams).length).toEqual(2);
+          expect(response.stack.split(stringifiedDebugParamsForError2).length).toEqual(2);
 
-            expect(response.stack.indexOf(context.appendError1)).to.be.above(-1);
-            expect(response.stack.indexOf(context.appendError2)).to.be.above(-1);
-            expect(response.stack.indexOf(context.appendError3)).to.be.above(-1);
-            expect(response.stack.indexOf(stack)).to.be.above(-1);
+          expect(response.stack.indexOf(context.appendError1)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(context.appendError2)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(context.appendError3)).toBeGreaterThan(-1);
+          expect(response.stack.indexOf(stack)).toBeGreaterThan(-1);
 
-            expect(response.message).eql(context.message);
+          expect(response.message).toEqual(context.message);
 
-            expect(response.param1).eql(context.uniqueId7);
-            expect(response.param2).eql(context.uniqueId8);
-            expect(response.param3).eql(context.uniqueId3);
-            expect(response._setValues_).eql({
-              param1: context.uniqueId7,
-              param2: context.uniqueId8,
-              param3: context.uniqueId3
-            });
-
-            done();
-          } catch (testError) {
-            done(testError);
-          }
+          expect(response.param1).toEqual(context.uniqueId7);
+          expect(response.param2).toEqual(context.uniqueId8);
+          expect(response.param3).toEqual(context.uniqueId3);
+          expect(response._setValues_).toEqual({
+            param1: context.uniqueId7,
+            param2: context.uniqueId8,
+            param3: context.uniqueId3
+          });
         });
     });
 
-    it("should ignore appendTo err if the provided error is undefined.", function (done) {
+    it("should ignore appendTo err if the provided error is undefined.", async (vitestCtx) => {
       context.setupAppendErrors = function () {
         context.appendError1 = undefined;
       };
@@ -1961,33 +1802,27 @@ describe("Given the errr module", function () {
       context.setupAppendErrors();
       context.setupEntryPoint();
 
-      new Scenario(this)
+      await new Scenario(maddoxVitestContext(vitestCtx))
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          try {
-            let stack = `Error: [${context.uniqueId}] Some Error`,
-              stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`;
+          let stack = `Error: [${context.uniqueId}] Some Error`,
+            stringifiedDebugParams = `${constants.DebugPrefix}${JSON.stringify(context.debugParams, null, 2)}`;
 
-            expect(response.stack.split(constants.StackTraceDelimiter).length).eql(1);
-            expect(response.stack.split(stringifiedDebugParams).length).eql(2);
+          expect(response.stack.split(constants.StackTraceDelimiter).length).toEqual(1);
+          expect(response.stack.split(stringifiedDebugParams).length).toEqual(2);
 
-            expect(response.stack.indexOf(context.appendError1)).eql(-1);
-            expect(response.stack.indexOf(stack)).to.be.above(-1);
+          expect(response.stack.indexOf(context.appendError1)).toEqual(-1);
+          expect(response.stack.indexOf(stack)).toBeGreaterThan(-1);
 
-            expect(response.message).eql(context.message);
+          expect(response.message).toEqual(context.message);
 
-            expect(response.param1).eql(context.uniqueId1);
-            expect(response.param2).eql(context.uniqueId2);
-            expect(response._setValues_).eql({
-              param1: context.uniqueId1,
-              param2: context.uniqueId2
-            });
-
-            done();
-          } catch (testError) {
-            done(testError);
-          }
+          expect(response.param1).toEqual(context.uniqueId1);
+          expect(response.param2).toEqual(context.uniqueId2);
+          expect(response._setValues_).toEqual({
+            param1: context.uniqueId1,
+            param2: context.uniqueId2
+          });
         });
     });
   });
@@ -1999,7 +1834,7 @@ describe("Given the errr module", function () {
       context = {};
     });
 
-    it("should throw an error", function (done) {
+    it("should throw an error", async (vitestCtx) => {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -2014,20 +1849,15 @@ describe("Given the errr module", function () {
 
       context.setupEntryPoint();
 
-      new Scenario(this)
+      await new Scenario(maddoxVitestContext(vitestCtx))
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          try {
-            let stack = `Error: [${context.uniqueId}] Some Error`;
+          let stack = `Error: [${context.uniqueId}] Some Error`;
 
-            expect(response.stack.substring(0, stack.length)).eql(stack);
+          expect(response.stack.substring(0, stack.length)).toEqual(stack);
 
-            expect(response.message).eql(util.format(context.message));
-            done();
-          } catch (testError) {
-            done(testError);
-          }
+          expect(response.message).toEqual(util.format(context.message));
         });
     });
   });
@@ -2039,7 +1869,7 @@ describe("Given the errr module", function () {
       context = {};
     });
 
-    it("should return an error", function (done) {
+    it("should return an error", async (vitestCtx) => {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -2054,22 +1884,17 @@ describe("Given the errr module", function () {
 
       context.setupEntryPoint();
 
-      new Scenario(this)
+      await new Scenario(maddoxVitestContext(vitestCtx))
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (err, response) {
-          try {
-            expect(err).eql(undefined);
+          expect(err).toBeUndefined();
 
-            let stack = `Error: [${context.uniqueId}] Some Error`;
+          let stack = `Error: [${context.uniqueId}] Some Error`;
 
-            expect(response.stack.substring(0, stack.length)).eql(stack);
+          expect(response.stack.substring(0, stack.length)).toEqual(stack);
 
-            expect(response.message).eql(util.format(context.message));
-            done();
-          } catch (testError) {
-            done(testError);
-          }
+          expect(response.message).toEqual(util.format(context.message));
         });
     });
 
@@ -2082,7 +1907,7 @@ describe("Given the errr module", function () {
       context = {};
     });
 
-    it("should throw an error", function (done) {
+    it("should throw an error", async (vitestCtx) => {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -2096,24 +1921,19 @@ describe("Given the errr module", function () {
 
       context.setupEntryPoint();
 
-      new Scenario(this)
+      await new Scenario(maddoxVitestContext(vitestCtx))
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          try {
-            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_`;
+          let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_`;
 
-            expect(response.stack.substring(0, stack.length)).eql(stack);
+          expect(response.stack.substring(0, stack.length)).toEqual(stack);
 
-            expect(response.message).eql(util.format(context.message));
-            done();
-          } catch (testError) {
-            done(testError);
-          }
+          expect(response.message).toEqual(util.format(context.message));
         });
     });
 
-    it("should throw an error with template message, it", function (done) {
+    it("should throw an error with template message, it", async (vitestCtx) => {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -2127,19 +1947,14 @@ describe("Given the errr module", function () {
 
       context.setupEntryPoint();
 
-      new Scenario(this)
+      await new Scenario(maddoxVitestContext(vitestCtx))
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (response) {
-          try {
-            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_`;
+          let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_`;
 
-            expect(response.stack.substring(0, stack.length)).eql(stack);
-            expect(response.message).eql(util.format(context.message, context.uniqueId));
-            done();
-          } catch (testError) {
-            done(testError);
-          }
+          expect(response.stack.substring(0, stack.length)).toEqual(stack);
+          expect(response.message).toEqual(util.format(context.message, context.uniqueId));
         });
     });
   });
@@ -2151,7 +1966,7 @@ describe("Given the errr module", function () {
       context = {};
     });
 
-    it("should return an error", function (done) {
+    it("should return an error", async (vitestCtx) => {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -2165,26 +1980,21 @@ describe("Given the errr module", function () {
 
       context.setupEntryPoint();
 
-      new Scenario(this)
+      await new Scenario(maddoxVitestContext(vitestCtx))
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (err, response) {
-          try {
-            expect(err).eql(undefined);
+          expect(err).toBeUndefined();
 
-            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_`;
+          let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_`;
 
-            expect(response.stack.substring(0, stack.length)).eql(stack);
+          expect(response.stack.substring(0, stack.length)).toEqual(stack);
 
-            expect(response.message).eql(util.format(context.message));
-            done();
-          } catch (testError) {
-            done(testError);
-          }
+          expect(response.message).toEqual(util.format(context.message));
         });
     });
 
-    it("should return an error with template message", function (done) {
+    it("should return an error with template message", async (vitestCtx) => {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
           run: function () {
@@ -2198,21 +2008,16 @@ describe("Given the errr module", function () {
 
       context.setupEntryPoint();
 
-      new Scenario(this)
+      await new Scenario(maddoxVitestContext(vitestCtx))
         .withEntryPoint(context.entryPointObject, context.entryPointFunction)
 
         .test(function (err, response) {
-          try {
-            expect(err).eql(undefined);
+          expect(err).toBeUndefined();
 
-            let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_`;
+          let stack = `Error: [${context.uniqueId}] Some Error\n    at FromMessage._build_`;
 
-            expect(response.stack.substring(0, stack.length)).eql(stack);
-            expect(response.message).eql(util.format(context.message, context.uniqueId));
-            done();
-          } catch (testError) {
-            done(testError);
-          }
+          expect(response.stack.substring(0, stack.length)).toEqual(stack);
+          expect(response.message).toEqual(util.format(context.message, context.uniqueId));
         });
     });
   });

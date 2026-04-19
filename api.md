@@ -156,7 +156,9 @@ Gets a new ErrorBuilder instance.
 <a name="Errr.fromError"></a>
 
 ### ~~Errr.fromError(err) ⇒ [<code>FromError</code>](#FromError)~~
-***Deprecated***
+***- This function will be turned off in version 3 of Errr. You can now call the appendTo function many times
+on the same errr instance allowing you to append many errors at once. This functionality replaces the need for this
+section of the interface.***
 
 **Kind**: static method of [<code>Errr</code>](#Errr)  
 **Returns**: [<code>FromError</code>](#FromError) - Gets an ErrorBuilder to get or throw an Error.  

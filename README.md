@@ -3,7 +3,7 @@
 
 [![view on npm](http://img.shields.io/npm/v/errr.svg)](https://www.npmjs.org/package/errr)
 [![npm module downloads](http://img.shields.io/npm/dt/errr.svg)](https://www.npmjs.org/package/errr)
-[![Build Status](https://travis-ci.org/corybill/errr.svg?branch=master)](https://travis-ci.org/corybill/errr)
+[![CI](https://github.com/corybill/errr/actions/workflows/ci.yml/badge.svg)](https://github.com/corybill/errr/actions)
 [![Gitter](https://badges.gitter.im/corybill/errr.svg)](https://gitter.im/corybill/errr?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 ## Best Practices
