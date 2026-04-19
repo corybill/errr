@@ -26,8 +26,8 @@ function maddoxVitestContext(vitestCtx) {
 
   return {
     skip: vitestCtx.skip.bind(vitestCtx),
-    test: {fullTitle}
+    test: { fullTitle }
   };
 }
 
-export {maddoxVitestContext};
+export { maddoxVitestContext };

@@ -4,7 +4,7 @@ import util from "node:util";
 import Errr from "../../lib/errr.js";
 import * as constants from "../../lib/constants.js";
 import random from "../random.js";
-import {maddoxVitestContext} from "../helpers/maddox-vitest-context.js";
+import { maddoxVitestContext } from "../helpers/maddox-vitest-context.js";
 
 const Scenario = Maddox.functional.FromSynchronousScenario;
 
@@ -144,7 +144,7 @@ describe("Given the errr module", function () {
 
             Errr.fromError(context.error)
               .set("param1", context.uniqueId1).set("param2", context.uniqueId2)
-              .setAll({param3: context.uniqueId3, param4: context.uniqueId4}).throw();
+              .setAll({ param3: context.uniqueId3, param4: context.uniqueId4 }).throw();
           }
         };
         context.entryPointFunction = "run";
@@ -189,8 +189,8 @@ describe("Given the errr module", function () {
 
             Errr.fromError(context.error)
               .set("param1", context.uniqueId1).set("param2", context.uniqueId2).set("param1", context.uniqueId2)
-              .setAll({param3: context.uniqueId3, param4: context.uniqueId4})
-              .setAll({param3: context.uniqueId4, param4: context.uniqueId3}).throw();
+              .setAll({ param3: context.uniqueId3, param4: context.uniqueId4 })
+              .setAll({ param3: context.uniqueId4, param4: context.uniqueId3 }).throw();
           }
         };
         context.entryPointFunction = "run";
@@ -771,7 +771,7 @@ describe("Given the errr module", function () {
         context.value1 = random.uniqueId();
         context.appendError1Message = `[${context.appendError1Id}] Some Error 1`;
         context.appendError1 = Errr.newError(context.appendError1Message)
-          .setAll({param0: context.appendError1Id, param1: context.value1}).get();
+          .setAll({ param0: context.appendError1Id, param1: context.value1 }).get();
 
         context.appendError2Id = random.uniqueId();
         context.value2 = random.uniqueId();
@@ -781,7 +781,7 @@ describe("Given the errr module", function () {
 
         context.appendError2Message = `[${context.appendError2Id}] Some Error 2`;
         context.appendError2 = Errr.newError(context.appendError2Message)
-          .setAll({param0: context.appendError2Id, param2: context.value2}, false)
+          .setAll({ param0: context.appendError2Id, param2: context.value2 }, false)
           .debug(context.appendError2DebugParams)
           .appendTo(context.appendError1).get();
 
@@ -790,7 +790,7 @@ describe("Given the errr module", function () {
         context.appendError3Message = `[${context.appendError3Id}] Some Error 3`;
 
         context.appendError3 = Errr.newError(context.appendError3Message)
-          .setAll({param0: context.appendError3Id, param3: context.value3})
+          .setAll({ param0: context.appendError3Id, param3: context.value3 })
           .appendTo(context.appendError2).get();
       };
 
@@ -810,7 +810,7 @@ describe("Given the errr module", function () {
             context.uniqueId2 = random.uniqueId();
 
             Errr.fromError(context.error)
-              .setAll({param0: context.value4, param4: context.value4})
+              .setAll({ param0: context.value4, param4: context.value4 })
               .debug(context.debugParams).appendTo(context.appendError3).throw();
           }
         };
@@ -862,7 +862,7 @@ describe("Given the errr module", function () {
         context.value1 = random.uniqueId();
         context.appendError1Message = `[${context.appendError1Id}] Some Error 1`;
         context.appendError1 = Errr.newError(context.appendError1Message)
-          .setAll({param0: context.appendError1Id, param1: context.value1}).get();
+          .setAll({ param0: context.appendError1Id, param1: context.value1 }).get();
 
         context.appendError2Id = random.uniqueId();
         context.value2 = random.uniqueId();
@@ -872,7 +872,7 @@ describe("Given the errr module", function () {
 
         context.appendError2Message = `[${context.appendError2Id}] Some Error 2`;
         context.appendError2 = Errr.newError(context.appendError2Message)
-          .setAll({param0: context.appendError2Id, param2: context.value2}, false)
+          .setAll({ param0: context.appendError2Id, param2: context.value2 }, false)
           .debug(context.appendError2DebugParams)
           .appendTo(context.appendError1).get();
 
@@ -881,7 +881,7 @@ describe("Given the errr module", function () {
         context.appendError3Message = `[${context.appendError3Id}] Some Error 3`;
 
         context.appendError3 = Errr.newError(context.appendError3Message)
-          .setAll({param0: context.appendError3Id, param3: context.value3}, true)
+          .setAll({ param0: context.appendError3Id, param3: context.value3 }, true)
           .appendTo(context.appendError2).get();
       };
 
@@ -901,7 +901,7 @@ describe("Given the errr module", function () {
             context.uniqueId2 = random.uniqueId();
 
             Errr.fromError(context.error)
-              .setAll({param0: context.value4, param4: context.value4})
+              .setAll({ param0: context.value4, param4: context.value4 })
               .debug(context.debugParams).appendTo(context.appendError3).throw();
           }
         };

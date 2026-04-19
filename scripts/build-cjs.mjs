@@ -1,5 +1,5 @@
 import * as esbuild from "esbuild";
-import {writeFile} from "node:fs/promises";
+import { writeFile } from "node:fs/promises";
 
 await esbuild.build({
   entryPoints: ["lib/errr.js"],

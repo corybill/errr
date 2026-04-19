@@ -1,6 +1,6 @@
-import {afterEach, describe, expect, it} from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
 
-import {StackTraceDelimiter} from "../../lib/constants.js";
+import { StackTraceDelimiter } from "../../lib/constants.js";
 import {
   cleanErrrStack,
   cleanStackEnvVar,
