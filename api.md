@@ -5,7 +5,7 @@
 <dd><p>Error Builder allows you to use optional functions to build an error object.  The error can have appended stack traces and debug params to assist with debugging.</p>
 </dd>
 <dt><a href="#Errr">Errr</a></dt>
-<dd><p>Static class that contains the &#39;newError&#39; factory function.  Use the &#39;newError&#39; factory function to return an ErrorBuilder instance.</p>
+<dd><p>Static class that contains the &#39;newError&#39; factory function.  Use the &#39;newError&#39; factory function to return an ErrrorrrBuilder instance.</p>
 </dd>
 <dt><a href="#FromError">FromError</a></dt>
 <dd><p>Error Builder allows you to use optional functions to build an error object.  The error can have appended stack traces and debug params to assist with debugging.</p>
@@ -24,10 +24,10 @@ Error Builder allows you to use optional functions to build an error object.  Th
 
 * [Error](#Error)
     * [new Error([message], [template])](#new_Error_new)
-    * [.debug(params, [shouldDebug])](#Error+debug) ⇒ <code>ErrorBuilder</code>
-    * [.set(key, value, [force])](#Error+set) ⇒ <code>ErrorBuilder</code>
-    * [.setAll(object, [force])](#Error+setAll) ⇒ <code>ErrorBuilder</code>
-    * [.appendTo(err)](#Error+appendTo) ⇒ <code>ErrorBuilder</code>
+    * [.debug(params, [shouldDebug])](#Error+debug) ⇒ <code>ErrrorrrBuilder</code>
+    * [.set(key, value, [force])](#Error+set) ⇒ <code>ErrrorrrBuilder</code>
+    * [.setAll(object, [force])](#Error+setAll) ⇒ <code>ErrrorrrBuilder</code>
+    * [.appendTo(err)](#Error+appendTo) ⇒ <code>ErrrorrrBuilder</code>
     * [.get()](#Error+get) ⇒ [<code>Error</code>](#Error)
     * [.throw()](#Error+throw)
 
@@ -44,17 +44,17 @@ Provides an interface to build an error.  Then allows you to get or throw the er
 
 <a name="Error+debug"></a>
 
-### error.debug(params, [shouldDebug]) ⇒ <code>ErrorBuilder</code>
+### error.debug(params, [shouldDebug]) ⇒ <code>ErrrorrrBuilder</code>
 Add parameters to the stack trace that will make it easier to debug the problem.  These values will appear in a
 in an object labeled "Debug Params" in the stack trace.  You may call the 'debug' function as many times as you'd
-like on an ErrorBuilder instance.  If the same key is passed in many times, the time it is passed in, will be
+like on an ErrrorrrBuilder instance.  If the same key is passed in many times, the time it is passed in, will be
 the value that appears in the stack trace.
 
 Unlike the 'set' function, which merges 'set' values from different Errr instances with its own instance, the debug
 params start as an empty object for each Errr instance.  They are attached to the stack trace and then forgotten.
 
 **Kind**: instance method of [<code>Error</code>](#Error)  
-**Returns**: <code>ErrorBuilder</code> - - Returns the instance of errorBuilder to allow chainability.  
+**Returns**: <code>ErrrorrrBuilder</code> - - Returns the instance of errorBuilder to allow chainability.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -63,7 +63,7 @@ params start as an empty object for each Errr instance.  They are attached to th
 
 <a name="Error+set"></a>
 
-### error.set(key, value, [force]) ⇒ <code>ErrorBuilder</code>
+### error.set(key, value, [force]) ⇒ <code>ErrrorrrBuilder</code>
 Sets a value on the error object using the key as the variable name.  Values added using the 'set' function will
 be appended to new error objects when using the the .appendTo function. I.e. the values on the appendTo err will be
 copied to the new error.  These values are immutable though unless you use the 'force' value. As soon as you set
@@ -84,7 +84,7 @@ value will persist on the error object.
 
 <a name="Error+setAll"></a>
 
-### error.setAll(object, [force]) ⇒ <code>ErrorBuilder</code>
+### error.setAll(object, [force]) ⇒ <code>ErrrorrrBuilder</code>
 Same concept and functionality as the 'set' function.  The difference is that you can set all values in a
 given object onto the Errr instance.
 
@@ -102,11 +102,11 @@ See set to understand functionality better.
 
 <a name="Error+appendTo"></a>
 
-### error.appendTo(err) ⇒ <code>ErrorBuilder</code>
+### error.appendTo(err) ⇒ <code>ErrrorrrBuilder</code>
 Append the error being built, to the end of this error's stack trace.
 
 **Kind**: instance method of [<code>Error</code>](#Error)  
-**Returns**: <code>ErrorBuilder</code> - - Returns the instance of errorBuilder to allow chainability.  
+**Returns**: <code>ErrrorrrBuilder</code> - - Returns the instance of errorBuilder to allow chainability.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -132,7 +132,7 @@ Throws a new Error object using the given parameters from the builder.
 <a name="Errr"></a>
 
 ## Errr
-Static class that contains the 'newError' factory function.  Use the 'newError' factory function to return an ErrorBuilder instance.
+Static class that contains the 'newError' factory function.  Use the 'newError' factory function to return an ErrrorrrBuilder instance.
 
 **Kind**: global class  
 
@@ -143,10 +143,10 @@ Static class that contains the 'newError' factory function.  Use the 'newError' 
 <a name="Errr.newError"></a>
 
 ### Errr.newError([message], [template]) ⇒ [<code>FromMessage</code>](#FromMessage)
-Gets a new ErrorBuilder instance.
+Gets a new ErrrorrrBuilder instance.
 
 **Kind**: static method of [<code>Errr</code>](#Errr)  
-**Returns**: [<code>FromMessage</code>](#FromMessage) - Gets an ErrorBuilder to get or throw an Error.  
+**Returns**: [<code>FromMessage</code>](#FromMessage) - Gets an ErrrorrrBuilder to get or throw an Error.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -161,7 +161,7 @@ on the same errr instance allowing you to append many errors at once. This funct
 section of the interface.***
 
 **Kind**: static method of [<code>Errr</code>](#Errr)  
-**Returns**: [<code>FromError</code>](#FromError) - Gets an ErrorBuilder to get or throw an Error.  
+**Returns**: [<code>FromError</code>](#FromError) - Gets an ErrrorrrBuilder to get or throw an Error.  
 
 | Param | Type | Description |
 | --- | --- | --- |

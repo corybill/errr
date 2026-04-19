@@ -2,12 +2,12 @@
  * Compile-only checks that the published types resolve for consumers.
  * Run: npx tsc --noEmit
  */
-import Errr, {type ErrrBuiltError, type ErrorBuilder} from "errr";
+import Errr, {type Errrorrr, type ErrrorrrBuilder} from "errr";
 
-const builder: ErrorBuilder = Errr.newError("hello");
+const builder: ErrrorrrBuilder = Errr.newError("hello");
 builder.set("reason", "not found").debug({userId: "1"});
 
-const err: ErrrBuiltError = builder.get();
+const err: Errrorrr = builder.get();
 err.message;
 err.get("reason");
 
