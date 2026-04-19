@@ -60,6 +60,34 @@ describe("Given the errr module", function () {
         });
     });
 
+    it("should keep errr internals off enumerable keys so util.inspect does not print them", async (vitestCtx) => {
+      context.setupEntryPoint = function () {
+        context.entryPointObject = {
+          run: function () {
+            context.error = new Error("base");
+            Errr.fromError(context.error)
+              .debug({ userId: "user_test" })
+              .throw();
+          }
+        };
+        context.entryPointFunction = "run";
+      };
+
+      context.setupEntryPoint();
+
+      await new Scenario(maddoxVitestContext(vitestCtx))
+        .withEntryPoint(context.entryPointObject, context.entryPointFunction)
+
+        .test(function (response) {
+          expect(Object.keys(response)).not.toContain("_allDebugParams_");
+          expect(Object.keys(response)).not.toContain("_setValues_");
+          expect(Object.keys(response)).not.toContain("set");
+          expect(Object.keys(response)).not.toContain("get");
+          expect(Object.keys(response)).not.toContain("getAllDebugParams");
+          expect(util.inspect(response)).not.toContain("_allDebugParams_");
+        });
+    });
+
     it("should create an error without overriding 'set' values", async (vitestCtx) => {
       context.setupEntryPoint = function () {
         context.entryPointObject = {
