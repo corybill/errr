@@ -15,6 +15,24 @@
 ## Install
 <pre>npm install errr</pre>
 
+## TypeScript (strict mode)
+`appendTo` accepts `unknown`, so a caught error from `try/catch` flows in directly under
+`useUnknownInCatchVariables` (enabled by `"strict": true`). `null` / `undefined` are skipped;
+any other non-`Error` value (string, plain object, number, etc.) is normalized to
+`new Error(...)` internally — no per-call `toError` shim is needed.
+<pre>
+import Errr from "errr";
+
+try {
+  return await PostgresProxy.getPrismaClient().leagueSafeMember.findMany({where: {leagueSafeLeagueId}});
+} catch (err) {
+  Errr.newError("Could not get leagueSafeMember")
+    .appendTo(err)            // err: unknown — accepted directly
+    .debug({leagueSafeLeagueId})
+    .throw();
+}
+</pre>
+
 ## Optional stack trace cleanup
 By default, `error.stack` is left as Node produces it. To shorten stacks for logs, set the environment variable **`ERRR_CLEAN_STACK`** to **`1`**, **`true`**, or **`yes`** (case-insensitive). When enabled, errr rewrites stacks when building an error: it removes leading frames that point at this package under `node_modules/errr`, and removes `node_modules` frames that appear after the first frame whose path is not under `node_modules`. Appended stacks (after the `FROM` line) are cleaned the same way, separately. This is best-effort path matching; turn it off if you need the full raw stack.
 

@@ -27,6 +27,15 @@ processed separately. Default is off; path detection is heuristic.</p>
 </dd>
 </dl>
 
+## Functions
+
+<dl>
+<dt><a href="#defineHiddenErrorProp">defineHiddenErrorProp()</a></dt>
+<dd><p>Hide errr internals from util.inspect / console.log (Error instances print enumerable own props).
+Properties remain readable: err.<em>setValues</em>, err.get(&quot;x&quot;), etc.</p>
+</dd>
+</dl>
+
 <a name="module_stack-clean"></a>
 
 ## stack-clean
@@ -161,12 +170,16 @@ See set to understand functionality better.
 ### error.appendTo(err) ⇒ <code>ErrrorrrBuilder</code>
 Append the error being built, to the end of this error's stack trace.
 
+Accepts any value to play nicely with TypeScript's `useUnknownInCatchVariables` (a caught `unknown`
+can be passed in directly). `null` and `undefined` are skipped silently; non-Error values are
+normalized to a `new Error(...)` so the resulting stack still reads cleanly.
+
 **Kind**: instance method of [<code>Error</code>](#Error)  
 **Returns**: <code>ErrrorrrBuilder</code> - - Returns the instance of errorBuilder to allow chainability.  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| err | [<code>Error</code>](#Error) | The stack trace of the error being built, will be appended to this error's stack trace. |
+| err | <code>\*</code> | Error, error-like object, or any other value to append. The stack trace of the error being built will be appended to this error's stack trace. |
 
 <a name="Error+get"></a>
 
@@ -256,3 +269,10 @@ Provides an interface to build an error from a message.  Then allows you to get 
 | [message] | <code>String</code> | Error message that will supplied to Error Object.  If not given, empty string will be used for the error message. |
 | [template] | <code>Array</code> | Array of parameters.  If given, util.format(message, template) will be applied to the message string. |
 
+<a name="defineHiddenErrorProp"></a>
+
+## defineHiddenErrorProp()
+Hide errr internals from util.inspect / console.log (Error instances print enumerable own props).
+Properties remain readable: err._setValues_, err.get("x"), etc.
+
+**Kind**: global function  
