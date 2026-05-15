@@ -36,6 +36,13 @@ try {
 ## Optional stack trace cleanup
 By default, `error.stack` is left as Node produces it. To shorten stacks for logs, set the environment variable **`ERRR_CLEAN_STACK`** to **`1`**, **`true`**, or **`yes`** (case-insensitive). When enabled, errr rewrites stacks when building an error: it removes leading frames that point at this package under `node_modules/errr`, and removes `node_modules` frames that appear after the first frame whose path is not under `node_modules`. Appended stacks (after the `FROM` line) are cleaned the same way, separately. This is best-effort path matching; turn it off if you need the full raw stack.
 
+## Adjusting stack trace length
+You can control the number of frames captured in a stack trace using the native Node.js / V8 property **`Error.stackTraceLimit`**. For example, to capture more or fewer frames than the default (10), you can set this globally in your application:
+<pre>
+Error.stackTraceLimit = 25; // Capture more frames for deeper stacks
+</pre>
+This can also be set via the environment variable **`NODE_OPTIONS="--stack-trace-limit=25"`**. Note that `errr` will still append debug parameters and other stacks regardless of this limit.
+
 ## Example
 <pre>
 // debug, set, and appendTo are optional
