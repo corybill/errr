@@ -32,11 +32,11 @@ describe("appendTo with non-Error values", () => {
     expect(err.stack).toContain("Error: boom");
   });
 
-  it("wraps a thrown plain object using JSON.stringify", () => {
+  it("wraps a thrown plain object using util.inspect", () => {
     const err = Errr.newError("top").appendTo({ code: "EBAD", reason: "x" }).get();
 
     expect(err.stack.split(StackTraceDelimiter)).toHaveLength(2);
-    expect(err.stack).toContain("{\"code\":\"EBAD\",\"reason\":\"x\"}");
+    expect(err.stack).toContain("{ code: 'EBAD', reason: 'x' }");
   });
 
   it("wraps a thrown number using String(value)", () => {
@@ -65,7 +65,7 @@ describe("appendTo with non-Error values", () => {
     expect(err.stack).toContain("Error: fake\n    at fake:1:1");
   });
 
-  it("falls back to String(value) when JSON.stringify throws on a circular object", () => {
+  it("handles circular objects using util.inspect", () => {
     const circular = {};
 
     circular.self = circular;
@@ -73,7 +73,7 @@ describe("appendTo with non-Error values", () => {
     const err = Errr.newError("top").appendTo(circular).get();
 
     expect(err.stack.split(StackTraceDelimiter)).toHaveLength(2);
-    expect(err.stack).toContain("Error: [object Object]");
+    expect(err.stack).toContain("<ref *1> { self: [Circular *1] }");
   });
 
   it("preserves `set` values from a normalized non-Error value's parent chain (none in this case)", () => {
