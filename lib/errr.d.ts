@@ -1,3 +1,5 @@
+import type { InspectOptions } from "node:util";
+
 /**
  * Error instance returned by {@link ErrrorrrBuilder.get} or thrown by {@link ErrrorrrBuilder.throw}.
  * Values set via {@link ErrrorrrBuilder.set} / {@link ErrrorrrBuilder.setAll} are copied onto this object.
@@ -29,6 +31,28 @@ export interface ErrrorrrBuilder {
   throw(): never;
 }
 
+/** Default `util.inspect` options for stack debug params (`depth: 5`, `compact: false`). */
+export declare const defaultDebugInspectOptions: InspectOptions;
+
+/** Prefix prepended to inspected debug params in stack traces. */
+export declare const DebugPrefix: string;
+
+/**
+ * Returns the `util.inspect` portion of stack debug params (without {@link DebugPrefix}).
+ */
+export declare function inspectDebugParams(
+  params: Record<string, unknown>,
+  inspectOptions?: InspectOptions
+): string;
+
+/**
+ * Returns the full debug-params fragment in `error.stack` after `.debug(params)` (prefix + inspected params).
+ */
+export declare function formatDebugParams(
+  params: Record<string, unknown>,
+  inspectOptions?: InspectOptions
+): string;
+
 declare class Errr {
   /**
    * Creates a builder from a message. When `template` is provided, `message` is formatted with Node’s
@@ -40,6 +64,12 @@ declare class Errr {
    * @deprecated Prefer building from a message and using {@link ErrrorrrBuilder.appendTo} for prior errors.
    */
   static fromError(error: Error): ErrrorrrBuilder;
+
+  /** Same as {@link formatDebugParams}. */
+  static formatDebugParams(
+    params: Record<string, unknown>,
+    inspectOptions?: InspectOptions
+  ): string;
 }
 
 export default Errr;

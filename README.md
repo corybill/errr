@@ -43,6 +43,19 @@ Error.stackTraceLimit = 25; // Capture more frames for deeper stacks
 </pre>
 This can also be set via the environment variable **`NODE_OPTIONS="--stack-trace-limit=25"`**. Note that `errr` will still append debug parameters and other stacks regardless of this limit.
 
+## Testing stack debug params
+When asserting that `.debug({ ... })` output appears in `error.stack`, use **`formatDebugParams`** so tests stay aligned with errr’s formatting (prefix + `util.inspect` with `depth: 5`, `compact: false`). The same helper powers production stack building in `_build_`.
+<pre>
+import Errr, { formatDebugParams } from "errr";
+
+const params = { actual: true, expected: false };
+const err = Errr.newError("mismatch").debug(params).get();
+const fragment = formatDebugParams(params);
+
+expect(err.stack.split(fragment).length).to.eql(2); // debug block present once
+</pre>
+Named exports: `formatDebugParams`, `inspectDebugParams` (inspect only, no prefix), `DebugPrefix`, `defaultDebugInspectOptions`. Optional second argument merges overrides onto the default inspect options. Formatting changes that affect output (prefix, depth, compact) are treated as semver-visible; Node version differences in `util.inspect` output may still vary slightly across runtimes.
+
 ## Example
 <pre>
 // debug, set, and appendTo are optional

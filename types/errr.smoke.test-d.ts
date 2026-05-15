@@ -2,7 +2,14 @@
  * Compile-only checks that the published types resolve for consumers.
  * Run: npx tsc --noEmit
  */
-import Errr, {type Errrorrr, type ErrrorrrBuilder} from "errr";
+import Errr, {
+  type Errrorrr,
+  type ErrrorrrBuilder,
+  formatDebugParams,
+  inspectDebugParams,
+  defaultDebugInspectOptions,
+  DebugPrefix
+} from "errr";
 
 const builder: ErrrorrrBuilder = Errr.newError("hello");
 builder.set("reason", "not found").debug({userId: "1"});
@@ -27,3 +34,9 @@ Errr.newError("nullish").appendTo(undefined);
 Errr.newError("string").appendTo("a thrown string");
 Errr.newError("object").appendTo({code: "EBAD"});
 Errr.newError("number").appendTo(42);
+
+formatDebugParams({ actual: true, expected: false });
+inspectDebugParams({ userId: "1" });
+Errr.formatDebugParams({ key: "value" }, { depth: 2 });
+DebugPrefix;
+defaultDebugInspectOptions.depth;
