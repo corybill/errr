@@ -36,6 +36,7 @@ describe("Error.stackTraceLimit interaction", () => {
 
     // Count actual stack frames (lines starting with "    at ")
     const frameCount = lines.filter(line => line.trim().startsWith("at ")).length;
+
     // It might be 1 or slightly more if errr's internal frames aren't cleaned yet,
     // but it should be significantly less than the default 10.
     expect(frameCount).toBeLessThanOrEqual(1);
@@ -54,6 +55,7 @@ describe("Error.stackTraceLimit interaction", () => {
     expect(err.stack).toContain("key: 'value'");
 
     const frameCount = err.stack.split("\n").filter(line => line.trim().startsWith("at ")).length;
+
     expect(frameCount).toBe(0);
   });
 });
