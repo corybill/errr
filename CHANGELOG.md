@@ -5,10 +5,17 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.2.0] - 2026-05-15
+
+### Changed
+
+- `package-lock.json` version metadata aligned with `package.json` (was still reporting 4.x after the 5.x release).
+
 ## [5.1.0] - 2026-05-15
 
 ### Added
 
+- **`CHANGELOG.md`** — release notes for 5.x and later.
 - **`formatDebugParams(params, inspectOptions?)`** — returns the same debug-params fragment errr embeds in `error.stack` after `.debug(params)` (`Debug Params: ` prefix + `util.inspect` with `depth: 5`, `compact: false`). Available as a named export and as **`Errr.formatDebugParams`**.
 - **`inspectDebugParams`**, **`DebugPrefix`**, and **`defaultDebugInspectOptions`** — for callers that need the prefix or inspect options separately.
 - README section **Testing stack debug params** and TypeScript declarations for the new exports.
@@ -43,5 +50,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 See [git history](https://github.com/corybill/errr/commits/master) for prior releases.
 
+[5.2.0]: https://github.com/corybill/errr/compare/v5.1.0...v5.2.0
 [5.1.0]: https://github.com/corybill/errr/compare/v5.0.0...v5.1.0
 [5.0.0]: https://github.com/corybill/errr/compare/v4.0.3...v5.0.0
